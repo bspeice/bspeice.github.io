@@ -41,4 +41,4 @@ NOTEBOOK_DIR = 'notebooks'
 THEME='nest'
 #NEST_INDEX_HEADER_TITLE="Bradlee Speice"
 NEST_INDEX_HEADER_SUBTITLE="Exploring the intersection of Computer Science and Financial Engineering"
-NEST_HEADER_LOGO="images/logo.svg"
+NEST_HEADER_LOGO="/images/logo.svg"
