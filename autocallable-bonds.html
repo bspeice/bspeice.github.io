@@ -28,6 +28,17 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-74711362-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
 
 
     </head>
@@ -84,7 +95,7 @@ Because these are all very similar, we decided to demonstrate all 3 products at 
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="k">using</span> <span class="n">Gadfly</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="k">using</span> <span class="n">Gadfly</span>
 </pre></div>
 
 </div>
@@ -120,7 +131,7 @@ Because these are all very similar, we decided to demonstrate all 3 products at 
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">S0</span> <span class="o">=</span> <span class="mf">102.2</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">S0</span> <span class="o">=</span> <span class="mf">102.2</span>
 <span class="n">nominal</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">q</span> <span class="o">=</span> <span class="mf">2.84</span> <span class="o">/</span> <span class="mi">100</span>
 <span class="n">σ</span> <span class="o">=</span> <span class="mf">15.37</span> <span class="o">/</span> <span class="mi">100</span>
@@ -176,7 +187,7 @@ Because these are all very similar, we decided to demonstrate all 3 products at 
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">simulate_gbm</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">μ</span><span class="p">,</span> <span class="n">σ</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">simulate_gbm</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">μ</span><span class="p">,</span> <span class="n">σ</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
     <span class="c"># Set the initial state</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">S0</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">n</span>
@@ -247,7 +258,7 @@ Because these are all very similar, we decided to demonstrate all 3 products at 
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">initial</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="n">S0</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">initial</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="n">S0</span>
 <span class="c"># Using μ=0, T=.25 for now, we&#39;ll use the proper values later</span>
 <span class="n">motion</span> <span class="o">=</span> <span class="n">simulate_gbm</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">σ</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span> 
 
@@ -1855,7 +1866,7 @@ fig.select("#fig-3a6dd25ad25c4037a166889ee51bb151-element-20")
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">forward_term</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">yearly_term</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">forward_term</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">yearly_term</span><span class="p">)</span>
     <span class="c"># It is assumed that we have a yearly term structure passed in, and starts at year 0</span>
     <span class="c"># This implies a nominal rate above 0 for the first year!</span>
     <span class="n">years</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">term</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="c"># because we start at 0</span>
@@ -1885,14 +1896,14 @@ fig.select("#fig-3a6dd25ad25c4037a166889ee51bb151-element-20")
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="c"># Example term structure taken from:</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="c"># Example term structure taken from:</span>
 <span class="c"># http://www.treasury.gov/resource-center/data-chart-center/interest-rates/Pages/TextView.aspx?data=yield</span>
 <span class="c"># Linear interpolation used years in-between periods, assuming real-dollar</span>
 <span class="c"># interest rates</span>
 <span class="n">forward_yield</span> <span class="o">=</span> <span class="n">forward_term</span><span class="p">(</span><span class="n">term</span><span class="p">)</span>
 <span class="n">calculated_term2</span> <span class="o">=</span> <span class="n">term</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">forward_yield</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Actual term[2]: </span><span class="si">$</span><span class="s">(term[2]); Calculated term[2]: </span><span class="si">$(calculated_term2)</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Actual term[2]: </span><span class="si">$(term[2])</span><span class="s">; Calculated term[2]: </span><span class="si">$(calculated_term2)</span><span class="s">&quot;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -1929,7 +1940,7 @@ fig.select("#fig-3a6dd25ad25c4037a166889ee51bb151-element-20")
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">full_motion</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="n">S0</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">full_motion</span> <span class="o">=</span> <span class="n">ones</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">*</span> <span class="n">S0</span>
 <span class="n">full_term</span> <span class="o">=</span> <span class="n">vcat</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">forward_yield</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">T</span>
     <span class="n">μ</span> <span class="o">=</span> <span class="p">(</span><span class="n">full_term</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">q</span><span class="p">)</span>
@@ -3490,7 +3501,7 @@ fig.select("#fig-0378e04b897742b597befd2e8e1c169e-element-20")
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">full_simulation</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">full_simulation</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
     <span class="n">forward</span> <span class="o">=</span> <span class="n">vcat</span><span class="p">(</span><span class="n">term</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">forward_term</span><span class="p">(</span><span class="n">term</span><span class="p">))</span>
 
     <span class="c"># And an S0 to kick things off.</span>
@@ -3506,7 +3517,7 @@ fig.select("#fig-0378e04b897742b597befd2e8e1c169e-element-20")
 <span class="n">tic</span><span class="p">()</span>
 <span class="n">full_simulation</span><span class="p">(</span><span class="n">S0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">term</span><span class="p">)</span>
 <span class="n">time</span> <span class="o">=</span> <span class="n">toq</span><span class="p">()</span>
-<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Time to run simulation: %.2fs&quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Time to run simulation: </span><span class="si">%.2f</span><span class="s">s&quot;</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3551,7 +3562,7 @@ fig.select("#fig-0378e04b897742b597befd2e8e1c169e-element-20")
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">call_barrier</span> <span class="o">=</span> <span class="n">S0</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">call_barrier</span> <span class="o">=</span> <span class="n">S0</span>
 <span class="n">strike</span> <span class="o">=</span> <span class="n">S0</span>
 <span class="n">protection_barrier</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">*</span> <span class="o">.</span><span class="mi">6</span>
 <span class="n">coupon</span> <span class="o">=</span> <span class="n">nominal</span> <span class="o">*</span> <span class="o">.</span><span class="mi">07</span>
@@ -3595,13 +3606,13 @@ fig.select("#fig-0378e04b897742b597befd2e8e1c169e-element-20")
     <span class="n">tic</span><span class="p">()</span>
     <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">athena</span><span class="p">()</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">toq</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mean of simulation %i: \</span><span class="si">$</span><span class="s">%.4f; Simulation time: %.2fs</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">time</span><span class="p">)</span>
+    <span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mean of simulation </span><span class="si">%i</span><span class="s">: \$</span><span class="si">%.4f</span><span class="s">; Simulation time: </span><span class="si">%.2f</span><span class="s">s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">time</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="n">final_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">mean_payoffs</span><span class="p">)</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mean over </span><span class="si">$</span><span class="s">num_simulations simulations: </span><span class="si">$</span><span class="s">(mean(mean_payoffs))&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mean over </span><span class="si">$num_simulations</span><span class="s"> simulations: </span><span class="si">$(mean(mean_payoffs))</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="n">pv</span> <span class="o">=</span> <span class="n">final_mean</span> <span class="o">*</span> <span class="p">(</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">prod</span><span class="p">(</span><span class="n">forward_structure</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">T</span><span class="p">))</span>
-<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Present value of Athena note: \</span><span class="si">$</span><span class="s">%.2f, notional: \</span><span class="si">$</span><span class="s">%.2f&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">nominal</span><span class="p">)</span>
+<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Present value of Athena note: \$</span><span class="si">%.2f</span><span class="s">, notional: \$</span><span class="si">%.2f</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">,</span> <span class="n">nominal</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3662,7 +3673,7 @@ Present value of Athena note: $95.00, notional: $100.00</pre>
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">call_barrier</span> <span class="o">=</span> <span class="n">S0</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">call_barrier</span> <span class="o">=</span> <span class="n">S0</span>
 <span class="n">coupon_barrier</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">*</span> <span class="o">.</span><span class="mi">8</span>
 <span class="n">protection_barrier</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">*</span> <span class="o">.</span><span class="mi">6</span>
 <span class="n">coupon</span> <span class="o">=</span> <span class="n">nominal</span> <span class="o">*</span> <span class="o">.</span><span class="mi">06</span>
@@ -3709,13 +3720,13 @@ Present value of Athena note: $95.00, notional: $100.00</pre>
     <span class="n">tic</span><span class="p">()</span>
     <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">phoenix_no_memory</span><span class="p">()</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">toq</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mean of simulation %i: \</span><span class="si">$</span><span class="s">%.4f; Simulation time: %.2fs</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">time</span><span class="p">)</span>
+    <span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mean of simulation </span><span class="si">%i</span><span class="s">: \$</span><span class="si">%.4f</span><span class="s">; Simulation time: </span><span class="si">%.2f</span><span class="s">s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">time</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="n">final_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">mean_payoffs</span><span class="p">)</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mean over </span><span class="si">$</span><span class="s">num_simulations simulations: </span><span class="si">$</span><span class="s">(mean(mean_payoffs))&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mean over </span><span class="si">$num_simulations</span><span class="s"> simulations: </span><span class="si">$(mean(mean_payoffs))</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="n">pv</span> <span class="o">=</span> <span class="n">final_mean</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">prod</span><span class="p">(</span><span class="n">forward_structure</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
-<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Present value of Phoenix without memory note: \</span><span class="si">$</span><span class="s">%.2f&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
+<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Present value of Phoenix without memory note: \$</span><span class="si">%.2f</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3762,7 +3773,7 @@ Present value of Phoenix without memory note: $97.44</pre>
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">call_barrier</span> <span class="o">=</span> <span class="n">S0</span>
+<div class=" highlight hl-julia"><pre><span></span><span class="n">call_barrier</span> <span class="o">=</span> <span class="n">S0</span>
 <span class="n">coupon_barrier</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">*</span> <span class="o">.</span><span class="mi">8</span>
 <span class="n">protection_barrier</span> <span class="o">=</span> <span class="n">S0</span> <span class="o">*</span> <span class="o">.</span><span class="mi">6</span>
 <span class="n">coupon</span> <span class="o">=</span> <span class="n">nominal</span> <span class="o">*</span> <span class="o">.</span><span class="mi">07</span>
@@ -3816,14 +3827,14 @@ Present value of Phoenix without memory note: $97.44</pre>
     <span class="n">tic</span><span class="p">()</span>
     <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">phoenix_with_memory</span><span class="p">()</span>
     <span class="n">time</span> <span class="o">=</span> <span class="n">toq</span><span class="p">()</span>
-    <span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mean of simulation %i: \</span><span class="si">$</span><span class="s">%.4f; Simulation time: %.2fs</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+    <span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Mean of simulation </span><span class="si">%i</span><span class="s">: \$</span><span class="si">%.4f</span><span class="s">; Simulation time: </span><span class="si">%.2f</span><span class="s">s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
         <span class="n">i</span><span class="p">,</span> <span class="n">mean_payoffs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">time</span><span class="p">)</span>
 <span class="k">end</span>
 
 <span class="n">final_mean</span> <span class="o">=</span> <span class="n">mean</span><span class="p">(</span><span class="n">mean_payoffs</span><span class="p">)</span>
-<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mean over </span><span class="si">$</span><span class="s">num_simulations simulations: </span><span class="si">$</span><span class="s">(mean(mean_payoffs))&quot;</span><span class="p">)</span>
+<span class="n">println</span><span class="p">(</span><span class="s">&quot;Mean over </span><span class="si">$num_simulations</span><span class="s"> simulations: </span><span class="si">$(mean(mean_payoffs))</span><span class="s">&quot;</span><span class="p">)</span>
 <span class="n">pv</span> <span class="o">=</span> <span class="n">final_mean</span> <span class="o">*</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">prod</span><span class="p">(</span><span class="n">forward_structure</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">T</span><span class="p">))</span>
-<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Present value of Phoenix with memory note: \</span><span class="si">$</span><span class="s">%.2f&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
+<span class="p">@</span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Present value of Phoenix with memory note: \$</span><span class="si">%.2f</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">pv</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -3857,6 +3868,20 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 <script async src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML'></script>
 
 
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'bradleespeice';
+                var disqus_identifier = 'autocallable-bonds.html';
+                var disqus_url = 'https://bspeice.github.io/autocallable-bonds.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
         
     </div>
         <!-- /Content --> 
