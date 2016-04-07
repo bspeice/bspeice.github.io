@@ -105,7 +105,7 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">total_heartbeats</span> <span class="o">=</span> <span class="mi">2500000000</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">total_heartbeats</span> <span class="o">=</span> <span class="mi">2500000000</span>
 </pre></div>
 
 </div>
@@ -137,8 +137,8 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># Import all the OAuth secret information from a local file</span>
-<span class="kn">from</span> <span class="nn">secrets</span> <span class="kn">import</span> <span class="n">CLIENT_SECRET</span><span class="p">,</span> <span class="n">CLIENT_ID</span><span class="p">,</span> <span class="n">CALLBACK_URL</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import all the OAuth secret information from a local file</span>
+<span class="kn">from</span> <span class="nn">secrets</span> <span class="k">import</span> <span class="n">CLIENT_SECRET</span><span class="p">,</span> <span class="n">CLIENT_ID</span><span class="p">,</span> <span class="n">CALLBACK_URL</span>
 </pre></div>
 
 </div>
@@ -176,7 +176,7 @@ Application: Thank you, now give me all the data.</code></pre>
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
 
 <span class="n">FITBIT_URI</span> <span class="o">=</span> <span class="s1">&#39;https://www.fitbit.com/oauth2/authorize&#39;</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
@@ -211,7 +211,7 @@ Application: Thank you, now give me all the data.</code></pre>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># The `response_url` variable contains the full URL that</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># The `response_url` variable contains the full URL that</span>
 <span class="c1"># FitBit sent back to us, but most importantly,</span>
 <span class="c1"># contains the token we need for authorization.</span>
 <span class="n">access_token</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">response_url</span><span class="p">))[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
@@ -238,9 +238,9 @@ Application: Thank you, now give me all the data.</code></pre>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">requests_oauthlib</span> <span class="kn">import</span> <span class="n">OAuth2Session</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">requests_oauthlib</span> <span class="k">import</span> <span class="n">OAuth2Session</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 <span class="n">session</span> <span class="o">=</span> <span class="n">OAuth2Session</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="p">{</span>
         <span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">access_token</span><span class="p">,</span>
@@ -252,12 +252,12 @@ Application: Thank you, now give me all the data.</code></pre>
 <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
 <span class="n">dr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.fitbit.com/1/user/-/activities/heart/date/{0}/1d/1min.json&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.fitbit.com/1/user/-/activities/heart/date/</span><span class="si">{0}</span><span class="s1">/1d/1min.json&#39;</span>
 <span class="n">hr_responses</span> <span class="o">=</span> <span class="p">[</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format_str</span><span class="p">)))</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dr</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">record_to_df</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
     <span class="k">if</span> <span class="s1">&#39;activities-heart&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="kc">None</span>
     <span class="n">date_str</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;activities-heart&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;dateTime&#39;</span><span class="p">]</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;activities-heart-intraday&#39;</span><span class="p">][</span><span class="s1">&#39;dataset&#39;</span><span class="p">])</span>
         
@@ -275,7 +275,7 @@ Application: Thank you, now give me all the data.</code></pre>
                               <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
 <span class="n">hr_df_full</span> <span class="o">=</span> <span class="n">hr_df_concat</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">full_daterange</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats from {} to {}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats from </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                                             <span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
                                             <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
 </pre></div>
@@ -325,7 +325,7 @@ hr_q \cdot n - hr_d \cdot (n-m)
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">quarterly_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">quarterly_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">leap_day_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
                             <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">==</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">num_quarters</span> <span class="o">=</span> <span class="mi">96</span>
@@ -372,7 +372,7 @@ hr_q \cdot n - hr_d \cdot (n-m)
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">minute_mean</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">minute_mean</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="c1"># Don&#39;t you wish you knew?</span>
 <span class="c1"># birthday_minutes = ???</span>
 
@@ -381,8 +381,8 @@ hr_q \cdot n - hr_d \cdot (n-m)
 <span class="n">heartbeats_until_2016</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">birthday_heartbeats</span> <span class="o">+</span> <span class="n">jan_92_jan_16</span><span class="p">)</span>
 <span class="n">remaining_2016</span> <span class="o">=</span> <span class="n">total_heartbeats</span> <span class="o">-</span> <span class="n">heartbeats_until_2016</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats so far: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heartbeats_until_2016</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_2016</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats so far: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heartbeats_until_2016</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_2016</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -430,7 +430,7 @@ hr_q \cdot n - hr_d \cdot (n - m)
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">heartbeats_4year</span> <span class="o">=</span> <span class="n">quarterly_count</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">-</span> <span class="n">leap_day_count</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">heartbeats_4year</span> <span class="o">=</span> <span class="n">quarterly_count</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">-</span> <span class="n">leap_day_count</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">heartbeats_4year</span>
 </pre></div>
 
@@ -470,11 +470,11 @@ hr_q \cdot n - hr_d \cdot (n - m)
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">four_year_periods</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">//</span> <span class="n">heartbeats_4year</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">four_year_periods</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">//</span> <span class="n">heartbeats_4year</span>
 <span class="n">remaining_4y</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">-</span> <span class="n">four_year_periods</span> <span class="o">*</span> <span class="n">heartbeats_4year</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Four year periods remaining: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">four_year_periods</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after 4 year periods: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_4y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Four year periods remaining: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">four_year_periods</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after 4 year periods: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_4y</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -509,18 +509,18 @@ Remaining heartbeats after 4 year periods: 48041640
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">remaining_leap</span> <span class="o">=</span> <span class="n">remaining_4y</span> <span class="o">-</span> <span class="n">leap_day_count</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">remaining_leap</span> <span class="o">=</span> <span class="n">remaining_4y</span> <span class="o">-</span> <span class="n">leap_day_count</span>
 <span class="c1"># Ignore leap day in the data set</span>
 <span class="n">heartbeats_quarter</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
-                                <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">4</span>
+                                <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">quarters_left</span> <span class="o">=</span> <span class="n">remaining_leap</span> <span class="o">//</span> <span class="n">heartbeats_quarter</span>
 <span class="n">remaining_year</span> <span class="o">=</span> <span class="n">remaining_leap</span> <span class="o">-</span> <span class="n">quarters_left</span> <span class="o">*</span> <span class="n">heartbeats_quarter</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Quarters left starting 2068: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">quarters_left</span><span class="p">))</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after that: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_year</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Quarters left starting 2068: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">quarters_left</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after that: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_year</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -533,7 +533,7 @@ Remaining heartbeats after 4 year periods: 48041640
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Quarters left starting 2068: 2
+<pre>Quarters left starting 2068: 8
 Remaining heartbeats after that: 4760716
 </pre>
 </div>
@@ -548,19 +548,19 @@ Remaining heartbeats after that: 4760716
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>So, that analysis gets me through the 2<sup>nd</sup> quarter in 2068, specifically to June 1<sup>st</sup>, 2068. Final step, using that minute estimate to figure out how many minutes past that I'm predicted to have:</p>
+<p>So, that analysis gets me through until January 1<sup>st</sup> 2070. Final step, using that minute estimate to figure out how many minutes past that I'm predicted to have:</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
 
-<span class="n">base</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2068</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2070</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">minutes_left</span> <span class="o">=</span> <span class="n">remaining_year</span> <span class="o">//</span> <span class="n">minute_mean</span>
 
 <span class="n">kaput</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">minutes_left</span><span class="p">)</span>
@@ -575,11 +575,11 @@ Remaining heartbeats after that: 4760716
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[14]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>datetime.datetime(2069, 8, 23, 5, 28)</pre>
+<pre>datetime.datetime(2070, 2, 23, 5, 28)</pre>
 </div>
 
 </div>
@@ -593,8 +593,8 @@ Remaining heartbeats after that: 4760716
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>According to this, I've got until August 23<sup>rd</sup>, 2069 at 5:28 PM in the evening before my heart gives out.</p>
-<h1 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h1><p>Well, that's kind of a creepy date to know. As I said at the top though, <strong>this number is totally useless in any medical context</strong>. It ignores the rate at which we continue to get better at making people live longer, and is extrapolating from 3 months' worth of data the rest of my life.</p>
+<p>According to this, I've got until February 23<sup>rd</sup>, 2070 at 5:28 PM in the evening before my heart gives out.</p>
+<h1 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h1><p>Well, that's kind of a creepy date to know. As I said at the top though, <strong>this number is totally useless in any medical context</strong>. It ignores the rate at which we continue to get better at making people live longer, and is extrapolating from 3 months' worth of data the rest of my life. Additionally, throughout my time developing this post I made many minor mistakes. I think they're all fixed now, but it's easy to mix a number up here or there and the analysis gets thrown off by a couple years.</p>
 <p>Even still, I think philosophically humans have a desire to know how much time we have left in the world. <a href="https://www.biblegateway.com/passage/?search=psalm+144&amp;version=ESV">Man is but a breath</a>, and it's scary to think just how quickly that date may be coming up. This analysis asks an important question though: what are you going to do with the time you have left?</p>
 <p>Thanks for sticking with me on this one, I promise it will be much less depressing next time!</p>
 
