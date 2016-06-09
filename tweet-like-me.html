@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="An experiment in creating a robot that will imitate me on Twitter. So, I&#39;m taking a Machine Learning course this semester in school, and one of the topics we keep coming back to is natural ...">
+        <meta name="description" content="An experiment in creating a robot that will imitate me on Twitter. So, I&#39;m taking a Machine Learning course this semester in school, and one of the topics we keep coming back to is natural language ...">
         <meta name="keywords" content="MCMC, twitter">
         <link rel="icon" href="https://bspeice.github.io/favicon.ico">
 
@@ -126,13 +126,13 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">tweets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;tweets.csv&#39;</span><span class="p">)</span>
+<span class="n">tweets</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;tweets.csv&#39;</span><span class="p">)</span>
 <span class="n">text</span> <span class="o">=</span> <span class="n">tweets</span><span class="o">.</span><span class="n">text</span>
 
-<span class="c1"># Don&#39;t include tweets in reply to or mentioning people</span>
-<span class="n">replies</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">)</span>
+<span class="c"># Don&#39;t include tweets in reply to or mentioning people</span>
+<span class="n">replies</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s">&#39;@&#39;</span><span class="p">)</span>
 <span class="n">text_norep</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">replies</span><span class="p">]</span>
 </pre></div>
 
@@ -156,7 +156,7 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="k">import</span> <span class="n">TweetTokenizer</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="k">import</span> <span class="n">TweetTokenizer</span>
 <span class="n">tknzr</span> <span class="o">=</span> <span class="n">TweetTokenizer</span><span class="p">()</span>
 <span class="n">tokens</span> <span class="o">=</span> <span class="n">text_norep</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">tknzr</span><span class="o">.</span><span class="n">tokenize</span><span class="p">)</span>
 
@@ -185,12 +185,12 @@
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
 
-<span class="c1"># Get all possible words</span>
+<span class="c"># Get all possible words</span>
 <span class="n">all_words</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">,</span> <span class="n">tokens</span><span class="p">,</span> <span class="p">[])</span>
 <span class="n">unique_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">all_words</span><span class="p">)</span>
-<span class="n">actual_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">x</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span> <span class="k">else</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">])</span>
+<span class="n">actual_words</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">x</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;.&#39;</span> <span class="k">else</span> <span class="k">None</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unique_words</span><span class="p">])</span>
 
 <span class="n">word_dist</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">actual_words</span><span class="p">):</span>
@@ -219,12 +219,12 @@
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
-<span class="n">hashtags</span> <span class="o">=</span> <span class="n">text_norep</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">)</span>
+<span class="n">hashtags</span> <span class="o">=</span> <span class="n">text_norep</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;#&#39;</span><span class="p">)</span>
 <span class="n">bins</span> <span class="o">=</span> <span class="n">hashtags</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">hashtags</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">hashtags</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -356,7 +356,7 @@ AElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mle</span> <span class="o">=</span> <span class="n">hashtags</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">mle</span> <span class="o">=</span> <span class="n">hashtags</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">mle</span>
 </pre></div>
 
@@ -396,12 +396,12 @@ AElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hashtags</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_words</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">hashtags</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">all_words</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;#&#39;</span><span class="p">]</span>
 <span class="n">n_hashtags</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hashtags</span><span class="p">)</span>
 
-<span class="n">unique_hashtags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unique_words</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;#&#39;</span><span class="p">]))</span>
-<span class="n">hashtag_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;hashtags&#39;</span><span class="p">:</span> <span class="n">unique_hashtags</span><span class="p">,</span>
-                             <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">all_words</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_hashtags</span>
+<span class="n">unique_hashtags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">unique_words</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;#&#39;</span><span class="p">]))</span>
+<span class="n">hashtag_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s">&#39;hashtags&#39;</span><span class="p">:</span> <span class="n">unique_hashtags</span><span class="p">,</span>
+                             <span class="s">&#39;prob&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">all_words</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_hashtags</span>
                                       <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">unique_hashtags</span><span class="p">]})</span>
 <span class="nb">len</span><span class="p">(</span><span class="n">hashtag_dist</span><span class="p">)</span>
 </pre></div>
@@ -454,12 +454,12 @@ z: .17</code></pre>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">def</span> <span class="nf">multinom_sim</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">probs</span><span class="p">):</span>
     <span class="n">occurrences</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">probs</span><span class="p">)</span>
     <span class="n">results</span> <span class="o">=</span> <span class="n">occurrences</span> <span class="o">*</span> <span class="n">vals</span>
-    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">results</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="n">results</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">])</span>
 
 <span class="k">def</span> <span class="nf">sim_n_hashtags</span><span class="p">(</span><span class="n">hashtag_freq</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">hashtag_freq</span><span class="p">)</span>
@@ -469,7 +469,7 @@ z: .17</code></pre>
 
 <span class="k">def</span> <span class="nf">sim_first_word</span><span class="p">(</span><span class="n">first_word_dist</span><span class="p">):</span>
     <span class="n">probs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">first_word_dist</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">multinom_sim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">first_word_dist</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()[</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> <span class="n">probs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">multinom_sim</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">first_word_dist</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()[</span><span class="s">&#39;index&#39;</span><span class="p">],</span> <span class="n">probs</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">sim_next_word</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">word_dist</span><span class="p">):</span>
     <span class="n">dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">word_dist</span><span class="p">[</span><span class="n">current</span><span class="p">])</span>
@@ -497,14 +497,14 @@ z: .17</code></pre>
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">first</span> <span class="o">=</span> <span class="n">sim_first_word</span><span class="p">(</span><span class="n">first_word_dist</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">first</span> <span class="o">=</span> <span class="n">sim_first_word</span><span class="p">(</span><span class="n">first_word_dist</span><span class="p">)</span>
 <span class="n">second</span> <span class="o">=</span> <span class="n">sim_next_word</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">word_dist</span><span class="p">)</span>
 <span class="n">third</span> <span class="o">=</span> <span class="n">sim_next_word</span><span class="p">(</span><span class="n">second</span><span class="p">,</span> <span class="n">word_dist</span><span class="p">)</span>
 <span class="n">fourth</span> <span class="o">=</span> <span class="n">sim_next_word</span><span class="p">(</span><span class="n">third</span><span class="p">,</span> <span class="n">word_dist</span><span class="p">)</span>
 <span class="n">fifth</span> <span class="o">=</span> <span class="n">sim_next_word</span><span class="p">(</span><span class="n">fourth</span><span class="p">,</span> <span class="n">word_dist</span><span class="p">)</span>
 <span class="n">hashtag</span> <span class="o">=</span> <span class="n">sim_hashtags</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">hashtag_dist</span><span class="p">)</span>
 
-<span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">,</span> <span class="n">fourth</span><span class="p">,</span> <span class="n">fifth</span><span class="p">,</span> <span class="n">hashtag</span><span class="p">))</span>
+<span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">,</span> <span class="n">fourth</span><span class="p">,</span> <span class="n">fifth</span><span class="p">,</span> <span class="n">hashtag</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -543,7 +543,7 @@ z: .17</code></pre>
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">simulate_tweet</span><span class="p">():</span>
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">simulate_tweet</span><span class="p">():</span>
     <span class="n">chars_remaining</span> <span class="o">=</span> <span class="mi">140</span>
     <span class="n">first</span> <span class="o">=</span> <span class="n">sim_first_word</span><span class="p">(</span><span class="n">first_word_dist</span><span class="p">)</span>
     <span class="n">n_hash</span> <span class="o">=</span> <span class="n">sim_n_hashtags</span><span class="p">(</span><span class="n">mle</span><span class="p">)</span>
@@ -553,13 +553,13 @@ z: .17</code></pre>
     
     <span class="n">tweet</span> <span class="o">=</span> <span class="n">first</span>
     <span class="n">current</span> <span class="o">=</span> <span class="n">first</span>
-    <span class="k">while</span> <span class="n">chars_remaining</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">hashtags</span><span class="p">)</span> <span class="ow">and</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;.&#39;</span> <span class="ow">and</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;!&#39;</span><span class="p">:</span>
+    <span class="k">while</span> <span class="n">chars_remaining</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">tweet</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">hashtags</span><span class="p">)</span> <span class="ow">and</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;.&#39;</span> <span class="ow">and</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;!&#39;</span><span class="p">:</span>
         <span class="n">current</span> <span class="o">=</span> <span class="n">sim_next_word</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">word_dist</span><span class="p">)</span>
-        <span class="n">tweet</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">current</span>
+        <span class="n">tweet</span> <span class="o">+=</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">current</span>
         
     <span class="n">tweet</span> <span class="o">=</span> <span class="n">tweet</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">tweet</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         
-    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">tweet</span><span class="p">,</span> <span class="n">hashtags</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="n">tweet</span><span class="p">,</span> <span class="n">hashtags</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -582,7 +582,7 @@ z: .17</code></pre>
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">simulate_tweet</span><span class="p">())</span>
     <span class="nb">print</span><span class="p">()</span>
 </pre></div>

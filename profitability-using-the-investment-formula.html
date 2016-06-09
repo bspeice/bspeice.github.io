@@ -118,12 +118,12 @@
 <div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">Quandl</span> <span class="k">import</span> <span class="n">get</span> <span class="k">as</span> <span class="n">qget</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
 
 <span class="n">profitability</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="mi">1000</span><span class="o">*</span><span class="n">p</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">d</span><span class="p">)</span>
 
@@ -147,15 +147,15 @@
         <span class="n">expected_close</span> <span class="o">=</span> <span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="p">]</span> <span class="o">*</span> <span class="n">expected</span>
         <span class="n">todays_purchase</span> <span class="o">=</span> <span class="n">daily_investment</span><span class="p">(</span><span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">expected_close</span><span class="p">,</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">day</span><span class="p">])</span>
         <span class="n">invested</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">invested</span><span class="p">,</span> <span class="n">todays_purchase</span> <span class="o">+</span> <span class="n">bias</span><span class="p">)</span>
-        <span class="c1"># expected_profit = expected_close * (invested / open_vals[0:len(invested)]).sum() - invested.sum()</span>
+        <span class="c"># expected_profit = expected_close * (invested / open_vals[0:len(invested)]).sum() - invested.sum()</span>
         <span class="n">day</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">profitable</span> <span class="o">=</span> <span class="n">is_profitable</span><span class="p">(</span><span class="n">close_vals</span><span class="p">[</span><span class="n">day</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span> \
             <span class="ow">or</span> <span class="n">is_profitable</span><span class="p">(</span><span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span>
             
     <span class="n">shares</span> <span class="o">=</span> <span class="p">(</span><span class="n">invested</span> <span class="o">/</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     
-    <span class="c1"># Make sure we can&#39;t see into the future - we know either today&#39;s close or tomorrow&#39;s open</span>
-    <span class="c1"># will be profitable, but we need to check which one.</span>
+    <span class="c"># Make sure we can&#39;t see into the future - we know either today&#39;s close or tomorrow&#39;s open</span>
+    <span class="c"># will be profitable, but we need to check which one.</span>
     <span class="k">if</span> <span class="n">is_profitable</span><span class="p">(</span><span class="n">close_vals</span><span class="p">[</span><span class="n">day</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">invested</span><span class="p">)]):</span>
         <span class="n">ending_price</span> <span class="o">=</span> <span class="n">close_vals</span><span class="p">[</span><span class="n">day</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -168,21 +168,21 @@
     <span class="n">ticker_info</span> <span class="o">=</span> <span class="n">qget</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">trim_start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
     <span class="n">evaluation_times</span> <span class="o">=</span> <span class="n">ticker_info</span><span class="p">[:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
     
-    <span class="c1"># Handle Google vs. YFinance data</span>
-    <span class="k">if</span> <span class="s2">&quot;Adjusted Close&quot;</span> <span class="ow">in</span> <span class="n">ticker_info</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-        <span class="n">close_column</span> <span class="o">=</span> <span class="s2">&quot;Adjusted Close&quot;</span>
+    <span class="c"># Handle Google vs. YFinance data</span>
+    <span class="k">if</span> <span class="s">&quot;Adjusted Close&quot;</span> <span class="ow">in</span> <span class="n">ticker_info</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">close_column</span> <span class="o">=</span> <span class="s">&quot;Adjusted Close&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">close_column</span> <span class="o">=</span> <span class="s2">&quot;Close&quot;</span>
+        <span class="n">close_column</span> <span class="o">=</span> <span class="s">&quot;Close&quot;</span>
         
-    <span class="n">sim</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="n">simulate_day</span><span class="p">(</span><span class="n">ticker_info</span><span class="p">[</span><span class="n">d</span><span class="p">:][</span><span class="s2">&quot;Open&quot;</span><span class="p">],</span> <span class="n">ticker_info</span><span class="p">[</span><span class="n">d</span><span class="p">:][</span><span class="n">close_column</span><span class="p">],</span>
+    <span class="n">sim</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">:</span> <span class="n">simulate_day</span><span class="p">(</span><span class="n">ticker_info</span><span class="p">[</span><span class="n">d</span><span class="p">:][</span><span class="s">&quot;Open&quot;</span><span class="p">],</span> <span class="n">ticker_info</span><span class="p">[</span><span class="n">d</span><span class="p">:][</span><span class="n">close_column</span><span class="p">],</span>
                        <span class="mi">100</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">evaluation_times</span><span class="p">}</span>
     <span class="n">sim_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">sim</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;profit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;days&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">profitability</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
-    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;investments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">result</span><span class="p">[</span><span class="s">&quot;profit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">result</span><span class="p">[</span><span class="s">&quot;max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">result</span><span class="p">[</span><span class="s">&quot;days&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">result</span><span class="p">[</span><span class="s">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">profitability</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="n">result</span><span class="p">[</span><span class="s">&quot;investments&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim_series</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     
     <span class="k">return</span> <span class="n">result</span>
 
@@ -217,7 +217,7 @@
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fang_df</span> <span class="o">=</span> <span class="n">simulate_tickers</span><span class="p">([</span><span class="s2">&quot;YAHOO/FB&quot;</span><span class="p">,</span> <span class="s2">&quot;YAHOO/AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;YAHOO/NFLX&quot;</span><span class="p">,</span> <span class="s2">&quot;YAHOO/GOOG&quot;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">fang_df</span> <span class="o">=</span> <span class="n">simulate_tickers</span><span class="p">([</span><span class="s">&quot;YAHOO/FB&quot;</span><span class="p">,</span> <span class="s">&quot;YAHOO/AAPL&quot;</span><span class="p">,</span> <span class="s">&quot;YAHOO/NFLX&quot;</span><span class="p">,</span> <span class="s">&quot;YAHOO/GOOG&quot;</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -230,9 +230,9 @@
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fang_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">fang_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Distribution of Days Until Profitability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;Distribution of Days Until Profitability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -704,9 +704,9 @@ kiSpNScYJEmSJElSa04wSJIkSZKk1pxgkCRJkiRJrf1/uiw9D8O0d6EAAAAASUVORK5CYII=
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fang_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">fang_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s">&#39;score&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Profitability score over time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;Profitability score over time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -2343,7 +2343,7 @@ EZIkSZIkSZIkSZIk6RIpIiRJkiRJkiRJkiRJ0iX+D91jLOlExGw8AAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cyclic_df</span> <span class="o">=</span> <span class="n">simulate_tickers</span><span class="p">([</span><span class="s2">&quot;YAHOO/X&quot;</span><span class="p">,</span> <span class="s2">&quot;YAHOO/CAT&quot;</span><span class="p">,</span> <span class="s2">&quot;YAHOO/NFLX&quot;</span><span class="p">,</span> <span class="s2">&quot;YAHOO/GOOG&quot;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">cyclic_df</span> <span class="o">=</span> <span class="n">simulate_tickers</span><span class="p">([</span><span class="s">&quot;YAHOO/X&quot;</span><span class="p">,</span> <span class="s">&quot;YAHOO/CAT&quot;</span><span class="p">,</span> <span class="s">&quot;YAHOO/NFLX&quot;</span><span class="p">,</span> <span class="s">&quot;YAHOO/GOOG&quot;</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -2356,9 +2356,9 @@ EZIkSZIkSZIkSZIk6RIpIiRJkiRJkiRJkiRJ0iX+D91jLOlExGw8AAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cyclic_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">cyclic_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Distribution of Days Until Profitability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;Distribution of Days Until Profitability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -2844,9 +2844,9 @@ JEmSJEnSwGwwSJIkSZKkgdlgkCRJkiRJA7PBIEmSJEmSBvb/AfKAew4+oiojAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cyclic_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">cyclic_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s">&#39;score&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Profitability score over time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;Profitability score over time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -4629,7 +4629,7 @@ hUKhUCgUpor/A9AnO0PoIItTAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">biotech_df</span> <span class="o">=</span> <span class="n">simulate_tickers</span><span class="p">([</span><span class="s1">&#39;YAHOO/REGN&#39;</span><span class="p">,</span> <span class="s1">&#39;YAHOO/CELG&#39;</span><span class="p">,</span> <span class="s1">&#39;GOOG/NASDAQ_BIB&#39;</span><span class="p">,</span> <span class="s1">&#39;GOOG/NASDAQ_IBB&#39;</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">biotech_df</span> <span class="o">=</span> <span class="n">simulate_tickers</span><span class="p">([</span><span class="s">&#39;YAHOO/REGN&#39;</span><span class="p">,</span> <span class="s">&#39;YAHOO/CELG&#39;</span><span class="p">,</span> <span class="s">&#39;GOOG/NASDAQ_BIB&#39;</span><span class="p">,</span> <span class="s">&#39;GOOG/NASDAQ_IBB&#39;</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -4642,9 +4642,9 @@ hUKhUCgUpor/A9AnO0PoIItTAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">biotech_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">biotech_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">hist</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Distribution of Days Until Profitability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;Distribution of Days Until Profitability&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -5195,9 +5195,9 @@ WKBTQVcCAAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">biotech_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s1">&#39;score&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">biotech_df</span><span class="o">.</span><span class="n">xs</span><span class="p">(</span><span class="s">&#39;score&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Profitability score over time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&quot;Profitability score over time&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 
 </div>

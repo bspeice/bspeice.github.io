@@ -92,7 +92,7 @@
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="k">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_notebook</span><span class="p">,</span> <span class="n">show</span>
+<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="k">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_notebook</span><span class="p">,</span> <span class="n">show</span>
 <span class="kn">from</span> <span class="nn">bokeh.palettes</span> <span class="k">import</span> <span class="n">PuBuGn9</span> <span class="k">as</span> <span class="n">Palette</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -352,7 +352,7 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">city_forecasts</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;city_forecasts.p&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">city_forecasts</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;city_forecasts.p&#39;</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">))</span>
 <span class="n">forecast_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">city_forecasts</span><span class="p">)</span>
 </pre></div>
 
@@ -366,31 +366,31 @@
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cary_forecast</span> <span class="o">=</span> <span class="n">forecast_df</span><span class="p">[</span><span class="s1">&#39;cary&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">cary_forecast</span> <span class="o">=</span> <span class="n">forecast_df</span><span class="p">[</span><span class="s">&#39;cary&#39;</span><span class="p">]</span>
 <span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2016</span><span class="p">)</span>
 <span class="n">months</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="n">months_str</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;July&#39;</span><span class="p">,</span> <span class="s1">&#39;August&#39;</span><span class="p">,</span> <span class="s1">&#39;September&#39;</span><span class="p">,</span> <span class="s1">&#39;October&#39;</span><span class="p">,</span> <span class="s1">&#39;November&#39;</span><span class="p">]</span>
+<span class="n">months_str</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;July&#39;</span><span class="p">,</span> <span class="s">&#39;August&#39;</span><span class="p">,</span> <span class="s">&#39;September&#39;</span><span class="p">,</span> <span class="s">&#39;October&#39;</span><span class="p">,</span> <span class="s">&#39;November&#39;</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">safe_cover</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">frame</span> <span class="ow">and</span> <span class="s1">&#39;cloudCover&#39;</span> <span class="ow">in</span> <span class="n">frame</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;cloudCover&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">and</span> <span class="s">&#39;cloudCover&#39;</span> <span class="ow">in</span> <span class="n">frame</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">frame</span><span class="p">[</span><span class="s">&#39;cloudCover&#39;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
 
 <span class="k">def</span> <span class="nf">monthly_avg_cloudcover</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                              <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-                             <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">cloud_cover_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_cover</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
+                             <span class="n">freq</span><span class="o">=</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">cloud_cover_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_cover</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
     <span class="n">cloud_cover_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">cloud_cover_vals</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">cloud_cover_vals</span><span class="p">),</span> <span class="n">cloud_cover_samples</span>
 
 
 <span class="n">monthly_cover_vals</span> <span class="o">=</span> <span class="p">[[</span><span class="n">monthly_avg_cloudcover</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">]</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Average Cloud Cover&#39;</span><span class="p">,</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Monthly Average Cloud Cover&#39;</span><span class="p">,</span>
            <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2015</span><span class="p">),</span>
-          <span class="n">x_axis_label</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+          <span class="n">x_axis_label</span><span class="o">=</span><span class="s">&#39;Year&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">monthly_cover_vals</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="n">months_str</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">Palette</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
 <span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -454,11 +454,11 @@
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">monthly_cloudy_days</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">monthly_cloudy_days</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                              <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-                             <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">cloud_cover_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_cover</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
+                             <span class="n">freq</span><span class="o">=</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">cloud_cover_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_cover</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
     <span class="n">cloud_cover_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">cloud_cover_vals</span><span class="p">)))</span>
     <span class="n">cloudy_days</span> <span class="o">=</span> <span class="p">[</span><span class="n">cover</span> <span class="o">&gt;</span> <span class="o">.</span><span class="mi">5</span> <span class="k">for</span> <span class="n">cover</span> <span class="ow">in</span> <span class="n">cloud_cover_vals</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">cloudy_days</span><span class="p">),</span> <span class="n">cloud_cover_samples</span>
@@ -466,16 +466,16 @@
 <span class="n">monthly_days_vals</span> <span class="o">=</span> <span class="p">[[</span><span class="n">monthly_cloudy_days</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">]</span>
 <span class="n">monthly_cover_samples</span> <span class="o">=</span> <span class="p">[[</span><span class="n">monthly_cloudy_days</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">]</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Cloudy Days&#39;</span><span class="p">,</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Monthly Cloudy Days&#39;</span><span class="p">,</span>
            <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2015</span><span class="p">),</span>
-          <span class="n">x_axis_label</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+          <span class="n">x_axis_label</span><span class="o">=</span><span class="s">&#39;Year&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">monthly_days_vals</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="n">months_str</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">Palette</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
 <span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Cloud Cover Samples&#39;</span><span class="p">,</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Monthly Cloud Cover Samples&#39;</span><span class="p">,</span>
           <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2015</span><span class="p">),</span>
-          <span class="n">x_axis_label</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span>
+          <span class="n">x_axis_label</span><span class="o">=</span><span class="s">&#39;Year&#39;</span><span class="p">,</span>
           <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">monthly_cover_samples</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="n">months_str</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">Palette</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
@@ -570,25 +570,25 @@
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">safe_precip</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">frame</span> <span class="ow">and</span> <span class="s1">&#39;precipProbability&#39;</span> <span class="ow">in</span> <span class="n">frame</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">frame</span><span class="p">[</span><span class="s1">&#39;precipProbability&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">safe_precip</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">frame</span> <span class="ow">and</span> <span class="s">&#39;precipProbability&#39;</span> <span class="ow">in</span> <span class="n">frame</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">frame</span><span class="p">[</span><span class="s">&#39;precipProbability&#39;</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
 
 <span class="k">def</span> <span class="nf">monthly_avg_precip</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                              <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-                             <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">precip_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_precip</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
+                             <span class="n">freq</span><span class="o">=</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">precip_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_precip</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
     <span class="n">precip_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">precip_vals</span><span class="p">)))</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">precip_vals</span><span class="p">),</span> <span class="n">precip_samples</span>
 
 <span class="n">monthly_avg_precip_vals</span> <span class="o">=</span> <span class="p">[[</span><span class="n">monthly_avg_precip</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">]</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Average Precipitation Chance&#39;</span><span class="p">,</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Monthly Average Precipitation Chance&#39;</span><span class="p">,</span>
            <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2015</span><span class="p">),</span>
-          <span class="n">x_axis_label</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+          <span class="n">x_axis_label</span><span class="o">=</span><span class="s">&#39;Year&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">monthly_avg_precip_vals</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="n">months_str</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">Palette</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
 <span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -651,11 +651,11 @@
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">monthly_rainy_days</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">monthly_rainy_days</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">):</span>
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DatetimeIndex</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                              <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">month</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-                             <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
-    <span class="n">precip_prob_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_precip</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
+                             <span class="n">freq</span><span class="o">=</span><span class="s">&#39;D&#39;</span><span class="p">,</span> <span class="n">closed</span><span class="o">=</span><span class="s">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">precip_prob_vals</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">safe_precip</span><span class="p">(</span><span class="n">cary_forecast</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s">&#39;currently&#39;</span><span class="p">]),</span> <span class="n">dates</span><span class="p">))</span>
     <span class="n">precip_prob_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="n">precip_prob_vals</span><span class="p">)))</span>
     <span class="n">precip_days</span> <span class="o">=</span> <span class="p">[</span><span class="n">prob</span> <span class="o">&gt;</span> <span class="o">.</span><span class="mi">25</span> <span class="k">for</span> <span class="n">prob</span> <span class="ow">in</span> <span class="n">precip_prob_vals</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">precip_days</span><span class="p">),</span> <span class="n">precip_prob_samples</span>
@@ -663,16 +663,16 @@
 <span class="n">monthly_precip_days_vals</span> <span class="o">=</span> <span class="p">[[</span><span class="n">monthly_rainy_days</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">]</span>
 <span class="n">monthly_precip_samples</span> <span class="o">=</span> <span class="p">[[</span><span class="n">monthly_rainy_days</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">m</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">months</span><span class="p">]</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Rainy Days&#39;</span><span class="p">,</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Monthly Rainy Days&#39;</span><span class="p">,</span>
            <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2015</span><span class="p">),</span>
-          <span class="n">x_axis_label</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+          <span class="n">x_axis_label</span><span class="o">=</span><span class="s">&#39;Year&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">monthly_precip_days_vals</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="n">months_str</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">Palette</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
 <span class="n">show</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 
-<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Monthly Rainy Days Samples&#39;</span><span class="p">,</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">&#39;Monthly Rainy Days Samples&#39;</span><span class="p">,</span>
           <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span> <span class="mi">2015</span><span class="p">),</span>
-          <span class="n">x_axis_label</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span>
+          <span class="n">x_axis_label</span><span class="o">=</span><span class="s">&#39;Year&#39;</span><span class="p">,</span>
           <span class="n">height</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">months</span><span class="p">)):</span>
     <span class="n">f</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">years</span><span class="p">,</span> <span class="n">monthly_precip_samples</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">legend</span><span class="o">=</span><span class="n">months_str</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">Palette</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
@@ -770,69 +770,69 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h1 id="Generating-the-Forecast-file">Generating the Forecast file<a class="anchor-link" href="#Generating-the-Forecast-file">&#182;</a></h1><p>The following code was generates the file that was used throughout the blog post. Please note that I'm retrieving data for other cities to use in a future blog post, only Cary data was used for this post.</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="c1"># Coordinate data from http://itouchmap.com/latlong.html</span>
+<span class="c"># Coordinate data from http://itouchmap.com/latlong.html</span>
 <span class="n">cary_loc</span> <span class="o">=</span> <span class="p">(</span><span class="mf">35.79154</span><span class="p">,</span><span class="o">-</span><span class="mf">78.781117</span><span class="p">)</span>
 <span class="n">nyc_loc</span> <span class="o">=</span> <span class="p">(</span><span class="mf">40.78306</span><span class="p">,</span><span class="o">-</span><span class="mf">73.971249</span><span class="p">)</span>
 <span class="n">seattle_loc</span> <span class="o">=</span> <span class="p">(</span><span class="mf">47.60621</span><span class="p">,</span><span class="o">-</span><span class="mf">122.332071</span><span class="p">)</span>
 <span class="n">binghamton_loc</span> <span class="o">=</span> <span class="p">(</span><span class="mf">42.098687</span><span class="p">,</span><span class="o">-</span><span class="mf">75.917974</span><span class="p">)</span>
 <span class="n">cities</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;cary&#39;</span><span class="p">:</span> <span class="n">cary_loc</span><span class="p">,</span>
-    <span class="s1">&#39;nyc&#39;</span><span class="p">:</span> <span class="n">nyc_loc</span><span class="p">,</span>
-    <span class="s1">&#39;seattle&#39;</span><span class="p">:</span> <span class="n">seattle_loc</span><span class="p">,</span>
-    <span class="s1">&#39;binghamton&#39;</span><span class="p">:</span> <span class="n">binghamton_loc</span>
+    <span class="s">&#39;cary&#39;</span><span class="p">:</span> <span class="n">cary_loc</span><span class="p">,</span>
+    <span class="s">&#39;nyc&#39;</span><span class="p">:</span> <span class="n">nyc_loc</span><span class="p">,</span>
+    <span class="s">&#39;seattle&#39;</span><span class="p">:</span> <span class="n">seattle_loc</span><span class="p">,</span>
+    <span class="s">&#39;binghamton&#39;</span><span class="p">:</span> <span class="n">binghamton_loc</span>
 <span class="p">}</span>
 
-<span class="n">apikey</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="c1"># My super-secret API Key</span>
+<span class="n">apikey</span> <span class="o">=</span> <span class="s">&#39;&#39;</span> <span class="c"># My super-secret API Key</span>
 
 <span class="k">def</span> <span class="nf">get_forecast</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">long</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="n">forecast_base</span> <span class="o">=</span> <span class="s2">&quot;https://api.forecast.io/forecast/&quot;</span>
+    <span class="n">forecast_base</span> <span class="o">=</span> <span class="s">&quot;https://api.forecast.io/forecast/&quot;</span>
     <span class="k">if</span> <span class="n">date</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">forecast_base</span> <span class="o">+</span> <span class="n">apikey</span> <span class="o">+</span> <span class="s1">&#39;/{},{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">long</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">forecast_base</span> <span class="o">+</span> <span class="n">apikey</span> <span class="o">+</span> <span class="s">&#39;/{},{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">long</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">epoch</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">timestamp</span><span class="p">())</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">forecast_base</span> <span class="o">+</span> <span class="n">apikey</span> <span class="o">+</span> <span class="s1">&#39;/{},{},{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">long</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">forecast_base</span> <span class="o">+</span> <span class="n">apikey</span> <span class="o">+</span> <span class="s">&#39;/{},{},{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">long</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 
 <span class="n">years</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1990</span><span class="p">,</span><span class="mi">2016</span><span class="p">)</span>
-<span class="c1"># For datetimes, the 12 is for getting the weather at noon.</span>
-<span class="c1"># We&#39;re doing this over midnight because we&#39;re more concerned</span>
-<span class="c1"># with what people see, and people don&#39;t typically see the weather</span>
-<span class="c1"># at midnight.</span>
+<span class="c"># For datetimes, the 12 is for getting the weather at noon.</span>
+<span class="c"># We&#39;re doing this over midnight because we&#39;re more concerned</span>
+<span class="c"># with what people see, and people don&#39;t typically see the weather</span>
+<span class="c"># at midnight.</span>
 <span class="n">dt_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
                           <span class="n">end</span><span class="o">=</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
               <span class="k">for</span> <span class="n">year</span> <span class="ow">in</span> <span class="n">years</span><span class="p">]</span>
 <span class="n">dt_merge</span> <span class="o">=</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">dt_indices</span><span class="p">)</span>
 
-<span class="c1"># Because we have to pay a little bit to use the API, we use for loops here</span>
-<span class="c1"># instead of a comprehension - if something breaks, we want to preserve the</span>
-<span class="c1"># data already retrieved</span>
+<span class="c"># Because we have to pay a little bit to use the API, we use for loops here</span>
+<span class="c"># instead of a comprehension - if something breaks, we want to preserve the</span>
+<span class="c"># data already retrieved</span>
 <span class="n">city_forecasts</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">city</span><span class="p">,</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">cities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Retrieving data for {} starting at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">,</span>
-                                                         <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%I:%M:%S %p&quot;</span><span class="p">)))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Retrieving data for {} starting at {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">city</span><span class="p">,</span>
+                                                         <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%I:%M:%S %p&quot;</span><span class="p">)))</span>
     <span class="k">for</span> <span class="n">dt</span> <span class="ow">in</span> <span class="n">dt_merge</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">city_forecasts</span><span class="p">[(</span><span class="n">city</span><span class="p">,</span> <span class="n">dt</span><span class="p">)]</span> <span class="o">=</span> <span class="n">get_forecast</span><span class="p">(</span><span class="o">*</span><span class="n">loc</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="n">city_forecasts</span><span class="p">[(</span><span class="n">city</span><span class="p">,</span> <span class="n">dt</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="k">print</span><span class="p">(</span><span class="s2">&quot;End forecast retrieval: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%I:%M:%S %p&quot;</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;End forecast retrieval: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%I:%M:%S %p&quot;</span><span class="p">)))</span>
 
 <span class="kn">import</span> <span class="nn">pickle</span>
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">city_forecasts</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;city_forecasts.p&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">city_forecasts</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;city_forecasts.p&#39;</span><span class="p">,</span> <span class="s">&#39;wb&#39;</span><span class="p">))</span>
 
-<span class="c1">### Output:</span>
-<span class="c1"># Retrieving data for binghamton starting at 05:13:42 PM</span>
-<span class="c1"># Retrieving data for seattle starting at 05:30:51 PM</span>
-<span class="c1"># Retrieving data for nyc starting at 05:48:30 PM</span>
-<span class="c1"># Retrieving data for cary starting at 06:08:32 PM</span>
-<span class="c1"># End forecast retrieval: 06:25:21 PM</span>
+<span class="c">### Output:</span>
+<span class="c"># Retrieving data for binghamton starting at 05:13:42 PM</span>
+<span class="c"># Retrieving data for seattle starting at 05:30:51 PM</span>
+<span class="c"># Retrieving data for nyc starting at 05:48:30 PM</span>
+<span class="c"># Retrieving data for cary starting at 06:08:32 PM</span>
+<span class="c"># End forecast retrieval: 06:25:21 PM</span>
 </pre></div>
 
 </div>
