@@ -3,7 +3,7 @@ Date: 2016-10-22
 Category: Blog
 Tags: Rust, nutone
 Authors: Bradlee Speice
-Summary: 
+Summary: Learning Rust by fire (it sounds better than learning by corrosion)
 [//]: <> "Modified: "
 
 I listen to a lot of Drum and Bass music, because it's beautiful music. And
