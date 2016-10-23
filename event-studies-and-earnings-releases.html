@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Or, being suspicious of market insiders. Use the button below to show the code I&#39;ve used to generate this article. Because there is a significant amount more code involved than most other posts I&#39;ve ...">
+        <meta name="description" content="Or, being suspicious of market insiders. Use the button below to show the code I&#39;ve used to generate this article. Because there is a significant amount more code involved than most other posts ...">
         <meta name="keywords" content="earnings, event study">
         <link rel="icon" href="https://bspeice.github.io/favicon.ico">
 
@@ -108,19 +108,19 @@
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">HTML</span>
 
-<span class="n">HTML</span><span class="p">(</span><span class="s">&#39;&#39;&#39;&lt;script&gt;</span>
-<span class="s">code_show=true; </span>
-<span class="s">function code_toggle() {</span>
-<span class="s"> if (code_show){</span>
-<span class="s"> $(&#39;div.input&#39;).hide();</span>
-<span class="s"> } else {</span>
-<span class="s"> $(&#39;div.input&#39;).show();</span>
-<span class="s"> }</span>
-<span class="s"> code_show = !code_show</span>
-<span class="s">} </span>
-<span class="s">$( document ).ready(code_toggle);</span>
-<span class="s">&lt;/script&gt;</span>
-<span class="s">&lt;form action=&quot;javascript:code_toggle()&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Click here to toggle on/off the raw code.&quot;&gt;&lt;/form&gt;&#39;&#39;&#39;</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script&gt;</span>
+<span class="s1">code_show=true; </span>
+<span class="s1">function code_toggle() {</span>
+<span class="s1"> if (code_show){</span>
+<span class="s1"> $(&#39;div.input&#39;).hide();</span>
+<span class="s1"> } else {</span>
+<span class="s1"> $(&#39;div.input&#39;).show();</span>
+<span class="s1"> }</span>
+<span class="s1"> code_show = !code_show</span>
+<span class="s1">} </span>
+<span class="s1">$( document ).ready(code_toggle);</span>
+<span class="s1">&lt;/script&gt;</span>
+<span class="s1">&lt;form action=&quot;javascript:code_toggle()&quot;&gt;&lt;input type=&quot;submit&quot; value=&quot;Click here to toggle on/off the raw code.&quot;&gt;&lt;/form&gt;&#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -182,20 +182,20 @@ $( document ).ready(code_toggle);
 <span class="o">%</span><span class="k">matplotlib</span> inline
 
 <span class="k">def</span> <span class="nf">fetch_ticker</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
-    <span class="c"># Quandl is currently giving me issues with returning</span>
-    <span class="c"># the entire dataset and not slicing server-side.</span>
-    <span class="c"># So instead, we&#39;ll do it client-side!</span>
-    <span class="n">q_format</span> <span class="o">=</span> <span class="s">&#39;%Y-%m-%d&#39;</span>
-    <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;YAHOO/&#39;</span> <span class="o">+</span> <span class="n">ticker</span><span class="p">,</span>
+    <span class="c1"># Quandl is currently giving me issues with returning</span>
+    <span class="c1"># the entire dataset and not slicing server-side.</span>
+    <span class="c1"># So instead, we&#39;ll do it client-side!</span>
+    <span class="n">q_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span>
+    <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YAHOO/&#39;</span> <span class="o">+</span> <span class="n">ticker</span><span class="p">,</span>
                              <span class="n">start_date</span><span class="o">=</span><span class="n">start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">q_format</span><span class="p">),</span>
                              <span class="n">end_date</span><span class="o">=</span><span class="n">end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">q_format</span><span class="p">),</span>
                              <span class="n">authtoken</span><span class="o">=</span><span class="n">QUANDL_KEY</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ticker_data</span>
 
-<span class="k">def</span> <span class="nf">ohlc_dataframe</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="k">None</span><span class="p">):</span>
-    <span class="c"># Much of this code re-used from:</span>
-    <span class="c"># http://matplotlib.org/examples/pylab_examples/finance_demo.html</span>
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="k">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">ohlc_dataframe</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Much of this code re-used from:</span>
+    <span class="c1"># http://matplotlib.org/examples/pylab_examples/finance_demo.html</span>
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
     
     <span class="n">vals</span> <span class="o">=</span> <span class="p">[(</span><span class="n">date2num</span><span class="p">(</span><span class="n">date</span><span class="p">),</span> <span class="o">*</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">date</span><span class="p">]))</span>
@@ -204,20 +204,20 @@ $( document ).ready(code_toggle);
     
     <span class="n">mondays</span> <span class="o">=</span> <span class="n">WeekdayLocator</span><span class="p">(</span><span class="n">MONDAY</span><span class="p">)</span>
     <span class="n">alldays</span> <span class="o">=</span> <span class="n">DayLocator</span><span class="p">()</span>
-    <span class="n">weekFormatter</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s">&#39;%b %d&#39;</span><span class="p">)</span>
+    <span class="n">weekFormatter</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="s1">&#39;%b </span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mondays</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_minor_locator</span><span class="p">(</span><span class="n">alldays</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">weekFormatter</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ax</span>
 
-<span class="n">AAPL</span> <span class="o">=</span> <span class="n">fetch_ticker</span><span class="p">(</span><span class="s">&#39;AAPL&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">AAPL</span> <span class="o">=</span> <span class="n">fetch_ticker</span><span class="p">(</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">ohlc_dataframe</span><span class="p">(</span><span class="n">AAPL</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span>
            <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-           <span class="n">color</span><span class="o">=</span><span class="s">&#39;b&#39;</span><span class="p">,</span>
-          <span class="n">label</span><span class="o">=</span><span class="s">&#39;Earnings Release&#39;</span><span class="p">)</span>
+           <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span>
+          <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Earnings Release&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;Apple Price 3/1/2016 - 5/1/2016&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Apple Price 3/1/2016 - 5/1/2016&quot;</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -439,12 +439,12 @@ rgAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">FB</span> <span class="o">=</span> <span class="n">fetch_ticker</span><span class="p">(</span><span class="s">&#39;FB&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">FB</span> <span class="o">=</span> <span class="n">fetch_ticker</span><span class="p">(</span><span class="s1">&#39;FB&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">ohlc_dataframe</span><span class="p">(</span><span class="n">FB</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span>
            <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-           <span class="n">color</span><span class="o">=</span><span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Earnings Release&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Facebook Price 3/5/2016 - 5/5/2016&#39;</span><span class="p">)</span>
+           <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Earnings Release&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Facebook Price 3/5/2016 - 5/5/2016&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">);</span>
 </pre></div>
 
@@ -698,36 +698,36 @@ czHjid0552LGE7tzzsXM/wfgLII59KYqMQAAAABJRU5ErkJggg==
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">plot_hilo</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">date2num</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="n">date2num</span><span class="p">(</span><span class="n">end</span><span class="p">)],</span>
-            <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="s">&#39;High&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end</span><span class="p">][</span><span class="s">&#39;High&#39;</span><span class="p">]],</span>
-            <span class="n">color</span><span class="o">=</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+            <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="s1">&#39;High&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end</span><span class="p">][</span><span class="s1">&#39;High&#39;</span><span class="p">]],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">date2num</span><span class="p">(</span><span class="n">start</span><span class="p">),</span> <span class="n">date2num</span><span class="p">(</span><span class="n">end</span><span class="p">)],</span>
-            <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="s">&#39;Low&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end</span><span class="p">][</span><span class="s">&#39;Low&#39;</span><span class="p">]],</span>
-            <span class="n">color</span><span class="o">=</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+            <span class="p">[</span><span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">start</span><span class="p">][</span><span class="s1">&#39;Low&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">end</span><span class="p">][</span><span class="s1">&#39;Low&#39;</span><span class="p">]],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
 
 <span class="n">f</span><span class="p">,</span> <span class="n">axarr</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
 <span class="n">ax_aapl</span> <span class="o">=</span> <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">ax_fb</span> <span class="o">=</span> <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-<span class="c"># Plot the AAPL trend up and down</span>
+<span class="c1"># Plot the AAPL trend up and down</span>
 <span class="n">ohlc_dataframe</span><span class="p">(</span><span class="n">AAPL</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_aapl</span><span class="p">)</span>
 <span class="n">plot_hilo</span><span class="p">(</span><span class="n">ax_aapl</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="n">AAPL</span><span class="p">)</span>
 <span class="n">plot_hilo</span><span class="p">(</span><span class="n">ax_aapl</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">26</span><span class="p">),</span> <span class="n">AAPL</span><span class="p">)</span>
 <span class="n">ax_aapl</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span>
                <span class="n">ax_aapl</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax_aapl</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-               <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Earnings Release&#39;</span><span class="p">)</span>
+               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Earnings Release&#39;</span><span class="p">)</span>
 <span class="n">ax_aapl</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax_aapl</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;AAPL Price History&#39;</span><span class="p">)</span>
+<span class="n">ax_aapl</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;AAPL Price History&#39;</span><span class="p">)</span>
 
-<span class="c"># Plot the FB trend down and up</span>
+<span class="c1"># Plot the FB trend down and up</span>
 <span class="n">ohlc_dataframe</span><span class="p">(</span><span class="n">FB</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax_fb</span><span class="p">)</span>
 <span class="n">plot_hilo</span><span class="p">(</span><span class="n">ax_fb</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">27</span><span class="p">),</span> <span class="n">FB</span><span class="p">)</span>
 <span class="n">plot_hilo</span><span class="p">(</span><span class="n">ax_fb</span><span class="p">,</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">FB</span><span class="p">)</span>
 <span class="n">ax_fb</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span>
              <span class="n">ax_fb</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax_fb</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-             <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Earnings Release&#39;</span><span class="p">)</span>
+             <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Earnings Release&#39;</span><span class="p">)</span>
 <span class="n">ax_fb</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax_fb</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;FB Price History&#39;</span><span class="p">)</span>
+<span class="n">ax_fb</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;FB Price History&#39;</span><span class="p">)</span>
 
 <span class="n">f</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
 </pre></div>
@@ -1385,17 +1385,17 @@ cAw4PwAAAABJRU5ErkJggg==
 <span class="kn">from</span> <span class="nn">pandas.tseries.offsets</span> <span class="k">import</span> <span class="n">CustomBusinessDay</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
 
-<span class="c"># If you remove rules, it removes them from *all* calendars</span>
-<span class="c"># To ensure we don&#39;t pop rules we don&#39;t want to, first make</span>
-<span class="c"># sure to fully copy the object</span>
+<span class="c1"># If you remove rules, it removes them from *all* calendars</span>
+<span class="c1"># To ensure we don&#39;t pop rules we don&#39;t want to, first make</span>
+<span class="c1"># sure to fully copy the object</span>
 <span class="n">trade_calendar</span> <span class="o">=</span> <span class="n">USFederalHolidayCalendar</span><span class="p">()</span>
-<span class="n">trade_calendar</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="c"># Remove Columbus day</span>
-<span class="n">trade_calendar</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c"># Remove Veteran&#39;s day</span>
+<span class="n">trade_calendar</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># Remove Columbus day</span>
+<span class="n">trade_calendar</span><span class="o">.</span><span class="n">rules</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># Remove Veteran&#39;s day</span>
 <span class="n">TradeDay</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">days</span><span class="p">:</span> <span class="n">CustomBusinessDay</span><span class="p">(</span><span class="n">days</span><span class="p">,</span> <span class="n">calendar</span><span class="o">=</span><span class="n">trade_calendar</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">plot_study</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-    <span class="c"># Given a 2-d array, we assume the event happens at index `lookback`,</span>
-    <span class="c"># and create all of our summary statistics from there.</span>
+    <span class="c1"># Given a 2-d array, we assume the event happens at index `lookback`,</span>
+    <span class="c1"># and create all of our summary statistics from there.</span>
     <span class="n">lookback</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">norm_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">array</span><span class="p">[:,</span><span class="n">lookback</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">centered_data</span> <span class="o">=</span> <span class="n">array</span> <span class="o">/</span> <span class="n">norm_factor</span> <span class="o">-</span> <span class="mi">1</span>
@@ -1414,17 +1414,17 @@ cAw4PwAAAABJRU5ErkJggg==
     <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">range_end</span><span class="p">),</span>
                      <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="p">:]</span> <span class="o">+</span> <span class="n">std_dev</span><span class="p">,</span>
                      <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="p">:]</span> <span class="o">-</span> <span class="n">std_dev</span><span class="p">,</span>
-                    <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;$\pm$ 1 s.d.&quot;</span><span class="p">)</span>
+                    <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\pm$ 1 s.d.&quot;</span><span class="p">)</span>
     <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">range_end</span><span class="p">),</span>
                      <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="p">:]</span> <span class="o">+</span> <span class="n">std_dev</span><span class="p">,</span>
                      <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="p">:]</span> <span class="o">-</span> <span class="n">std_dev</span><span class="p">,</span>
-                    <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;$\pm$ 1 s.d.&quot;</span><span class="p">)</span>
+                    <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\pm$ 1 s.d.&quot;</span><span class="p">)</span>
     
     <span class="n">max_err</span> <span class="o">=</span> <span class="n">maxes</span> <span class="o">-</span> <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
     <span class="n">min_err</span> <span class="o">=</span> <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">mins</span>
     <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">range_end</span><span class="p">),</span>
                   <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="o">+</span><span class="mi">1</span><span class="p">:],</span>
-                  <span class="n">yerr</span><span class="o">=</span><span class="p">[</span><span class="n">min_err</span><span class="p">,</span> <span class="n">max_err</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Max &amp; Min&#39;</span><span class="p">)</span>
+                  <span class="n">yerr</span><span class="o">=</span><span class="p">[</span><span class="n">min_err</span><span class="p">,</span> <span class="n">max_err</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Max &amp; Min&#39;</span><span class="p">)</span>
     <span class="n">axarr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     
@@ -1432,8 +1432,8 @@ cAw4PwAAAABJRU5ErkJggg==
     <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">((</span><span class="o">-</span><span class="n">lookback</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookback</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
     
 <span class="k">def</span> <span class="nf">plot_study_small</span><span class="p">(</span><span class="n">array</span><span class="p">):</span>
-    <span class="c"># Given a 2-d array, we assume the event happens at index `lookback`,</span>
-    <span class="c"># and create all of our summary statistics from there.</span>
+    <span class="c1"># Given a 2-d array, we assume the event happens at index `lookback`,</span>
+    <span class="c1"># and create all of our summary statistics from there.</span>
     <span class="n">lookback</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">norm_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">array</span><span class="p">[:,</span><span class="n">lookback</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">centered_data</span> <span class="o">=</span> <span class="n">array</span> <span class="o">/</span> <span class="n">norm_factor</span> <span class="o">-</span> <span class="mi">1</span>
@@ -1450,24 +1450,24 @@ cAw4PwAAAABJRU5ErkJggg==
     <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">range_end</span><span class="p">),</span>
                      <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="p">:]</span> <span class="o">+</span> <span class="n">std_dev</span><span class="p">,</span>
                      <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="p">:]</span> <span class="o">-</span> <span class="n">std_dev</span><span class="p">,</span>
-                    <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;$\pm$ 1 s.d.&quot;</span><span class="p">)</span>
+                    <span class="n">alpha</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$\pm$ 1 s.d.&quot;</span><span class="p">)</span>
     
     <span class="n">max_err</span> <span class="o">=</span> <span class="n">maxes</span> <span class="o">-</span> <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
     <span class="n">min_err</span> <span class="o">=</span> <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">mins</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">range_end</span><span class="p">),</span>
                   <span class="n">means</span><span class="p">[</span><span class="o">-</span><span class="n">lookforward</span><span class="o">+</span><span class="mi">1</span><span class="p">:],</span>
-                  <span class="n">yerr</span><span class="o">=</span><span class="p">[</span><span class="n">min_err</span><span class="p">,</span> <span class="n">max_err</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Max &amp; Min&#39;</span><span class="p">)</span>
+                  <span class="n">yerr</span><span class="o">=</span><span class="p">[</span><span class="n">min_err</span><span class="p">,</span> <span class="n">max_err</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Max &amp; Min&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="n">lookback</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">lookback</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
     
 <span class="k">def</span> <span class="nf">fetch_event_data</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">horizon</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
-    <span class="c"># Use horizon+1 to account for including the day of the event,</span>
-    <span class="c"># and half-open interval - that is, for a horizon of 5,</span>
-    <span class="c"># we should be including 11 events. Additionally, using the</span>
-    <span class="c"># CustomBusinessDay means we automatically handle issues if</span>
-    <span class="c"># for example a company reports Friday afternoon - the date</span>
-    <span class="c"># calculator will turn this into a &quot;Saturday&quot; release, but</span>
-    <span class="c"># we effectively shift that to Monday with the logic below.</span>
+    <span class="c1"># Use horizon+1 to account for including the day of the event,</span>
+    <span class="c1"># and half-open interval - that is, for a horizon of 5,</span>
+    <span class="c1"># we should be including 11 events. Additionally, using the</span>
+    <span class="c1"># CustomBusinessDay means we automatically handle issues if</span>
+    <span class="c1"># for example a company reports Friday afternoon - the date</span>
+    <span class="c1"># calculator will turn this into a &quot;Saturday&quot; release, but</span>
+    <span class="c1"># we effectively shift that to Monday with the logic below.</span>
     <span class="n">td_back</span> <span class="o">=</span> <span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">td_forward</span> <span class="o">=</span> <span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
     
@@ -1476,28 +1476,28 @@ cAw4PwAAAABJRU5ErkJggg==
     <span class="n">total_data</span> <span class="o">=</span> <span class="n">fetch_ticker</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
     <span class="n">event_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">total_data</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">event</span><span class="o">-</span><span class="n">td_back</span><span class="p">:</span><span class="n">event</span><span class="o">+</span><span class="n">td_forward</span><span class="p">]</span>\
                       <span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">horizon</span><span class="o">*</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>\
-                      <span class="p">[</span><span class="s">&#39;Adjusted Close&#39;</span><span class="p">]</span>
+                      <span class="p">[</span><span class="s1">&#39;Adjusted Close&#39;</span><span class="p">]</span>
                   <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">event_data</span><span class="p">)</span>
 
-<span class="c"># Generate a couple of random events</span>
+<span class="c1"># Generate a couple of random events</span>
 
 <span class="n">event_dates</span> <span class="o">=</span> <span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">27</span><span class="p">)</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">TradeDay</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">40</span><span class="p">)]</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">fetch_event_data</span><span class="p">(</span><span class="s">&#39;CELG&#39;</span><span class="p">,</span> <span class="n">event_dates</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">fetch_event_data</span><span class="p">(</span><span class="s1">&#39;CELG&#39;</span><span class="p">,</span> <span class="n">event_dates</span><span class="p">)</span>
 <span class="n">plot_study_small</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
 
 
-<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;Mean price for days leading up to each event&#39;</span><span class="p">,</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Mean price for days leading up to each event&#39;</span><span class="p">,</span>
              <span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="o">-.</span><span class="mi">01</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mf">4.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">025</span><span class="p">),</span>
-             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">005</span><span class="p">),</span> <span class="p">(</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">02</span><span class="p">),</span>
-             <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;facecolor&#39;</span><span class="p">:</span> <span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="s">&#39;shrink&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">05</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;$\pm$ 1 std. dev. each day&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">055</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">085</span><span class="p">),</span>
-            <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;facecolor&#39;</span><span class="p">:</span> <span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="s">&#39;shrink&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">05</span><span class="p">})</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s">&#39;Min/Max each day&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">-.</span><span class="mi">07</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">1</span><span class="p">),</span>
-            <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;facecolor&#39;</span><span class="p">:</span> <span class="s">&#39;black&#39;</span><span class="p">,</span> <span class="s">&#39;shrink&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">05</span><span class="p">});</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">0.05</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">-.</span><span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">005</span><span class="p">),</span> <span class="p">(</span><span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">02</span><span class="p">),</span>
+             <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;facecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;shrink&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">05</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;$\pm$ 1 std. dev. each day&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">055</span><span class="p">),</span> <span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="o">.</span><span class="mi">085</span><span class="p">),</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;facecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;shrink&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">05</span><span class="p">})</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Min/Max each day&#39;</span><span class="p">,</span> <span class="p">(</span><span class="o">.</span><span class="mi">9</span><span class="p">,</span> <span class="o">-.</span><span class="mi">07</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-.</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;facecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;shrink&#39;</span><span class="p">:</span> <span class="o">.</span><span class="mi">05</span><span class="p">});</span>
 </pre></div>
 
 </div>
@@ -1957,24 +1957,24 @@ PlISLSIiIiLiIyXRIiIiIiI+UhItIiIiIuIjJdEiIiIiIj76P+bhd3LjvwIqAAAAAElFTkSuQmCC
 <span class="n">ohlc_dataframe</span><span class="p">(</span><span class="n">FB</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">):],</span> <span class="n">FB_plot</span><span class="p">)</span>
 
 <span class="n">FB_truncated</span> <span class="o">=</span> <span class="n">FB</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">18</span><span class="p">):</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">27</span><span class="p">)]</span>
-<span class="n">midpoint</span> <span class="o">=</span> <span class="n">FB_truncated</span><span class="p">[</span><span class="s">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">FB_truncated</span><span class="p">[</span><span class="s">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
-<span class="n">FB_plot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">FB_truncated</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">midpoint</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Midpoint&#39;</span><span class="p">)</span>
+<span class="n">midpoint</span> <span class="o">=</span> <span class="n">FB_truncated</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">FB_truncated</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">FB_plot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">FB_truncated</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">midpoint</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Midpoint&#39;</span><span class="p">)</span>
 <span class="n">FB_plot</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span>
                <span class="n">ax_fb</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax_fb</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-               <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Earnings Release&#39;</span><span class="p">)</span>
+               <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Earnings Release&#39;</span><span class="p">)</span>
 <span class="n">FB_plot</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">FB_plot</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;FB Midpoint Plot&#39;</span><span class="p">)</span>
+<span class="n">FB_plot</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;FB Midpoint Plot&#39;</span><span class="p">)</span>
 
 <span class="n">AAPL_plot</span> <span class="o">=</span> <span class="n">axarr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">ohlc_dataframe</span><span class="p">(</span><span class="n">AAPL</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">):],</span> <span class="n">AAPL_plot</span><span class="p">)</span>
 <span class="n">AAPL_truncated</span> <span class="o">=</span> <span class="n">AAPL</span><span class="p">[</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">26</span><span class="p">)]</span>
-<span class="n">midpoint</span> <span class="o">=</span> <span class="n">AAPL_truncated</span><span class="p">[</span><span class="s">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">AAPL_truncated</span><span class="p">[</span><span class="s">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
-<span class="n">AAPL_plot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">AAPL_truncated</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">midpoint</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Midpoint&#39;</span><span class="p">)</span>
+<span class="n">midpoint</span> <span class="o">=</span> <span class="n">AAPL_truncated</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">AAPL_truncated</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">AAPL_plot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">AAPL_truncated</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">midpoint</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Midpoint&#39;</span><span class="p">)</span>
 <span class="n">AAPL_plot</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">date2num</span><span class="p">(</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">26</span><span class="p">,</span> <span class="mi">12</span><span class="p">)),</span>
                  <span class="n">ax_aapl</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ax_aapl</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">],</span>
-                 <span class="n">color</span><span class="o">=</span><span class="s">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;Earnings Release&#39;</span><span class="p">)</span>
+                 <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Earnings Release&#39;</span><span class="p">)</span>
 <span class="n">AAPL_plot</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">AAPL_plot</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">&#39;AAPL Midpoint Plot&#39;</span><span class="p">);</span>
+<span class="n">AAPL_plot</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;AAPL Midpoint Plot&#39;</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -2453,74 +2453,74 @@ TkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Read in the events for each stock;</span>
-<span class="c"># The file was created using the first code block in the Appendix</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># Read in the events for each stock;</span>
+<span class="c1"># The file was created using the first code block in the Appendix</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">from</span> <span class="nn">dateutil.parser</span> <span class="k">import</span> <span class="n">parse</span>
 <span class="kn">from</span> <span class="nn">progressbar</span> <span class="k">import</span> <span class="n">ProgressBar</span>
 
-<span class="n">data_str</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;earnings_dates.yaml&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="c"># Need to remove invalid lines</span>
-<span class="n">filtered</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">&#39;{&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">))</span>
-<span class="n">earnings_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filtered</span><span class="p">))</span>
+<span class="n">data_str</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;earnings_dates.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># Need to remove invalid lines</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;{&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">earnings_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filtered</span><span class="p">))</span>
 
-<span class="c"># Convert our earnings data into a list of (ticker, date) pairs</span>
-<span class="c"># to make it easy to work with.</span>
-<span class="c"># This is horribly inefficient, but should get us what we need</span>
+<span class="c1"># Convert our earnings data into a list of (ticker, date) pairs</span>
+<span class="c1"># to make it easy to work with.</span>
+<span class="c1"># This is horribly inefficient, but should get us what we need</span>
 <span class="n">ticker_dates</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">date_list</span> <span class="ow">in</span> <span class="n">earnings_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="k">for</span> <span class="n">iso_str</span> <span class="ow">in</span> <span class="n">date_list</span><span class="p">:</span>
         <span class="n">ticker_dates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ticker</span><span class="p">,</span> <span class="n">parse</span><span class="p">(</span><span class="n">iso_str</span><span class="p">)))</span>
 
 <span class="k">def</span> <span class="nf">does_trend_down</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">horizon</span><span class="p">):</span>
-    <span class="c"># Figure out if the `event` has a downtrend for</span>
-    <span class="c"># the `horizon` days preceding it</span>
-    <span class="c"># As an interpretation note: it is assumed that</span>
-    <span class="c"># the closing price of day `event` is the reference</span>
-    <span class="c"># point, and we want `horizon` days before that.</span>
-    <span class="c"># The price_data.hdf was created in the second appendix code block</span>
+    <span class="c1"># Figure out if the `event` has a downtrend for</span>
+    <span class="c1"># the `horizon` days preceding it</span>
+    <span class="c1"># As an interpretation note: it is assumed that</span>
+    <span class="c1"># the closing price of day `event` is the reference</span>
+    <span class="c1"># point, and we want `horizon` days before that.</span>
+    <span class="c1"># The price_data.hdf was created in the second appendix code block</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s">&#39;price_data.hdf&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="p">)</span>
+        <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;price_data.hdf&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">ticker_data</span><span class="p">[</span><span class="n">event</span><span class="o">-</span><span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="p">):</span><span class="n">event</span><span class="p">]</span>
-        <span class="n">midpoints</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">midpoints</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
 
-        <span class="c"># Shift dates one forward into the future and subtract</span>
-        <span class="c"># Effectively: do we trend down over all days?</span>
+        <span class="c1"># Shift dates one forward into the future and subtract</span>
+        <span class="c1"># Effectively: do we trend down over all days?</span>
         <span class="n">elems</span> <span class="o">=</span> <span class="n">midpoints</span> <span class="o">-</span> <span class="n">midpoints</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">elems</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">elems</span><span class="o">.</span><span class="n">dropna</span><span class="p">()[</span><span class="n">elems</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">])</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="c"># If the stock doesn&#39;t exist, it doesn&#39;t qualify as trending down</span>
-        <span class="c"># Mostly this is here to make sure the entire analysis doesn&#39;t </span>
-        <span class="c"># blow up if there were issues in data retrieval</span>
-        <span class="k">return</span> <span class="k">False</span>
+        <span class="c1"># If the stock doesn&#39;t exist, it doesn&#39;t qualify as trending down</span>
+        <span class="c1"># Mostly this is here to make sure the entire analysis doesn&#39;t </span>
+        <span class="c1"># blow up if there were issues in data retrieval</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
 <span class="k">def</span> <span class="nf">study_trend</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span> <span class="n">trend_function</span><span class="p">):</span>
     <span class="n">five_day_events</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">horizon</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
     <span class="n">invalid_events</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">ProgressBar</span><span class="p">()(</span><span class="n">ticker_dates</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">trend_function</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">horizon</span><span class="p">):</span>
-            <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s">&#39;price_data.hdf&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="p">)</span>
-            <span class="n">event_data</span> <span class="o">=</span> <span class="n">ticker_data</span><span class="p">[</span><span class="n">event</span><span class="o">-</span><span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="p">):</span><span class="n">event</span><span class="o">+</span><span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="p">)][</span><span class="s">&#39;Close&#39;</span><span class="p">]</span>
+            <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;price_data.hdf&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="p">)</span>
+            <span class="n">event_data</span> <span class="o">=</span> <span class="n">ticker_data</span><span class="p">[</span><span class="n">event</span><span class="o">-</span><span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="p">):</span><span class="n">event</span><span class="o">+</span><span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="p">)][</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">five_day_events</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">five_day_events</span><span class="p">,</span> <span class="n">event_data</span><span class="p">])</span>
             <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                <span class="c"># Sometimes we don&#39;t get exactly the right number of values due to calendar</span>
-                <span class="c"># issues. I&#39;ve fixed most everything I can, and the few issues that are left</span>
-                <span class="c"># I assume don&#39;t systemically bias the results (i.e. data could be missing</span>
-                <span class="c"># because it doesn&#39;t exist, etc.). After running through, ~1% of events get</span>
-                <span class="c"># discarded this way</span>
+                <span class="c1"># Sometimes we don&#39;t get exactly the right number of values due to calendar</span>
+                <span class="c1"># issues. I&#39;ve fixed most everything I can, and the few issues that are left</span>
+                <span class="c1"># I assume don&#39;t systemically bias the results (i.e. data could be missing</span>
+                <span class="c1"># because it doesn&#39;t exist, etc.). After running through, ~1% of events get</span>
+                <span class="c1"># discarded this way</span>
                 <span class="n">invalid_events</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">ticker</span><span class="p">,</span> <span class="n">event</span><span class="p">))</span>
             
 
-    <span class="c"># Remove our initial zero row</span>
+    <span class="c1"># Remove our initial zero row</span>
     <span class="n">five_day_events</span> <span class="o">=</span> <span class="n">five_day_events</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:]</span>
     <span class="n">plot_study</span><span class="p">(</span><span class="n">five_day_events</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s">&#39;Action over {} days: {} events&#39;</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Action over {} days: {} events&#39;</span>
                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">horizon</span><span class="p">,</span><span class="n">five_day_events</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
     
-<span class="c"># Start with a 5 day study</span>
+<span class="c1"># Start with a 5 day study</span>
 <span class="n">study_trend</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">does_trend_down</span><span class="p">)</span>
 </pre></div>
 
@@ -3000,7 +3000,7 @@ ADBuCBoAAAAAAMC4+f+DLBbJVWQG2gAAAABJRU5ErkJggg==
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># 8 day study next</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># 8 day study next</span>
 <span class="n">study_trend</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">does_trend_down</span><span class="p">)</span>
 </pre></div>
 
@@ -3479,7 +3479,7 @@ AAAAKMr/B9pAH9lY/+K6AAAAAElFTkSuQmCC
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># 3 day study after that</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># 3 day study after that</span>
 <span class="n">study_trend</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">does_trend_down</span><span class="p">)</span>
 </pre></div>
 
@@ -3892,26 +3892,26 @@ STfmKmb+uQ4AAAAASUVORK5CYII=
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">does_trend_up</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">horizon</span><span class="p">):</span>
-    <span class="c"># Figure out if the `event` has an uptrend for</span>
-    <span class="c"># the `horizon` days preceding it</span>
-    <span class="c"># As an interpretation note: it is assumed that</span>
-    <span class="c"># the closing price of day `event` is the reference</span>
-    <span class="c"># point, and we want `horizon` days before that.</span>
-    <span class="c"># The price_data.hdf was created in the second appendix code block</span>
+    <span class="c1"># Figure out if the `event` has an uptrend for</span>
+    <span class="c1"># the `horizon` days preceding it</span>
+    <span class="c1"># As an interpretation note: it is assumed that</span>
+    <span class="c1"># the closing price of day `event` is the reference</span>
+    <span class="c1"># point, and we want `horizon` days before that.</span>
+    <span class="c1"># The price_data.hdf was created in the second appendix code block</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s">&#39;price_data.hdf&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="p">)</span>
+        <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;price_data.hdf&#39;</span><span class="p">,</span> <span class="n">ticker</span><span class="p">)</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">ticker_data</span><span class="p">[</span><span class="n">event</span><span class="o">-</span><span class="n">TradeDay</span><span class="p">(</span><span class="n">horizon</span><span class="p">):</span><span class="n">event</span><span class="p">]</span>
-        <span class="n">midpoints</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">midpoints</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
 
-        <span class="c"># Shift dates one forward into the future and subtract</span>
-        <span class="c"># Effectively: do we trend down over all days?</span>
+        <span class="c1"># Shift dates one forward into the future and subtract</span>
+        <span class="c1"># Effectively: do we trend down over all days?</span>
         <span class="n">elems</span> <span class="o">=</span> <span class="n">midpoints</span> <span class="o">-</span> <span class="n">midpoints</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">elems</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">elems</span><span class="o">.</span><span class="n">dropna</span><span class="p">()[</span><span class="n">elems</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="c"># If the stock doesn&#39;t exist, it doesn&#39;t qualify as trending down</span>
-        <span class="c"># Mostly this is here to make sure the entire analysis doesn&#39;t </span>
-        <span class="c"># blow up if there were issues in data retrieval</span>
-        <span class="k">return</span> <span class="k">False</span>
+        <span class="c1"># If the stock doesn&#39;t exist, it doesn&#39;t qualify as trending down</span>
+        <span class="c1"># Mostly this is here to make sure the entire analysis doesn&#39;t </span>
+        <span class="c1"># blow up if there were issues in data retrieval</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
 <span class="n">study_trend</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">does_trend_up</span><span class="p">)</span>
 </pre></div>
@@ -5192,38 +5192,38 @@ AAAAAGBWNBAAAAAAAMCsaCAAAAAAAIBZ0UAAAAAAAACz+n9WbX+0Yscg8AAAAABJRU5ErkJggg==
         <span class="bp">self</span><span class="o">.</span><span class="n">dates</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">&#39;table&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;table&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">store_dates</span> <span class="o">=</span> <span class="bp">True</span>
 
     <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">store_dates</span><span class="p">:</span>
-            <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;\d+/\d+/\d+&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;\d+/\d+/\d+&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
-        <span class="c"># If a company reports before the bell, record the earnings date</span>
-        <span class="c"># being at midnight the day before. Ex: WMT reports 5/19/2016,</span>
-        <span class="c"># but we want the reference point to be the closing price on 5/18/2016</span>
-        <span class="k">if</span> <span class="s">&#39;After Close&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="c1"># If a company reports before the bell, record the earnings date</span>
+        <span class="c1"># being at midnight the day before. Ex: WMT reports 5/19/2016,</span>
+        <span class="c1"># but we want the reference point to be the closing price on 5/18/2016</span>
+        <span class="k">if</span> <span class="s1">&#39;After Close&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">earnings_offset</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="s">&#39;Before Open&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="s1">&#39;Before Open&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">earnings_offset</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s">&#39;table&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;table&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">store_dates</span> <span class="o">=</span> <span class="bp">False</span>
 
 <span class="k">def</span> <span class="nf">earnings_releases</span><span class="p">(</span><span class="n">ticker</span><span class="p">):</span>
-    <span class="c">#print(&quot;Looking up ticker {}&quot;.format(ticker))</span>
-    <span class="n">user_agent</span> <span class="o">=</span> <span class="s">&#39;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) &#39;</span>\
-        <span class="s">&#39;Gecko/20100101 Firefox/46.0&#39;</span>
-    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;user-agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">}</span>
-    <span class="n">base_url</span> <span class="o">=</span> <span class="s">&#39;http://www.streetinsider.com/ec_earnings.php?q={}&#39;</span>\
+    <span class="c1">#print(&quot;Looking up ticker {}&quot;.format(ticker))</span>
+    <span class="n">user_agent</span> <span class="o">=</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; WOW64; rv:46.0) &#39;</span>\
+        <span class="s1">&#39;Gecko/20100101 Firefox/46.0&#39;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="n">user_agent</span><span class="p">}</span>
+    <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;http://www.streetinsider.com/ec_earnings.php?q={}&#39;</span>\
         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ticker</span><span class="p">)</span>
     <span class="n">e</span> <span class="o">=</span> <span class="n">EarningsParser</span><span class="p">()</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">adapters</span><span class="o">.</span><span class="n">HTTPAdapter</span><span class="p">(</span><span class="n">max_retries</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s">&#39;http://&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
     <span class="n">e</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">content</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">earnings_offset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -5231,18 +5231,18 @@ AAAAAGBWNBAAAAAAAMCsaCAAAAAAAIBZ0UAAAAAAAACz+n9WbX+0Yscg8AAAAABJRU5ErkJggg==
         <span class="n">past</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(),</span> <span class="n">dates</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span> <span class="n">past</span><span class="p">))</span>
 
-<span class="c"># Use a Russell-3000 ETF tracker (ticker IWV) to get a list of holdings</span>
-<span class="n">r3000</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;https://www.ishares.com/us/products/239714/&#39;</span>
-                    <span class="s">&#39;ishares-russell-3000-etf/1449138789749.ajax?&#39;</span>
-                    <span class="s">&#39;fileType=csv&amp;fileName=IWV_holdings&amp;dataType=fund&#39;</span><span class="p">,</span>
+<span class="c1"># Use a Russell-3000 ETF tracker (ticker IWV) to get a list of holdings</span>
+<span class="n">r3000</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://www.ishares.com/us/products/239714/&#39;</span>
+                    <span class="s1">&#39;ishares-russell-3000-etf/1449138789749.ajax?&#39;</span>
+                    <span class="s1">&#39;fileType=csv&amp;fileName=IWV_holdings&amp;dataType=fund&#39;</span><span class="p">,</span>
                     <span class="n">header</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">r3000_equities</span> <span class="o">=</span> <span class="n">r3000</span><span class="p">[(</span><span class="n">r3000</span><span class="p">[</span><span class="s">&#39;Exchange&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;NASDAQ&#39;</span><span class="p">)</span> <span class="o">|</span>
-                       <span class="p">(</span><span class="n">r3000</span><span class="p">[</span><span class="s">&#39;Exchange&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;New York Stock Exchange Inc.&#39;</span><span class="p">)]</span>
+<span class="n">r3000_equities</span> <span class="o">=</span> <span class="n">r3000</span><span class="p">[(</span><span class="n">r3000</span><span class="p">[</span><span class="s1">&#39;Exchange&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;NASDAQ&#39;</span><span class="p">)</span> <span class="o">|</span>
+                       <span class="p">(</span><span class="n">r3000</span><span class="p">[</span><span class="s1">&#39;Exchange&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;New York Stock Exchange Inc.&#39;</span><span class="p">)]</span>
 
-<span class="n">dates_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;earnings_dates.yaml&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">dates_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;earnings_dates.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
-    <span class="n">fs</span> <span class="o">=</span> <span class="p">{</span><span class="n">pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">earnings_releases</span><span class="p">,</span> <span class="n">r3000_equities</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="s">&#39;Ticker&#39;</span><span class="p">]):</span> <span class="n">t</span>
+    <span class="n">fs</span> <span class="o">=</span> <span class="p">{</span><span class="n">pool</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">earnings_releases</span><span class="p">,</span> <span class="n">r3000_equities</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="s1">&#39;Ticker&#39;</span><span class="p">]):</span> <span class="n">t</span>
           <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">r3000_equities</span><span class="o">.</span><span class="n">index</span><span class="p">}</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">progressbar</span><span class="o">.</span><span class="n">ProgressBar</span><span class="p">(</span><span class="n">term_width</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
                                    <span class="n">max_value</span><span class="o">=</span><span class="n">r3000_equities</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
@@ -5250,7 +5250,7 @@ AAAAAGBWNBAAAAAAAMCsaCAAAAAAAIBZ0UAAAAAAAACz+n9WbX+0Yscg8AAAAABJRU5ErkJggg==
     <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="o">.</span><span class="n">as_completed</span><span class="p">(</span><span class="n">fs</span><span class="p">):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">fs</span><span class="p">[</span><span class="n">future</span><span class="p">]</span>
         <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="n">dates_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="n">r3000_equities</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&#39;Ticker&#39;</span><span class="p">]:</span>
+        <span class="n">dates_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="n">r3000_equities</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;Ticker&#39;</span><span class="p">]:</span>
             <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()}))</span>
 </pre></div>
 <p>Downloading stock price data needed for the event studies:</p>
@@ -5263,31 +5263,31 @@ AAAAAGBWNBAAAAAAAMCsaCAAAAAAAIBZ0UAAAAAAAACz+n9WbX+0Yscg8AAAAABJRU5ErkJggg==
 <span class="kn">from</span> <span class="nn">progressbar</span> <span class="kn">import</span> <span class="n">ProgressBar</span>
 
 <span class="k">def</span> <span class="nf">fetch_ticker</span><span class="p">(</span><span class="n">ticker</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
-    <span class="c"># Quandl is currently giving me issues with returning</span>
-    <span class="c"># the entire dataset and not slicing server-side.</span>
-    <span class="c"># So instead, we&#39;ll do it client-side!</span>
-    <span class="n">q_format</span> <span class="o">=</span> <span class="s">&#39;%Y-%m-</span><span class="si">%d</span><span class="s">&#39;</span>
-    <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;YAHOO/&#39;</span> <span class="o">+</span> <span class="n">ticker</span><span class="p">,</span>
+    <span class="c1"># Quandl is currently giving me issues with returning</span>
+    <span class="c1"># the entire dataset and not slicing server-side.</span>
+    <span class="c1"># So instead, we&#39;ll do it client-side!</span>
+    <span class="n">q_format</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span>
+    <span class="n">ticker_data</span> <span class="o">=</span> <span class="n">quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YAHOO/&#39;</span> <span class="o">+</span> <span class="n">ticker</span><span class="p">,</span>
                              <span class="n">start_date</span><span class="o">=</span><span class="n">start</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">q_format</span><span class="p">),</span>
                              <span class="n">end_date</span><span class="o">=</span><span class="n">end</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">q_format</span><span class="p">),</span>
                              <span class="n">authtoken</span><span class="o">=</span><span class="n">QUANDL_KEY</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">ticker_data</span>
 
-<span class="n">data_str</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;earnings_dates.yaml&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="c"># Need to remove invalid lines</span>
-<span class="n">filtered</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s">&#39;{&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">))</span>
-<span class="n">earnings_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filtered</span><span class="p">))</span>
+<span class="n">data_str</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;earnings_dates.yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="c1"># Need to remove invalid lines</span>
+<span class="n">filtered</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;{&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">x</span><span class="p">,</span> <span class="n">data_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">earnings_data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">filtered</span><span class="p">))</span>
 
-<span class="c"># Get the first 1500 keys - split up into two statements</span>
-<span class="c"># because of Quandl rate limits</span>
+<span class="c1"># Get the first 1500 keys - split up into two statements</span>
+<span class="c1"># because of Quandl rate limits</span>
 <span class="n">tickers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">earnings_data</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
 <span class="n">price_dict</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">invalid_tickers</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">ProgressBar</span><span class="p">()(</span><span class="n">tickers</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1500</span><span class="p">]):</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="c"># Replace &#39;.&#39; with &#39;-&#39; in name for some tickers</span>
-        <span class="n">fixed</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+        <span class="c1"># Replace &#39;.&#39; with &#39;-&#39; in name for some tickers</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
         <span class="n">event_strs</span> <span class="o">=</span> <span class="n">earnings_data</span><span class="p">[</span><span class="n">ticker</span><span class="p">]</span>
         <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">event_strs</span><span class="p">]</span>
         <span class="n">td</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -5296,11 +5296,11 @@ AAAAAGBWNBAAAAAAAMCsaCAAAAAAAIBZ0UAAAAAAAACz+n9WbX+0Yscg8AAAAABJRU5ErkJggg==
     <span class="k">except</span> <span class="n">quandl</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span>
         <span class="n">invalid_tickers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ticker</span><span class="p">)</span>
 
-<span class="c"># Execute this after 10 minutes have passed</span>
+<span class="c1"># Execute this after 10 minutes have passed</span>
 <span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">ProgressBar</span><span class="p">()(</span><span class="n">tickers</span><span class="p">[</span><span class="mi">1500</span><span class="p">:]):</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="c"># Replace &#39;.&#39; with &#39;-&#39; in name for some tickers</span>
-        <span class="n">fixed</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">)</span>
+        <span class="c1"># Replace &#39;.&#39; with &#39;-&#39; in name for some tickers</span>
+        <span class="n">fixed</span> <span class="o">=</span> <span class="n">ticker</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
         <span class="n">event_strs</span> <span class="o">=</span> <span class="n">earnings_data</span><span class="p">[</span><span class="n">ticker</span><span class="p">]</span>
         <span class="n">events</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse</span><span class="p">(</span><span class="n">event</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">event_strs</span><span class="p">]</span>
         <span class="n">td</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
@@ -5309,7 +5309,7 @@ AAAAAGBWNBAAAAAAAMCsaCAAAAAAAIBZ0UAAAAAAAACz+n9WbX+0Yscg8AAAAABJRU5ErkJggg==
     <span class="k">except</span> <span class="n">quandl</span><span class="o">.</span><span class="n">NotFoundError</span><span class="p">:</span>
         <span class="n">invalid_tickers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ticker</span><span class="p">)</span>
 
-<span class="n">prices_store</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">HDFStore</span><span class="p">(</span><span class="s">&#39;price_data.hdf&#39;</span><span class="p">)</span>
+<span class="n">prices_store</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">HDFStore</span><span class="p">(</span><span class="s1">&#39;price_data.hdf&#39;</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">prices</span> <span class="ow">in</span> <span class="n">price_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
     <span class="n">prices_store</span><span class="p">[</span><span class="n">ticker</span><span class="p">]</span> <span class="o">=</span> <span class="n">prices</span>
 </pre></div>

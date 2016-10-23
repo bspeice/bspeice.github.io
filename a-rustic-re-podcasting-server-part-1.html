@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="I listen to a lot of Drum and Bass music, because it&#39;s beautiful music. And there&#39;s a particular site, Bassdrive.com that hosts a lot of great content. Specifically, the archives section of the ...">
+        <meta name="keywords" content="nutone, Rust">
+        <link rel="icon" href="https://bspeice.github.io/favicon.ico">
+
+        <title>A Rustic Re-Podcasting Server (Part 1) - Bradlee Speice</title>
+
+        <!-- Stylesheets -->
+        <link href="https://bspeice.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://bspeice.github.io/theme/css/fonts.css" rel="stylesheet">
+        <link href="https://bspeice.github.io/theme/css/nest.css" rel="stylesheet">
+        <link href="https://bspeice.github.io/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <link href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Full Atom Feed" />
+        <link href="https://bspeice.github.io/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Categories Atom Feed" />
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-74711362-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+        <!-- /Google Analytics -->
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="https://bspeice.github.io/"><img class="mr20" src="https://bspeice.github.io/images/logo.svg" alt="logo">Bradlee Speice</a>
+                    </div>
+                    <div class="nav pull-right">
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">A Rustic Re-Podcasting Server (Part 1)</h1>
+                      <p class="header-date"> <a href="https://bspeice.github.io/author/bradlee-speice.html">Bradlee Speice</a>, Sat 22 October 2016,  <a href="https://bspeice.github.io/category/blog.html">Blog</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="https://bspeice.github.io/tag/nutone.html">nutone</a>, <a href="https://bspeice.github.io/tag/rust.html">Rust</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <p>I listen to a lot of Drum and Bass music, because it's beautiful music. And
+there's a particular site, <a href="http://bassdrive.com/">Bassdrive.com</a> that hosts
+a lot of great content. Specifically, the
+<a href="http://archives.bassdrivearchive.com/">archives</a> section of the site has a
+list of the past shows that you can download and listen to. The issue is, it's
+just a <a href="http://archives.bassdrivearchive.com/6%20-%20Saturday/Electronic%20Warfare%20-%20The%20Overfiend/">giant list of links to download</a>. I'd really like
+this in a podcast format to take with me on the road, etc.</p>
+<p>So I wrote the <a href="https://github.com/bspeice/elektricity">elektricity</a> web
+application to actually accomplish all that. Whenever you request a feed, it
+goes out to Bassdrive, processes all the links on a page, and serves up some
+fresh, tasty RSS to satisfy your ears. I hosted it on Heroku using the free
+tier because it's really not resource-intensive at all.</p>
+<p><strong>The issue so far</strong> is that I keep running out of free tier hours during a
+month because my podcasting application likes to have a server scan for new
+episodes constantly. Not sure why it's doing that, but I don't have a whole
+lot of control over it. It's a phenomenal application otherwise.</p>
+<p><strong>My (over-engineered) solution</strong>: Re-write the application using the
+<a href="https://www.rust-lang.org/en-US/">Rust</a> programming language. I'd like to run
+this on a small hacker board I own, and doing this in Rust would allow me to
+easily cross-compile it. Plus, I've been very interested in the Rust language
+for a while and this would be a great opportunity to really learn it well.
+The code is available <a href="https://github.com/bspeice/nutone">here</a> as development
+progresses.</p>
+<h1>The Setup</h1>
+<p>We'll be using the <a href="http://ironframework.io/">iron</a> library to handle the
+server, and <a href="http://hyper.rs/">hyper</a> to fetch the data we need from elsewhere
+on the interwebs. <a href="http://doc.servo.org/html5ever/index.html">HTML5Ever</a> allows
+us to ingest the content that will be coming from Bassdrive, and finally,
+output is done with <a href="http://sunng87.github.io/handlebars-rust/handlebars/index.html">handlebars-rust</a>.</p>
+<p>It will ultimately be interesting to see how much more work must be done to
+actually get this working over another language like Python. Coming from a
+dynamic state of mind it's super easy to just chain stuff together, ship it out,
+and call it a day. I think I'm going to end up getting much dirtier trying to
+write all of this out.</p>
+<h1>Issue 1: Strings</h1>
+<p>Strings in Rust are hard. I acknowledge Python can get away with some things
+that make strings super easy (and Python 3 has gotten better at cracking down
+on some bad cases, <code>str &lt;-&gt; bytes</code> specifically), but Rust is hard.</p>
+<p>Let's take for example the <code>404</code> error handler I'm trying to write. The result
+should be incredibly simple: All I want is to echo back
+<code>Didn't find URL: &lt;url&gt;</code>. Shouldn't be that hard right? In Python I'd just do
+something like:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">echo_handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot;You&#39;re visiting: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+</pre></div>
+
+
+<p>And we'd call it a day. Rust isn't so simple. Let's start with the trivial
+examples people post online:</p>
+<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You found the server!&quot;</span><span class="p">)))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Doesn't look too bad right? In fact, it's essentially the same as the Python
+version! All we need to do is just send back a string of some form. So, we
+look up the documentation for <a href="http://ironframework.io/doc/iron/request/struct.Request.html"><code>Request</code></a> and see a <code>url</code> field that will contain
+what we want. Let's try the first iteration:</p>
+<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You found the URL: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">)))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Which yields the error:</p>
+<div class="highlight"><pre>error[E0369]: binary operation `+` cannot be applied to type `&amp;&#39;static str`
+</pre></div>
+
+
+<p>OK, what's going on here? Time to start Googling for <a href="https://www.google.com/#q=concatenate+strings+in+rust">"concatenate strings in Rust"</a>. That's what we
+want to do right? Concatenate a static string and the URL.</p>
+<p>After Googling, we come across a helpful <a href="https://doc.rust-lang.org/std/macro.concat!.html"><code>concat!</code></a> macro that looks really nice! Let's try that one:</p>
+<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;You found the URL: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">))))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>And the error:</p>
+<p><code>error: expected a literal</code></p>
+<p>Turns out Rust actually blows up because the <code>concat!</code> macro expects us to know
+at compile time what <code>req.url</code> is. Which, in my outsider opinion, is a bit
+strange. <code>println!</code> and <code>format!</code>, etc., all handle values they don't know at
+compile time. Why can't <code>concat!</code>? By any means, we need a new plan of attack.
+How about we try formatting strings?</p>
+<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;You found the URL: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">))))</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>And at long last, it works. Onwards!</p>
+<h1>Issue 2: Fighting with the borrow checker</h1>
+<p>Rust's single coolest feature is how the compiler can guarantee safety in your
+program. As long as you don't use <code>unsafe</code> pointers in Rust, you're guaranteed
+safety. And not having truly manual memory management is really cool; I'm
+totally OK with never having to write <code>malloc()</code> again.</p>
+<p>That said, even <a href="https://doc.rust-lang.org/book/ownership.html">the Rust documentation</a> makes a specific note:</p>
+<blockquote>
+<p>Many new users to Rust experience something we like to call
+‘fighting with the borrow checker’, where the Rust compiler refuses to
+compile a program that the author thinks is valid.</p>
+</blockquote>
+<p>If you have to put it in the documentation, it's not a helpful note:
+it's hazing.</p>
+<p>So now that we have a handler which works with information from the request, we
+want to start making something that looks like an actual web application.
+The router provided by <code>iron</code> isn't terribly difficult so I won't cover it.
+Instead, the thing that had me stumped for a couple hours was trying to
+dynamically create routes.</p>
+<p>The unfortunate thing with Rust (in my limited experience at the moment) is that
+there is a severe lack of non-trivial examples. Using the router is easy when
+you want to give an example of a static function. But how do you you start
+working on things that are a bit more complex?</p>
+<p>We're going to cover that here. Our first try: creating a function which returns
+other functions. This is a principle called <a href="http://stackoverflow.com/a/36321/1454178">currying</a>. We set up a function that allows us to keep some data in scope
+for another function to come later.</p>
+<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">build_handler</span><span class="p">(</span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">move</span><span class="w"> </span><span class="o">|</span><span class="n">_</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>We've simply set up a function that returns another anonymous function with the
+<code>message</code> parameter scoped in. If you compile this, you get not 1, not 2, but 5
+new errors. 4 of them are the same though:</p>
+<div class="highlight"><pre>error[E0277]: the trait bound `for&lt;&#39;r, &#39;r, &#39;r&gt; std::ops::Fn(&amp;&#39;r mut iron::Request&lt;&#39;r, &#39;r&gt;) -&gt; std::result::Result&lt;iron::Response, iron::IronError&gt; + &#39;static: std::marker::Sized` is not satisfied
+</pre></div>
+
+
+<p>...oookay. I for one, am not going to spend time trying to figure out what's
+going on there.</p>
+<p>And it is here that I will save the audience many hours of frustrated effort.
+At this point, I decided to switch from <code>iron</code> to pure <code>hyper</code> since using
+<code>hyper</code> would give me a much simpler API. All I would have to do is build a
+function that took two parameters as input, and we're done. That said, it
+ultimately posed many more issues because I started getting into a weird fight
+with the <code>'static</code> <a href="https://doc.rust-lang.org/book/lifetimes.html">lifetime</a>
+and being a Rust newbie I just gave up on trying to understand it.</p>
+<p>Instead, we will abandon (mostly) the curried function attempt, and instead
+take advantage of something Rust actually intends us to use: <code>struct</code> and
+<code>trait</code>.</p>
+<p>Remember when I talked about a lack of non-trivial examples on the Internet?
+This is what I was talking about. I could only find <em>one</em> example of this
+available online, and it was incredibly complex and contained code we honestly
+don't need or care about. There was no documentation of how to build routes that
+didn't use static functions, etc. But, I'm assuming you don't really care about
+my whining, so let's get to it.</p>
+<p>The <code>iron</code> documentation mentions the <a href="http://ironframework.io/doc/iron/middleware/trait.Handler.html"><code>Handler</code></a> trait as being something we can implement.
+Does the function signature for that <code>handle()</code> method look familiar? It's what
+we've been working with so far.</p>
+<p>The principle is that we need to define a new <code>struct</code> to hold our data, then
+implement that <code>handle()</code> method to return the result. Something that looks
+like this might do:</p>
+<div class="highlight"><pre><span class="k">struct</span><span class="w"> </span><span class="n">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Handler</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">message</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Later in the code when we set up the router...</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Is it working yet?&quot;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+
+
+<p>We attempt to build a struct, and give its <code>handle</code> method off to the router
+so the router knows what to do.</p>
+<p>You guessed it, more errors:</p>
+<div class="highlight"><pre><span class="n">error</span><span class="o">:</span> <span class="n">attempted</span> <span class="n">to</span> <span class="n">take</span> <span class="n">value</span> <span class="n">of</span> <span class="n">method</span> <span class="err">`</span><span class="n">handle</span><span class="err">`</span> <span class="n">on</span> <span class="n">type</span> <span class="err">`</span><span class="n">EchoHandler</span><span class="err">`</span>
+</pre></div>
+
+
+<p>Now, the Rust compiler is actually a really nice fellow, and offers us help:</p>
+<div class="highlight"><pre><span class="n">help</span><span class="o">:</span> <span class="n">maybe</span> <span class="n">a</span> <span class="err">`</span><span class="o">()</span><span class="err">`</span> <span class="n">to</span> <span class="n">call</span> <span class="n">it</span> <span class="k">is</span> <span class="n">missing</span><span class="o">?</span> <span class="n">If</span> <span class="n">not</span><span class="o">,</span> <span class="k">try</span> <span class="n">an</span> <span class="n">anonymous</span> <span class="kd">function</span>
+</pre></div>
+
+
+<p>We definitely don't want to call that function, so maybe try an anonymous
+function as it recommends?</p>
+<div class="highlight"><pre><span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">req</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+
+
+<p>Another error:</p>
+<div class="highlight"><pre>error[E0373]: closure may outlive the current function, but it borrows `echo`, which is owned by the current function
+</pre></div>
+
+
+<p>Another helpful message:</p>
+<div class="highlight"><pre><span class="n">help</span><span class="o">:</span> <span class="n">to</span> <span class="n">force</span> <span class="n">the</span> <span class="n">closure</span> <span class="n">to</span> <span class="n">take</span> <span class="n">ownership</span> <span class="n">of</span> <span class="err">`</span><span class="n">echo</span><span class="err">`</span> <span class="o">(</span><span class="n">and</span> <span class="n">any</span> <span class="n">other</span> <span class="n">referenced</span> <span class="n">variables</span><span class="o">),</span> <span class="n">use</span> <span class="n">the</span> <span class="err">`</span><span class="n">move</span><span class="err">`</span> <span class="n">keyword</span>
+</pre></div>
+
+
+<p>We're getting closer though! Let's implement this change:</p>
+<div class="highlight"><pre><span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">|</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">req</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
+</pre></div>
+
+
+<p>And here's where things get strange:</p>
+<div class="highlight"><pre>error[E0507]: cannot move out of borrowed content
+  --&gt; src/main.rs:18:40
+   |
+18 |         Ok(Response::with((status::Ok, self.message)))
+   |                                        ^^^^ cannot move out of borrowed content
+</pre></div>
+
+
+<p>Now, this took me another couple hours to figure out. I'm going to explain it,
+but <strong>keep this in mind: Rust only allows one reference at a time</strong> (exceptions
+apply of course).</p>
+<p>When we attempt to use <code>self.message</code> as it has been created in the earlier
+<code>struct</code>, we essentially are trying to give it away to another piece of code.
+Rust's semantics then state that <em>we may no longer access it</em> unless it is
+returned to us (which <code>iron</code>'s code does not do). There are two ways to fix
+this:</p>
+<ol>
+<li>Only give away references (i.e. <code>&amp;self.message</code> instead of <code>self.message</code>)
+instead of transferring ownership</li>
+<li>Make a copy of the underlying value which will be safe to give away</li>
+</ol>
+<p>I didn't know these were the two options originally, so I hope this helps the
+audience out. Because <code>iron</code> won't accept a reference, we are forced into the
+second option: making a copy. To do so, we just need to change the function
+to look like this:</p>
+<div class="highlight"><pre><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">clone</span><span class="p">())))</span><span class="w"></span>
+</pre></div>
+
+
+<p>Not so bad, huh? My only complaint is that it took so long to figure out exactly
+what was going on.</p>
+<p>And now we have a small server that we can configure dynamically. At long last.</p>
+<blockquote>
+<p>Final sidenote: You can actually do this without anonymous functions. Just
+change the router line to:
+    <code>router.get("/", echo, "index");</code></p>
+<p>Rust's type system seems to figure out that we want to use the <code>handle()</code> method.</p>
+</blockquote>
+<h1>Conclusion</h1>
+<p>After a good long days' work, we now have the routing functionality set up on
+our application. We should be able to scale this pretty well in the future:
+the RSS content we need to deliver in the future can be treated as a string, so
+the building blocks are in place.</p>
+<p>There are two important things I learned starting with Rust today:</p>
+<ol>
+<li>Rust is a new language, and while the code is high-quality, the mindshare is coming.</li>
+<li>I'm a terrible programmer.</li>
+</ol>
+<p>Number 1 is pretty obvious and not surprising to anyone. Number two caught me
+off guard. I've gotten used to having either a garbage collector (Java, Python,
+etc.) or playing a little fast and loose with scoping rules (C, C++). You don't
+have to worry about object lifetime there. With Rust, it's forcing me to fully
+understand and use well the memory in my applications. In the final mistake I
+fixed (using <code>.clone()</code>) I would have been fine in C++ to just give away that
+reference and never use it again. I wouldn't have run into a "use-after-free"
+error, but I would have potentially been leaking memory. Rust forced me to be
+incredibly precise about how I use it.</p>
+<p>All said I'm excited for using Rust more. I think it's super cool, it's just
+going to take me a lot longer to do this than I originally thought.</p>
+
+
+    <div class="comments">
+        <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'bradleespeice';
+                var disqus_identifier = 'a-rustic-re-podcasting-server-part-1.html';
+                var disqus_url = 'https://bspeice.github.io/a-rustic-re-podcasting-server-part-1.html';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/bspeice" target="_blank">Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/bradleespeice" target="_blank">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>

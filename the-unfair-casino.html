@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Or, how to get thrown out of a casino because you&#39;re a mathematician. In the ongoing eternal cycle of mathematicians asking generally useless questions about probability, I dreamt up another one. The ...">
+        <meta name="description" content="Or, how to get thrown out of a casino because you&#39;re a mathematician. In the ongoing eternal cycle of mathematicians asking generally useless questions about probability, I dreamt up another one. ...">
         <meta name="keywords" content="casino, em, machine learning, probability, simulated annealing">
         <link rel="icon" href="https://bspeice.github.io/favicon.ico">
 
@@ -114,8 +114,8 @@
 <span class="n">fair_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="n">fair_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fair_1</span> <span class="o">+</span> <span class="n">fair_2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Fair Distribution&#39;</span><span class="p">);</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">fair_1</span> <span class="o">+</span> <span class="n">fair_2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Fair Distribution&#39;</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -326,8 +326,8 @@ D_2 = \left\{
 <span class="n">x1</span> <span class="o">=</span> <span class="n">unfair_die</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="n">unfair_die</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;$D_1$ biased low, $D_2$ biased high&#39;</span><span class="p">);</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;$D_1$ biased low, $D_2$ biased high&#39;</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -525,8 +525,8 @@ D_2 = \left\{
 <span class="n">x1</span> <span class="o">=</span> <span class="n">unfair_die</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 <span class="n">x2</span> <span class="o">=</span> <span class="n">unfair_die</span><span class="p">(</span><span class="n">d2</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
 
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&quot;$D_1$ and $D_2$ biased to 1 and 6&quot;</span><span class="p">);</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;$D_1$ and $D_2$ biased to 1 and 6&quot;</span><span class="p">);</span>
 </pre></div>
 
 </div>
@@ -746,18 +746,18 @@ and continue the next iteration.</li>
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">polynomial</span>
 
 <span class="k">def</span> <span class="nf">density_coef</span><span class="p">(</span><span class="n">d1_density</span><span class="p">,</span> <span class="n">d2_density</span><span class="p">):</span>
-    <span class="c"># Calculating the probabilities of each outcome was taken</span>
-    <span class="c"># from this author: http://math.stackexchange.com/a/1710392/320784</span>
+    <span class="c1"># Calculating the probabilities of each outcome was taken</span>
+    <span class="c1"># from this author: http://math.stackexchange.com/a/1710392/320784</span>
     <span class="n">d1_p</span> <span class="o">=</span> <span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="p">(</span><span class="n">d1_density</span><span class="p">)</span>
     <span class="n">d2_p</span> <span class="o">=</span> <span class="n">polynomial</span><span class="o">.</span><span class="n">Polynomial</span><span class="p">(</span><span class="n">d2_density</span><span class="p">)</span>
     <span class="n">coefs</span> <span class="o">=</span> <span class="p">(</span><span class="n">d1_p</span> <span class="o">*</span> <span class="n">d2_p</span><span class="p">)</span><span class="o">.</span><span class="n">coef</span>
     <span class="k">return</span> <span class="n">coefs</span>
 
 <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d1_density</span><span class="p">,</span> <span class="n">d2_density</span><span class="p">):</span>
-    <span class="c"># We&#39;ve now got the probabilities of each event, but we need</span>
-    <span class="c"># to shift the array a bit so we can use the x values to actually</span>
-    <span class="c"># index into it. This will allow us to do all the calculations</span>
-    <span class="c"># incredibly quickly</span>
+    <span class="c1"># We&#39;ve now got the probabilities of each event, but we need</span>
+    <span class="c1"># to shift the array a bit so we can use the x values to actually</span>
+    <span class="c1"># index into it. This will allow us to do all the calculations</span>
+    <span class="c1"># incredibly quickly</span>
     <span class="n">coefs</span> <span class="o">=</span> <span class="n">density_coef</span><span class="p">(</span><span class="n">d1_density</span><span class="p">,</span> <span class="n">d2_density</span><span class="p">)</span>
     <span class="n">coefs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">coefs</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">coefs</span><span class="p">[</span><span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -784,23 +784,23 @@ and continue the next iteration.</li>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">permute</span><span class="p">(</span><span class="n">d1_density</span><span class="p">,</span> <span class="n">d2_density</span><span class="p">):</span>
-    <span class="c"># To ensure we have legitimate densities, we will randomly</span>
-    <span class="c"># increase one die face probability by `change`,</span>
-    <span class="c"># and decrease one by `change`.</span>
-    <span class="c"># This means there are something less than (1/`change`)^12 possibilities</span>
-    <span class="c"># we are trying to search over.</span>
+    <span class="c1"># To ensure we have legitimate densities, we will randomly</span>
+    <span class="c1"># increase one die face probability by `change`,</span>
+    <span class="c1"># and decrease one by `change`.</span>
+    <span class="c1"># This means there are something less than (1/`change`)^12 possibilities</span>
+    <span class="c1"># we are trying to search over.</span>
     <span class="n">change</span> <span class="o">=</span> <span class="o">.</span><span class="mi">01</span>
     
     <span class="n">d1_index1</span><span class="p">,</span> <span class="n">d1_index2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">d2_index1</span><span class="p">,</span> <span class="n">d2_index2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     
-    <span class="c"># Also make sure to copy. I&#39;ve had some weird aliasing issues</span>
-    <span class="c"># in the past that made everything blow up.</span>
+    <span class="c1"># Also make sure to copy. I&#39;ve had some weird aliasing issues</span>
+    <span class="c1"># in the past that made everything blow up.</span>
     <span class="n">new_d1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">d1_density</span><span class="p">))</span>
     <span class="n">new_d2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">d2_density</span><span class="p">))</span>
     
-    <span class="c"># While this doesn&#39;t account for the possibility that some</span>
-    <span class="c"># values go negative, in practice this never happens</span>
+    <span class="c1"># While this doesn&#39;t account for the possibility that some</span>
+    <span class="c1"># values go negative, in practice this never happens</span>
     <span class="n">new_d1</span><span class="p">[</span><span class="n">d1_index1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">change</span>
     <span class="n">new_d1</span><span class="p">[</span><span class="n">d1_index2</span><span class="p">]</span> <span class="o">-=</span> <span class="n">change</span>
     <span class="n">new_d2</span><span class="p">[</span><span class="n">d2_index1</span><span class="p">]</span> <span class="o">+=</span> <span class="n">change</span>
@@ -833,24 +833,24 @@ and continue the next iteration.</li>
     <span class="n">switch_failures</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">iter_count</span> <span class="o">=</span> <span class="mi">0</span>
     
-    <span class="c"># Start with guessing fair dice</span>
+    <span class="c1"># Start with guessing fair dice</span>
     <span class="n">cur_d1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
     <span class="n">cur_d2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
     <span class="n">cur_score</span> <span class="o">=</span> <span class="n">score</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cur_d1</span><span class="p">,</span> <span class="n">cur_d2</span><span class="p">)</span>
     
-    <span class="c"># Keep track of our best guesses - may not be</span>
-    <span class="c"># what we end with</span>
+    <span class="c1"># Keep track of our best guesses - may not be</span>
+    <span class="c1"># what we end with</span>
     <span class="n">max_score</span> <span class="o">=</span> <span class="n">cur_score</span>
     <span class="n">max_d1</span> <span class="o">=</span> <span class="n">cur_d1</span>
     <span class="n">max_d2</span> <span class="o">=</span> <span class="n">cur_d2</span>
     
-    <span class="c"># Optimization stops when we have failed to switch `conv_count`</span>
-    <span class="c"># times (presumably because we have a great guess), or we reach</span>
-    <span class="c"># the maximum number of iterations.</span>
+    <span class="c1"># Optimization stops when we have failed to switch `conv_count`</span>
+    <span class="c1"># times (presumably because we have a great guess), or we reach</span>
+    <span class="c1"># the maximum number of iterations.</span>
     <span class="k">while</span> <span class="n">switch_failures</span> <span class="o">&lt;</span> <span class="n">conv_count</span> <span class="ow">and</span> <span class="n">iter_count</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="p">:</span>
         <span class="n">iter_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">iter_count</span> <span class="o">%</span> <span class="p">(</span><span class="n">max_iter</span> <span class="o">/</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s">&#39;Iteration: {}; Current score (higher is better): {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Iteration: {}; Current score (higher is better): {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                     <span class="n">iter_count</span><span class="p">,</span> <span class="n">cur_score</span><span class="p">))</span>
                 
         <span class="n">new_d1</span><span class="p">,</span> <span class="n">new_d2</span> <span class="o">=</span> <span class="n">permute</span><span class="p">(</span><span class="n">cur_d1</span><span class="p">,</span> <span class="n">cur_d2</span><span class="p">)</span>
@@ -862,19 +862,19 @@ and continue the next iteration.</li>
             <span class="n">max_d2</span> <span class="o">=</span> <span class="n">new_d2</span>
             
         <span class="k">if</span> <span class="n">new_score</span> <span class="o">&gt;</span> <span class="n">cur_score</span><span class="p">:</span>
-            <span class="c"># If the new permutation beats the old one,</span>
-            <span class="c"># automatically select it.</span>
+            <span class="c1"># If the new permutation beats the old one,</span>
+            <span class="c1"># automatically select it.</span>
             <span class="n">cur_score</span> <span class="o">=</span> <span class="n">new_score</span>
             <span class="n">cur_d1</span> <span class="o">=</span> <span class="n">new_d1</span>
             <span class="n">cur_d2</span> <span class="o">=</span> <span class="n">new_d2</span>
             <span class="n">switch_failures</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># We didn&#39;t beat the current score, but allow</span>
-            <span class="c"># for possibly switching anyways.</span>
+            <span class="c1"># We didn&#39;t beat the current score, but allow</span>
+            <span class="c1"># for possibly switching anyways.</span>
             <span class="n">accept_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">new_score</span> <span class="o">-</span> <span class="n">cur_score</span><span class="p">)</span>
             <span class="n">coin_toss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">coin_toss</span> <span class="o">&lt;</span> <span class="n">accept_prob</span><span class="p">:</span>
-                <span class="c"># We randomly switch to the new distribution</span>
+                <span class="c1"># We randomly switch to the new distribution</span>
                 <span class="n">cur_score</span> <span class="o">=</span> <span class="n">new_score</span>
                 <span class="n">cur_d1</span> <span class="o">=</span> <span class="n">new_d1</span>
                 <span class="n">cur_d2</span> <span class="o">=</span> <span class="n">new_d2</span>
@@ -882,7 +882,7 @@ and continue the next iteration.</li>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">switch_failures</span> <span class="o">+=</span> <span class="mi">1</span>
             
-    <span class="c"># Return both our best guess, and the ending guess</span>
+    <span class="c1"># Return both our best guess, and the ending guess</span>
     <span class="k">return</span> <span class="n">max_d1</span><span class="p">,</span> <span class="n">max_d2</span><span class="p">,</span> <span class="n">cur_d1</span><span class="p">,</span> <span class="n">cur_d2</span>
 </pre></div>
 
@@ -916,20 +916,20 @@ and continue the next iteration.</li>
     <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
     <span class="n">max_d1</span><span class="p">,</span> <span class="n">max_d2</span><span class="p">,</span> <span class="n">final_d1</span><span class="p">,</span> <span class="n">final_d2</span> <span class="o">=</span> <span class="n">optimize</span><span class="p">(</span><span class="n">d1_vals</span> <span class="o">+</span> <span class="n">d2_vals</span><span class="p">)</span>
     <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;Simulated Annealing time: {:.02f}s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Simulated Annealing time: {:.02f}s&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
     
     <span class="n">coef_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">coef_range</span><span class="p">,</span> <span class="n">density_coef</span><span class="p">(</span><span class="n">d1_dist</span><span class="p">,</span> <span class="n">d2_dist</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;True Distribution&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;True Distribution&#39;</span><span class="p">)</span>
     
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">d1_vals</span> <span class="o">+</span> <span class="n">d2_vals</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Empirical Distribution&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Empirical Distribution&#39;</span><span class="p">)</span>
     
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">coef_range</span><span class="p">,</span> <span class="n">density_coef</span><span class="p">(</span><span class="n">max_d1</span><span class="p">,</span> <span class="n">max_d2</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">&#39;Recovered Distribution&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Recovered Distribution&#39;</span><span class="p">)</span>
     
     <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span><span class="o">.</span><span class="n">set_size_inches</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 

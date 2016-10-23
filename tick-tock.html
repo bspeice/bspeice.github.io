@@ -137,7 +137,7 @@
 <div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># Import all the OAuth secret information from a local file</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># Import all the OAuth secret information from a local file</span>
 <span class="kn">from</span> <span class="nn">secrets</span> <span class="k">import</span> <span class="n">CLIENT_SECRET</span><span class="p">,</span> <span class="n">CLIENT_ID</span><span class="p">,</span> <span class="n">CALLBACK_URL</span>
 </pre></div>
 
@@ -178,17 +178,17 @@ Application: Thank you, now give me all the data.</code></pre>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">urllib</span>
 
-<span class="n">FITBIT_URI</span> <span class="o">=</span> <span class="s">&#39;https://www.fitbit.com/oauth2/authorize&#39;</span>
+<span class="n">FITBIT_URI</span> <span class="o">=</span> <span class="s1">&#39;https://www.fitbit.com/oauth2/authorize&#39;</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c"># If we need more than one scope, must be a CSV string</span>
-    <span class="s">&#39;scope&#39;</span><span class="p">:</span> <span class="s">&#39;heartrate&#39;</span><span class="p">,</span>
-    <span class="s">&#39;response_type&#39;</span><span class="p">:</span> <span class="s">&#39;token&#39;</span><span class="p">,</span>
-    <span class="s">&#39;expires_in&#39;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span> <span class="c"># 1 day</span>
-    <span class="s">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">CALLBACK_URL</span><span class="p">,</span>
-    <span class="s">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">CLIENT_ID</span>
+    <span class="c1"># If we need more than one scope, must be a CSV string</span>
+    <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;heartrate&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;token&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;expires_in&#39;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span> <span class="c1"># 1 day</span>
+    <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">CALLBACK_URL</span><span class="p">,</span>
+    <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">CLIENT_ID</span>
 <span class="p">}</span>
 
-<span class="n">request_url</span> <span class="o">=</span> <span class="n">FITBIT_URI</span> <span class="o">+</span> <span class="s">&#39;?&#39;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">request_url</span> <span class="o">=</span> <span class="n">FITBIT_URI</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -211,10 +211,10 @@ Application: Thank you, now give me all the data.</code></pre>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c"># The `response_url` variable contains the full URL that</span>
-<span class="c"># FitBit sent back to us, but most importantly,</span>
-<span class="c"># contains the token we need for authorization.</span>
-<span class="n">access_token</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">response_url</span><span class="p">))[</span><span class="s">&#39;access_token&#39;</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span class="c1"># The `response_url` variable contains the full URL that</span>
+<span class="c1"># FitBit sent back to us, but most importantly,</span>
+<span class="c1"># contains the token we need for authorization.</span>
+<span class="n">access_token</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">response_url</span><span class="p">))[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -243,41 +243,41 @@ Application: Thank you, now give me all the data.</code></pre>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
 
 <span class="n">session</span> <span class="o">=</span> <span class="n">OAuth2Session</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="p">{</span>
-        <span class="s">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">access_token</span><span class="p">,</span>
-        <span class="s">&#39;token_type&#39;</span><span class="p">:</span> <span class="s">&#39;Bearer&#39;</span>
+        <span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">access_token</span><span class="p">,</span>
+        <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer&#39;</span>
     <span class="p">})</span>
 
-<span class="n">format_str</span> <span class="o">=</span> <span class="s">&#39;%Y-%m-%d&#39;</span>
+<span class="n">format_str</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span>
 <span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
 <span class="n">dr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
 
-<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;https://api.fitbit.com/1/user/-/activities/heart/date/{0}/1d/1min.json&#39;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.fitbit.com/1/user/-/activities/heart/date/{0}/1d/1min.json&#39;</span>
 <span class="n">hr_responses</span> <span class="o">=</span> <span class="p">[</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format_str</span><span class="p">)))</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dr</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">record_to_df</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
-    <span class="k">if</span> <span class="s">&#39;activities-heart&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
-        <span class="k">return</span> <span class="k">None</span>
-    <span class="n">date_str</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s">&#39;activities-heart&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;dateTime&#39;</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s">&#39;activities-heart-intraday&#39;</span><span class="p">][</span><span class="s">&#39;dataset&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="s1">&#39;activities-heart&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">date_str</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;activities-heart&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;dateTime&#39;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;activities-heart-intraday&#39;</span><span class="p">][</span><span class="s1">&#39;dataset&#39;</span><span class="p">])</span>
         
-    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_str</span> <span class="o">+</span> <span class="s">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="s">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span class="p">))</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_str</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">df</span>
 
 <span class="n">hr_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">record_to_df</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">json</span><span class="p">())</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">hr_responses</span><span class="p">]</span>
 <span class="n">hr_df_concat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hr_dataframes</span><span class="p">)</span>
 
 
-<span class="c"># There are some minutes with missing data, so we need to correct that</span>
+<span class="c1"># There are some minutes with missing data, so we need to correct that</span>
 <span class="n">full_daterange</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">hr_df_concat</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                               <span class="n">hr_df_concat</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                              <span class="n">freq</span><span class="o">=</span><span class="s">&#39;min&#39;</span><span class="p">)</span>
-<span class="n">hr_df_full</span> <span class="o">=</span> <span class="n">hr_df_concat</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">full_daterange</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;nearest&#39;</span><span class="p">)</span>
+                              <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
+<span class="n">hr_df_full</span> <span class="o">=</span> <span class="n">hr_df_concat</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">full_daterange</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Heartbeats from {} to {}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats from {} to {}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                                             <span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                                            <span class="n">hr_df_full</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+                                            <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
 </pre></div>
 
 </div>
@@ -325,9 +325,9 @@ hr_q \cdot n - hr_d \cdot (n-m)
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">quarterly_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">quarterly_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">leap_day_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
-                            <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">==</span> <span class="mi">29</span><span class="p">)][</span><span class="s">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                            <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">==</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">num_quarters</span> <span class="o">=</span> <span class="mi">96</span>
 <span class="n">leap_days</span> <span class="o">=</span> <span class="mi">6</span>
 
@@ -372,17 +372,17 @@ hr_q \cdot n - hr_d \cdot (n-m)
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">minute_mean</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="c"># Don&#39;t you wish you knew?</span>
-<span class="c"># birthday_minutes = ???</span>
+<div class=" highlight hl-ipython3"><pre><span class="n">minute_mean</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="c1"># Don&#39;t you wish you knew?</span>
+<span class="c1"># birthday_minutes = ???</span>
 
 <span class="n">birthday_heartbeats</span> <span class="o">=</span> <span class="n">birthday_minutes</span> <span class="o">*</span> <span class="n">minute_mean</span>
 
 <span class="n">heartbeats_until_2016</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">birthday_heartbeats</span> <span class="o">+</span> <span class="n">jan_92_jan_16</span><span class="p">)</span>
 <span class="n">remaining_2016</span> <span class="o">=</span> <span class="n">total_heartbeats</span> <span class="o">-</span> <span class="n">heartbeats_until_2016</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Heartbeats so far: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heartbeats_until_2016</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Remaining heartbeats: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_2016</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats so far: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heartbeats_until_2016</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_2016</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -473,8 +473,8 @@ hr_q \cdot n - hr_d \cdot (n - m)
 <div class=" highlight hl-ipython3"><pre><span class="n">four_year_periods</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">//</span> <span class="n">heartbeats_4year</span>
 <span class="n">remaining_4y</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">-</span> <span class="n">four_year_periods</span> <span class="o">*</span> <span class="n">heartbeats_4year</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Four year periods remaining: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">four_year_periods</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Remaining heartbeats after 4 year periods: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_4y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Four year periods remaining: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">four_year_periods</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after 4 year periods: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_4y</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -513,14 +513,14 @@ Remaining heartbeats after 4 year periods: 48041640
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="n">remaining_leap</span> <span class="o">=</span> <span class="n">remaining_4y</span> <span class="o">-</span> <span class="n">leap_day_count</span>
-<span class="c"># Ignore leap day in the data set</span>
+<span class="c1"># Ignore leap day in the data set</span>
 <span class="n">heartbeats_quarter</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
-                                <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="mi">29</span><span class="p">)][</span><span class="s">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+                                <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">quarters_left</span> <span class="o">=</span> <span class="n">remaining_leap</span> <span class="o">//</span> <span class="n">heartbeats_quarter</span>
 <span class="n">remaining_year</span> <span class="o">=</span> <span class="n">remaining_leap</span> <span class="o">-</span> <span class="n">quarters_left</span> <span class="o">*</span> <span class="n">heartbeats_quarter</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Quarters left starting 2068: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">quarters_left</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s">&quot;Remaining heartbeats after that: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_year</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Quarters left starting 2068: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">quarters_left</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after that: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_year</span><span class="p">))</span>
 </pre></div>
 
 </div>
