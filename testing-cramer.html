@@ -4,22 +4,20 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="In [1]: import requests import pandas as pd import numpy as np from dateutil import parser as dtparser from dateutil.relativedelta import relativedelta from datetime import datetime from ...">
+        <meta name="description" content="{% notebook 2015-12-26-testing_cramer.ipynb %} MathJax.Hub.Config({tex2jax: {inlineMath: [[&#39;$&#39;,&#39;$&#39;], [&#39;\(&#39;,&#39;\)&#39;]]}});">
         <meta name="keywords" content="data science, futures">
-        <link rel="icon" href="https://bspeice.github.io/favicon.ico">
+        <link rel="icon" href="/favicon.ico">
 
         <title>Testing Cramer - Bradlee Speice</title>
 
         <!-- Stylesheets -->
-        <link href="https://bspeice.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/fonts.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/nest.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/pygment.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
-        <link href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Full Atom Feed" />
-        <link href="https://bspeice.github.io/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,17 +26,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <!-- Google Analytics -->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-74711362-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-        <!-- /Google Analytics -->
 
 
     </head>
@@ -52,7 +39,7 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://bspeice.github.io/"><img class="mr20" src="https://bspeice.github.io/images/logo.svg" alt="logo">Bradlee Speice</a>
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
                     </div>
                     <div class="nav pull-right">
                     </div>
@@ -67,12 +54,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Testing Cramer</h1>
-                      <p class="header-date"> <a href="https://bspeice.github.io/author/bradlee-speice.html">Bradlee Speice</a>, Sat 26 December 2015,  <a href="https://bspeice.github.io/category/blog.html">Blog</a></p>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Sat 26 December 2015,  <a href="/category/blog.html">Blog</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://bspeice.github.io/tag/data-science.html">data science</a>, <a href="https://bspeice.github.io/tag/futures.html">futures</a>                      </p>
+<a href="/tag/data-science.html">data science</a>, <a href="/tag/futures.html">futures</a>                      </p>
                   </div>
               </div>
         </div>
@@ -86,425 +73,7 @@
 
         <!-- Content -->
     <div class="container content">
-        <p>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">dateutil</span> <span class="k">import</span> <span class="n">parser</span> <span class="k">as</span> <span class="n">dtparser</span>
-<span class="kn">from</span> <span class="nn">dateutil.relativedelta</span> <span class="k">import</span> <span class="n">relativedelta</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">html.parser</span> <span class="k">import</span> <span class="n">HTMLParser</span>
-<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
-<span class="kn">import</span> <span class="nn">Quandl</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Testing-Cramer">Testing Cramer<a class="anchor-link" href="#Testing-Cramer">&#182;</a></h1><p>Pursuant to attending a graduate school studying Financial Engineering, I've been a fan of the <a href="http://seekingalpha.com/author/wall-street-breakfast?s=wall-street-breakfast">Mad Money</a> TV show featuring the bombastic Jim Cramer. One of the things that he's said is that you shouldn't use the futures to predict where the stock market is going to go. But he says it often enough, I've begun to wonder - who is he trying to convince?</p>
-<p>It makes sense that because futures on things like the S&amp;P 500 are traded continuously, they would price in market information before the stock market opens. So is Cramer right to be convinced that strategies based on the futures are a poor idea? I wanted to test it out.</p>
-<p>The first question is where to get the future's data. I've been part of <a href="http://seekingalpha.com/">Seeking Alpha</a> for a bit, and they publish the <a href="http://seekingalpha.com/author/wall-street-breakfast?s=wall-street-breakfast">Wall Street Breakfast</a> newsletter which contains daily future's returns as of 6:20 AM EST. I'd be interested in using that data to see if we can actually make some money.</p>
-<p>First though, let's get the data:</p>
-<h1 id="Downloading-Futures-data-from-Seeking-Alpha">Downloading Futures data from Seeking Alpha<a class="anchor-link" href="#Downloading-Futures-data-from-Seeking-Alpha">&#182;</a></h1><p>We're going to define two HTML parsing classes - one to get the article URL's from a page, and one to get the actual data from each article.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">ArticleListParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Given a web page with articles on it, parse out the article links&quot;&quot;&quot;</span>
-    
-    <span class="n">articles</span> <span class="o">=</span> <span class="p">[]</span>
-    
-    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-        <span class="c1">#if tag == &#39;div&#39; and (&quot;id&quot;, &quot;author_articles_wrapper&quot;) in attrs:</span>
-        <span class="c1">#    self.fetch_links = True</span>
-        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;a&#39;</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;dashboard_article_link&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
-            <span class="n">href</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;href&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">articles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">href</span><span class="p">)</span>
-            
-<span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;http://seekingalpha.com/author/wall-street-breakfast/articles&quot;</span>
-<span class="n">article_page_urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">base_url</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">base_url</span> <span class="o">+</span> <span class="s1">&#39;/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
-
-<span class="n">global_articles</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">article_page_urls</span><span class="p">:</span>
-    <span class="c1"># We need to switch the user agent, as SA blocks the standard requests agent</span>
-    <span class="n">articles_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page</span><span class="p">,</span>
-                                <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Wget/1.13.4&quot;</span><span class="p">})</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArticleListParser</span><span class="p">()</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">articles_html</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">global_articles</span> <span class="o">+=</span> <span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">articles</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">class</span> <span class="nc">ArticleReturnParser</span><span class="p">(</span><span class="n">HTMLParser</span><span class="p">):</span>
-    <span class="s2">&quot;Given an article, parse out the futures returns in it&quot;</span>
-    
-    <span class="n">record_font_tags</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">in_font_tag</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="c1"># data = {} # See __init__</span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-    
-    <span class="k">def</span> <span class="nf">handle_starttag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;span&#39;</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;itemprop&#39;</span><span class="p">,</span> <span class="s1">&#39;datePublished&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="n">attrs</span><span class="p">:</span>
-            <span class="n">date_string</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;content&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">date</span> <span class="o">=</span> <span class="n">dtparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">date_string</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">date</span>
-            
-        <span class="bp">self</span><span class="o">.</span><span class="n">in_font_tag</span> <span class="o">=</span> <span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;font&#39;</span>
-        
-    <span class="k">def</span> <span class="nf">safe_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">100</span>
-        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
-            
-    <span class="k">def</span> <span class="nf">handle_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_font_tags</span> <span class="ow">and</span> <span class="s2">&quot;Futures at 6&quot;</span> <span class="ow">in</span> <span class="n">content</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">record_font_tags</span> <span class="o">=</span> <span class="kc">True</span>
-            
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_font_tags</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_font_tag</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;DOW&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">safe_float</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;S&amp;P&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">safe_float</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;NASDAQ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">safe_float</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Crude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">safe_float</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Gold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">safe_float</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
-            
-            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-            
-    <span class="k">def</span> <span class="nf">handle_endtag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">in_font_tag</span> <span class="o">=</span> <span class="kc">False</span>
-
-<span class="k">def</span> <span class="nf">retrieve_data</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
-    <span class="n">sa</span> <span class="o">=</span> <span class="s2">&quot;http://seekingalpha.com&quot;</span>
-    <span class="n">article_html</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sa</span> <span class="o">+</span> <span class="n">url</span><span class="p">,</span>
-                               <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Wget/1.13.4&quot;</span><span class="p">})</span>
-    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArticleReturnParser</span><span class="p">()</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="n">article_html</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url</span><span class="p">})</span>
-    <span class="n">parser</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">article_html</span><span class="o">.</span><span class="n">text</span><span class="p">})</span>
-    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">data</span>
-
-<span class="c1"># This copy **MUST** be in place. I&#39;m not sure why,</span>
-<span class="c1"># as you&#39;d think that the data being returned would already</span>
-<span class="c1"># represent a different memory location. Even so, it blows up</span>
-<span class="c1"># if you don&#39;t do this.</span>
-<span class="n">article_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">global_articles</span><span class="p">))</span>
-<span class="n">article_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">copy</span><span class="p">(</span><span class="n">retrieve_data</span><span class="p">(</span><span class="n">url</span><span class="p">))</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">article_list</span><span class="p">]</span>
-<span class="c1"># If there&#39;s an issue downloading the article, drop it.</span>
-<span class="n">article_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">article_data</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Fetching-the-Returns-data">Fetching the Returns data<a class="anchor-link" href="#Fetching-the-Returns-data">&#182;</a></h1><p>Now that we have the futures data, we're going to compare across 4 different indices - the S&amp;P 500 index, Dow Jones Industrial, Russell 2000, and NASDAQ 100. Let's get the data off of Quandl to make things easier!</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># article_df is sorted by date, so we get the first row.</span>
-<span class="n">start_date</span> <span class="o">=</span> <span class="n">article_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">relativedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">SPY</span> <span class="o">=</span> <span class="n">Quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GOOG/NYSE_SPY&quot;</span><span class="p">,</span> <span class="n">trim_start</span><span class="o">=</span><span class="n">start_date</span><span class="p">)</span>
-<span class="n">DJIA</span> <span class="o">=</span> <span class="n">Quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GOOG/AMS_DIA&quot;</span><span class="p">,</span> <span class="n">trim_start</span><span class="o">=</span><span class="n">start_date</span><span class="p">)</span>
-<span class="n">RUSS</span> <span class="o">=</span> <span class="n">Quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GOOG/AMEX_IWM&quot;</span><span class="p">,</span> <span class="n">trim_start</span><span class="o">=</span><span class="n">start_date</span><span class="p">)</span>
-<span class="n">NASDAQ</span> <span class="o">=</span> <span class="n">Quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GOOG/EPA_QQQ&quot;</span><span class="p">,</span> <span class="n">trim_start</span><span class="o">=</span><span class="n">start_date</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Running-the-Comparison">Running the Comparison<a class="anchor-link" href="#Running-the-Comparison">&#182;</a></h1><p>There are two types of tests I want to determine: How accurate each futures category is at predicting the index's opening change over the close before, and predicting the index's daily return.</p>
-<p>Let's first calculate how good each future is at predicting the opening return over the previous day. I expect that the futures will be more than 50% accurate, since the information is recorded 3 hours before the markets open.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">calculate_opening_ret</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
-    <span class="c1"># I&#39;m not a huge fan of the appending for loop,</span>
-    <span class="c1"># but it&#39;s a bit verbose for a comprehension</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="p">)):</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">prior_close</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
-        <span class="n">open_val</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">open_val</span> <span class="o">-</span> <span class="n">prior_close</span><span class="p">)</span> <span class="o">/</span> <span class="n">prior_close</span>
-        
-    <span class="k">return</span> <span class="n">data</span>
-
-<span class="n">SPY_open_ret</span> <span class="o">=</span> <span class="n">calculate_opening_ret</span><span class="p">(</span><span class="n">SPY</span><span class="p">)</span>
-<span class="n">DJIA_open_ret</span> <span class="o">=</span> <span class="n">calculate_opening_ret</span><span class="p">(</span><span class="n">DJIA</span><span class="p">)</span>
-<span class="n">RUSS_open_ret</span> <span class="o">=</span> <span class="n">calculate_opening_ret</span><span class="p">(</span><span class="n">RUSS</span><span class="p">)</span>
-<span class="n">NASDAQ_open_ret</span> <span class="o">=</span> <span class="n">calculate_opening_ret</span><span class="p">(</span><span class="n">NASDAQ</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">signs_match</span><span class="p">(</span><span class="n">list_1</span><span class="p">,</span> <span class="n">list_2</span><span class="p">):</span>
-    <span class="c1"># This is a surprisingly difficult task - we have to match</span>
-    <span class="c1"># up the dates in order to check if opening returns actually match</span>
-    <span class="n">index_dict_dt</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">():</span> <span class="n">list_2</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">list_2</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    
-    <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">list_1</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">row_dt</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">row_value</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">index_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">row_dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">row_dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">row_dt</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">index_dt</span> <span class="ow">in</span> <span class="n">list_2</span><span class="p">:</span>
-            <span class="n">index_value</span> <span class="o">=</span> <span class="n">list_2</span><span class="p">[</span><span class="n">index_dt</span><span class="p">]</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">row_value</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index_value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="n">row_value</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index_value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="n">row_value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index_value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-                    <span class="n">matches</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">matches</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="c1">#print(&quot;{}&quot;.format(list_2[index_dt]))</span>
-    <span class="k">return</span> <span class="n">matches</span>
-    
-    
-<span class="n">prediction_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">matches_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">count_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">index_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;SPY&quot;</span><span class="p">:</span> <span class="n">SPY_open_ret</span><span class="p">,</span> <span class="s2">&quot;DJIA&quot;</span><span class="p">:</span> <span class="n">DJIA_open_ret</span><span class="p">,</span> <span class="s2">&quot;RUSS&quot;</span><span class="p">:</span> <span class="n">RUSS_open_ret</span><span class="p">,</span> <span class="s2">&quot;NASDAQ&quot;</span><span class="p">:</span> <span class="n">NASDAQ_open_ret</span><span class="p">}</span>
-<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SPY&quot;</span><span class="p">,</span> <span class="s2">&quot;DJIA&quot;</span><span class="p">,</span> <span class="s2">&quot;RUSS&quot;</span><span class="p">,</span> <span class="s2">&quot;NASDAQ&quot;</span><span class="p">]</span>
-<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Crude&quot;</span><span class="p">,</span> <span class="s2">&quot;Gold&quot;</span><span class="p">,</span> <span class="s2">&quot;DOW&quot;</span><span class="p">,</span> <span class="s2">&quot;NASDAQ&quot;</span><span class="p">,</span> <span class="s2">&quot;S&amp;P&quot;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
-    <span class="n">matches_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">future</span><span class="p">:</span> <span class="n">signs_match</span><span class="p">(</span><span class="n">article_df</span><span class="p">[[</span><span class="n">future</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]],</span>
-                                               <span class="n">index_dict</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">}</span>
-    <span class="n">count_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">future</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">future</span><span class="p">])</span> <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">}</span>
-    <span class="n">prediction_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">future</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">matches_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">future</span><span class="p">])</span>
-                              <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">}</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Articles Checked: &quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">count_dict</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediction Accuracy:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">prediction_dict</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Articles Checked: 
-        DJIA  NASDAQ  RUSS  SPY
-Crude    268     268   271  271
-DOW      268     268   271  271
-Gold     268     268   271  271
-NASDAQ   268     268   271  271
-S&amp;P      268     268   271  271
-
-Prediction Accuracy:
-            DJIA    NASDAQ      RUSS       SPY
-Crude   0.544776  0.522388  0.601476  0.590406
-DOW     0.611940  0.604478  0.804428  0.841328
-Gold    0.462687  0.455224  0.464945  0.476015
-NASDAQ  0.615672  0.608209  0.797048  0.830258
-S&amp;P     0.604478  0.597015  0.811808  0.848708
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>This data is very interesting. Some insights:</p>
-<ul>
-<li>Both DOW and NASDAQ futures are pretty bad at predicting their actual market openings</li>
-<li>NASDAQ and Dow are fairly unpredictable; Russell 2000 and S&amp;P are very predictable</li>
-<li>Gold is a poor predictor in general - intuitively Gold should move inverse to the market, but it appears to be about as accurate as a coin flip.</li>
-</ul>
-<p>All said though it appears that futures data is important for determining market direction for both the S&amp;P 500 and Russell 2000. Cramer is half-right: futures data isn't very helpful for the Dow and NASDAQ indices, but is great for the S&amp;P and Russell indices.</p>
-<h1 id="The-next-step---Predicting-the-close">The next step - Predicting the close<a class="anchor-link" href="#The-next-step---Predicting-the-close">&#182;</a></h1><p>Given the code we currently have, I'd like to predict the close of the market as well. We can re-use most of the code, so let's see what happens:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">calculate_closing_ret</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
-    <span class="c1"># I&#39;m not a huge fan of the appending for loop,</span>
-    <span class="c1"># but it&#39;s a bit verbose for a comprehension</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">frame</span><span class="p">)):</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">open_val</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;Open&#39;</span><span class="p">]</span>
-        <span class="n">close_val</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
-        <span class="n">data</span><span class="p">[</span><span class="n">date</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">close_val</span> <span class="o">-</span> <span class="n">open_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">open_val</span>
-        
-    <span class="k">return</span> <span class="n">data</span>
-
-<span class="n">SPY_close_ret</span> <span class="o">=</span> <span class="n">calculate_closing_ret</span><span class="p">(</span><span class="n">SPY</span><span class="p">)</span>
-<span class="n">DJIA_close_ret</span> <span class="o">=</span> <span class="n">calculate_closing_ret</span><span class="p">(</span><span class="n">DJIA</span><span class="p">)</span>
-<span class="n">RUSS_close_ret</span> <span class="o">=</span> <span class="n">calculate_closing_ret</span><span class="p">(</span><span class="n">RUSS</span><span class="p">)</span>
-<span class="n">NASDAQ_close_ret</span> <span class="o">=</span> <span class="n">calculate_closing_ret</span><span class="p">(</span><span class="n">NASDAQ</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">signs_match</span><span class="p">(</span><span class="n">list_1</span><span class="p">,</span> <span class="n">list_2</span><span class="p">):</span>
-    <span class="c1"># This is a surprisingly difficult task - we have to match</span>
-    <span class="c1"># up the dates in order to check if opening returns actually match</span>
-    <span class="n">index_dict_dt</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">():</span> <span class="n">list_2</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">list_2</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
-    
-    <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">list_1</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
-        <span class="n">row_dt</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">row_value</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">index_dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">row_dt</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">row_dt</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">row_dt</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">index_dt</span> <span class="ow">in</span> <span class="n">list_2</span><span class="p">:</span>
-            <span class="n">index_value</span> <span class="o">=</span> <span class="n">list_2</span><span class="p">[</span><span class="n">index_dt</span><span class="p">]</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">row_value</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index_value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="n">row_value</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index_value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> \
-                <span class="p">(</span><span class="n">row_value</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">index_value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
-                    <span class="n">matches</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">matches</span> <span class="o">+=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="c1">#print(&quot;{}&quot;.format(list_2[index_dt]))</span>
-    <span class="k">return</span> <span class="n">matches</span>
-    
-    
-<span class="n">matches_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">count_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">prediction_dict</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">index_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;SPY&quot;</span><span class="p">:</span> <span class="n">SPY_close_ret</span><span class="p">,</span> <span class="s2">&quot;DJIA&quot;</span><span class="p">:</span> <span class="n">DJIA_close_ret</span><span class="p">,</span>
-              <span class="s2">&quot;RUSS&quot;</span><span class="p">:</span> <span class="n">RUSS_close_ret</span><span class="p">,</span> <span class="s2">&quot;NASDAQ&quot;</span><span class="p">:</span> <span class="n">NASDAQ_close_ret</span><span class="p">}</span>
-<span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;SPY&quot;</span><span class="p">,</span> <span class="s2">&quot;DJIA&quot;</span><span class="p">,</span> <span class="s2">&quot;RUSS&quot;</span><span class="p">,</span> <span class="s2">&quot;NASDAQ&quot;</span><span class="p">]</span>
-<span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Crude&quot;</span><span class="p">,</span> <span class="s2">&quot;Gold&quot;</span><span class="p">,</span> <span class="s2">&quot;DOW&quot;</span><span class="p">,</span> <span class="s2">&quot;NASDAQ&quot;</span><span class="p">,</span> <span class="s2">&quot;S&amp;P&quot;</span><span class="p">]</span>
-<span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
-    <span class="n">matches_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">future</span><span class="p">:</span> <span class="n">signs_match</span><span class="p">(</span><span class="n">article_df</span><span class="p">[[</span><span class="n">future</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">]],</span>
-                                               <span class="n">index_dict</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">}</span>
-    <span class="n">count_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">future</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">future</span><span class="p">])</span> <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">}</span>
-    <span class="n">prediction_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">future</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">matches_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">future</span><span class="p">])</span>
-                              <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">}</span>
-    
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Articles Checked:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">count_dict</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediction Accuracy:&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">prediction_dict</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Articles Checked:
-        DJIA  NASDAQ  RUSS  SPY
-Crude    268     268   271  271
-DOW      268     268   271  271
-Gold     268     268   271  271
-NASDAQ   268     268   271  271
-S&amp;P      268     268   271  271
-
-Prediction Accuracy:
-            DJIA    NASDAQ      RUSS       SPY
-Crude   0.533582  0.529851  0.501845  0.542435
-DOW     0.589552  0.608209  0.535055  0.535055
-Gold    0.455224  0.451493  0.483395  0.512915
-NASDAQ  0.582090  0.626866  0.531365  0.538745
-S&amp;P     0.585821  0.608209  0.535055  0.535055
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Well, it appears that the futures data is terrible at predicting market close. NASDAQ predicting NASDAQ is the most interesting data point, but 63% accuracy isn't accurate enough to make money consistently.</p>
-<h1 id="Final-sentiments">Final sentiments<a class="anchor-link" href="#Final-sentiments">&#182;</a></h1><p>The data bears out very close to what I expected would happen:</p>
-<ul>
-<li>Futures data is more accurate than a coin flip for predicting openings, which makes sense since it is recorded only 3 hours before the actual opening</li>
-<li>Futures data is about as acccurate as a coin flip for predicting closings, which means there is no money to be made in trying to predict the market direction for the day given the futures data.</li>
-</ul>
-<p>In summary:</p>
-<ul>
-<li>Cramer is half right: Futures data is not good for predicting the market open of the Dow and NASDAQ indices. Contrary to Cramer though, it is very good for predicting the S&amp;P and Russell indices - we can achieve an accuracy slightly over 80% for each. </li>
-<li>Making money in the market is hard. We can't just go to the futures and treat them as an oracle for where the market will close.</li>
-</ul>
-<p>I hope you've enjoyed this, I quite enjoyed taking a deep dive in the analytics this way. I'll be posting more soon!</p>
-
-</div>
-</div>
-</div></p>
+        <p>{% notebook 2015-12-26-testing_cramer.ipynb %}</p>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 </script>
@@ -512,20 +81,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 <script async src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML'></script>
 
 
-    <div class="comments">
-        <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'bradleespeice';
-                var disqus_identifier = 'testing-cramer.html';
-                var disqus_url = 'https://bspeice.github.io/testing-cramer.html';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
         
     </div>
         <!-- /Content --> 
@@ -537,7 +92,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title"></div>
                         <ul class="list-unstyled">
-                            <li><a href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">

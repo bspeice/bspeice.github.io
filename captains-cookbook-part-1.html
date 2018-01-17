@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Captain&#39;s Cookbook - Part 1 I&#39;ve been working a lot with Cap&#39;N Proto recently with Rust, but there&#39;s a real dearth of information on how to set up and get going quickly. In the interest of trying...">
+        <meta name="keywords" content="capnproto rust">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>Captain's Cookbook - Part 1 - Bradlee Speice</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
+                    </div>
+                    <div class="nav pull-right">
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Captain's Cookbook - Part 1</h1>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Tue 16 January 2018,  <a href="/category/blog.html">Blog</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/capnproto-rust.html">capnproto rust</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h1>Captain's Cookbook - Part 1</h1>
+<p>I've been working a lot with <a href="https://capnproto.org/">Cap'N Proto</a> recently with Rust, but there's a real dearth of information
+on how to set up and get going quickly. In the interest of trying to get more people using this (because I think it's
+fantastic), I'm going to work through a couple of examples detailing what exactly should be done to get going.</p>
+<p>So, what is Cap'N Proto? It's a data serialization library. It has contemporaries with <a href="https://developers.google.com/protocol-buffers/">Protobuf</a>
+and <a href="https://google.github.io/flatbuffers/">FlatBuffers</a>, but is better compared with FlatBuffers. The whole point behind it
+is to define a schema language and serialization format such that:</p>
+<ol>
+<li>Applications that do not share the same base programming language can communicate</li>
+<li>The data and schema you use can naturally evolve over time as your needs change</li>
+</ol>
+<p>Accompanying this are typically code generators that take the schemas you define for your application and give you back
+code for different languages to get data to and from that schema.</p>
+<p>Now, what makes Cap'N Proto different from, say, Protobuf, is that there is no serialization/deserialization step the same way
+as is implemented with Protobuf. Instead, the idea is that the message itself can be loaded in memory and used directly there.</p>
+<p>We're going to take a look at a series of progressively more complex projects that use Cap'N Proto in an effort to provide some
+examples of what idiomatic usage looks like, and shorten the startup time needed to make use of this library in Rust projects.
+If you want to follow along, feel free. If not, I've posted <a href="https://github.com/bspeice/capnp_cookbook_1">the final result</a>
+for reference.</p>
+<h1>Step 1: Installing <code>capnp</code></h1>
+<p>The <code>capnp</code> binary itself is needed for taking the schema files you write and turning them into a format that can be used by the
+code generation libraries. Don't ask me what that actually means, I just know that you need to make sure this is installed.</p>
+<p>I'll refer you to <a href="https://capnproto.org/install.html">Cap'N Proto's installation instructions</a> here. As a quick TLDR though:</p>
+<ul>
+<li>Linux users will likely have a binary shipped by their package manager - On Ubuntu, <code>apt install capnproto</code> is enough</li>
+<li>OS X users can use <a href="https://brew.sh/">Homebrew</a> as an easy install path. Just <code>brew install capnp</code></li>
+<li>Windows users are a bit more complicated. If you're using <a href="https://chocolatey.org/">Chocolatey</a>, there's <a href="https://chocolatey.org/packages/capnproto/">a package</a> available. If that doesn't work however, you need to download <a href="https://capnproto.org/capnproto-c++-win32-0.6.1.zip">a release zip</a> and make sure that the <code>capnp.exe</code> binary is in your <code>%PATH%</code> environment variable</li>
+</ul>
+<p>The way you know you're done with this step is if the following command works in your shell:</p>
+<div class="highlight"><pre><span></span>capnp id
+</pre></div>
+
+
+<h1>Step 2: Starting a Cap'N Proto Rust project</h1>
+<p>After the <code>capnp</code> binary is set up, it's time to actually create our Rust project. Nothing terribly complex here, just a simple</p>
+<div class="highlight"><pre><span></span>mkdir capnp_cookbook_1
+<span class="nb">cd</span> capnp_cookbook_1
+cargo init --bin
+</pre></div>
+
+
+<p>We'll put the following content into <code>Cargo.toml</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">[package]</span>
+<span class="na">name</span> <span class="o">=</span> <span class="s">&quot;capnp_cookbook_1&quot;</span>
+<span class="na">version</span> <span class="o">=</span> <span class="s">&quot;0.1.0&quot;</span>
+<span class="na">authors</span> <span class="o">=</span> <span class="s">[&quot;Bradlee Speice &lt;bspeice@kcg.com&gt;&quot;]</span>
+
+<span class="k">[build-dependencies]</span>
+<span class="na">capnpc</span> <span class="o">=</span> <span class="s">&quot;0.8&quot;  # 1</span>
+
+<span class="k">[dependencies]</span>
+<span class="na">capnp</span> <span class="o">=</span> <span class="s">&quot;0.8&quot;  # 2</span>
+</pre></div>
+
+
+<p>This sets up: </p>
+<ol>
+<li>The Rust code generator (CAPNProto Compiler)</li>
+<li>The Cap'N Proto runtime library (CAPNProto runtime)</li>
+</ol>
+<p>We've now got everything prepared that we need for writing a Cap'N Proto project.</p>
+<h1>Step 3: Writing a basic schema</h1>
+<p>We're going to start with writing a pretty trivial data schema that we can extend later. This is just intended to make sure
+you get familiar with how to start from a basic project.</p>
+<p>First, we're going to create a top-level directory for storing the schema files in:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Assuming we&#39;re starting from the `capnp_cookbook_1` directory created earlier</span>
+
+mkdir schema
+<span class="nb">cd</span> schema
+</pre></div>
+
+
+<p>Now, we're going to put the following content in <code>point.capnp</code>:</p>
+<div class="highlight"><pre><span></span><span class="mh">@0xab555145c708dad2</span><span class="p">;</span>
+
+<span class="k">struct</span> <span class="n">Point</span> <span class="p">{</span>
+    <span class="n">x</span> <span class="mi">@0</span> <span class="o">:</span><span class="n">Int32</span><span class="p">;</span>
+    <span class="n">y</span> <span class="mi">@1</span> <span class="o">:</span><span class="n">Int32</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Pretty easy, we've now got structure for an object we'll be able to quickly encode in a binary format.</p>
+<h1>Step 4: Setting up the build process</h1>
+<p>Now it's time to actually set up the build process to make sure that Cap'N Proto generates the Rust code we'll eventually be using.
+This is typically done through a <code>build.rs</code> file to invoke the schema compiler.</p>
+<p>In the same folder as your <code>Cargo.toml</code> file, please put the following content in <code>build.rs</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">capnpc</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span>::<span class="n">capnpc</span>::<span class="n">CompilerCommand</span>::<span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="p">.</span><span class="n">src_prefix</span><span class="p">(</span><span class="s">&quot;schema&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// 1</span>
+<span class="w">        </span><span class="p">.</span><span class="n">file</span><span class="p">(</span><span class="s">&quot;schema/point.capnp&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// 2</span>
+<span class="w">        </span><span class="p">.</span><span class="n">run</span><span class="p">().</span><span class="n">expect</span><span class="p">(</span><span class="s">&quot;compiling schema&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>This sets up the protocol compiler (<code>capnpc</code> from earlier) to compile the schema we've built so far.</p>
+<ol>
+<li>Because Cap'N Proto schema files can re-use types specified in other files, the <code>src_prefix()</code> tells the compiler
+where to look for those extra files at.</li>
+<li>We specify the schema file we're including by hand. In a much larger project, you could presumably build the <code>CompilerCommand</code>
+dynamically, but we won't worry too much about that one for now.</li>
+</ol>
+<h1>Step 5: Running the build</h1>
+<p>If you've done everything correctly so far, you should be able to actually build the project and see the auto-generated code.
+Run a <code>cargo build</code> command, and if you don't see <code>cargo</code> complaining, you're doing just fine!</p>
+<p>So where exactly does the generated code go to? I think it's critically important for people to be able to see what the generated
+code looks like, because you need to understand what you're actually programming against. The short answer is: the generated code lives
+somewhere in the <code>target/</code> directory.</p>
+<p>The long answer is that you're best off running a <code>find</code> command to get the actual file path:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Assuming we&#39;re running from the capnp_cookbook_1 project folder</span>
+find . -name point_capnp.rs
+</pre></div>
+
+
+<p>Alternately, if the <code>find</code> command isn't available, the path will look something like:</p>
+<div class="highlight"><pre><span></span>./target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs
+</pre></div>
+
+
+<p>See if there are any paths in your target directory that look similar.</p>
+<p>Now, the file content looks pretty nasty. I've included an example <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs">here</a>
+if you aren't following along at home. There are a couple things I'll try and point out though so you can get an idea of how
+the schema we wrote for the "Point" message is tied to the generated code.</p>
+<p>First, the Cap'N Proto library splits things up into <code>Builder</code> and <code>Reader</code> structs. These are best thought of the same way
+Rust separates <code>mut</code> from non-<code>mut</code> code. <code>Builder</code>s are <code>mut</code> versions of your message, and <code>Reader</code>s are immutable versions.</p>
+<p>For example, the <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L90"><code>Builder</code> impl</a> for <code>point</code> defines <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L105"><code>get_x()</code></a>, <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L109"><code>set_x()</code></a>, <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L113"><code>get_y()</code></a>, and <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L117"><code>set_y()</code></a> methods.
+In comparison, the <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L38"><code>Reader</code> impl</a> only defines <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L47"><code>get_x()</code></a> and <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/target/debug/build/capnp_cookbook_1-c6e2990393c32fe6/out/point_capnp.rs#L51"><code>get_y()</code></a> methods.</p>
+<p>So now we know that there are some <code>get</code> and <code>set</code> methods available for our <code>x</code> and <code>y</code> coordinates;
+but what do we actually do with those?</p>
+<h1>Step 6: Making a point</h1>
+<p>So we've install Cap'N Proto, gotten a project set up, and can generate schema code now. It's time to actually start building
+Cap'N Proto messages! I'm going to put the code you need here because it's small, and put some extra long comments inline. This code
+should go in <a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/src/main.rs"><code>src/main.rs</code></a>:</p>
+<div class="highlight"><pre><span></span><span class="c1">// Note that we use `capnp` here, NOT `capnpc`</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">capnp</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// We create a module here to define how we are to access the code</span>
+<span class="c1">// being included.</span>
+<span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">point_capnp</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// The environment variable OUT_DIR is set by Cargo, and</span>
+<span class="w">    </span><span class="c1">// is the location of all the code that was built as part</span>
+<span class="w">    </span><span class="c1">// of the codegen step.</span>
+<span class="w">    </span><span class="c1">// point_capnp.rs is the actual file to include</span>
+<span class="w">    </span><span class="n">include</span><span class="o">!</span><span class="p">(</span><span class="n">concat</span><span class="o">!</span><span class="p">(</span><span class="n">env</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;OUT_DIR&quot;</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;/point_capnp.rs&quot;</span><span class="p">));</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// The process of building a Cap&#39;N Proto message is a bit tedious.</span>
+<span class="w">    </span><span class="c1">// We start by creating a generic Builder; it acts as the message</span>
+<span class="w">    </span><span class="c1">// container that we&#39;ll later be filling with content of our `Point`</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capnp</span>::<span class="n">message</span>::<span class="n">Builder</span>::<span class="n">new_default</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Because we need a mutable reference to the `builder` later,</span>
+<span class="w">    </span><span class="c1">// we fence off this part of the code to allow sequential mutable</span>
+<span class="w">    </span><span class="c1">// borrows. As I understand it, non-lexical lifetimes:</span>
+<span class="w">    </span><span class="c1">// https://github.com/rust-lang/rust-roadmap/issues/16</span>
+<span class="w">    </span><span class="c1">// will make this no longer necessary</span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// And now we can set up the actual message we&#39;re trying to create</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">point_msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="n">init_root</span>::<span class="o">&lt;</span><span class="n">point_capnp</span>::<span class="n">point</span>::<span class="n">Builder</span><span class="o">&gt;</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// Stuff our message with some content</span>
+<span class="w">        </span><span class="n">point_msg</span><span class="p">.</span><span class="n">set_x</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">point_msg</span><span class="p">.</span><span class="n">set_y</span><span class="p">(</span><span class="mi">14</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// It&#39;s now time to serialize our message to binary. Let&#39;s set up a buffer for that:</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Vec</span>::<span class="n">new</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// And actually fill that buffer with our data</span>
+<span class="w">    </span><span class="n">capnp</span>::<span class="n">serialize</span>::<span class="n">write_message</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">builder</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Finally, let&#39;s deserialize the data</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">deserialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capnp</span>::<span class="n">serialize</span>::<span class="n">read_message</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">as_slice</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">capnp</span>::<span class="n">message</span>::<span class="n">ReaderOptions</span>::<span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// `deserialized` is currently a generic reader; it understands</span>
+<span class="w">    </span><span class="c1">// the content of the message we gave it (i.e. that there are two</span>
+<span class="w">    </span><span class="c1">// int32 values) but doesn&#39;t really know what they represent (the Point).</span>
+<span class="w">    </span><span class="c1">// This is where we map the generic data back into our schema.</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">point_reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deserialized</span><span class="p">.</span><span class="n">get_root</span>::<span class="o">&lt;</span><span class="n">point_capnp</span>::<span class="n">point</span>::<span class="n">Reader</span><span class="o">&gt;</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// We can now get our x and y values back, and make sure they match</span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">point_reader</span><span class="p">.</span><span class="n">get_x</span><span class="p">(),</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">point_reader</span><span class="p">.</span><span class="n">get_y</span><span class="p">(),</span><span class="w"> </span><span class="mi">14</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>And with that, we've now got a functioning project. Here's the content I'm planning to go over next as we build up
+some practical examples of Cap'N Proto in action:</p>
+<h2>Next steps:</h2>
+<p>Part 2: Using <a href="https://github.com/capnproto/capnproto-rust/blob/master/src/message.rs#L181">TypedReader</a> to send messages across thread boundaries</p>
+<p>Part 3: Serialization and Deserialization of multiple Cap'N Proto messages</p>
+
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/bspeice" target="_blank">Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/bradleespeice" target="_blank">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>

@@ -4,22 +4,20 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Hello! Glad to meet you. I&#39;m currently a student at Columbia University studying Financial Engineering, and want to give an overview of the projects I&#39;m working on! To start things off, Columbia ...">
+        <meta name="description" content="Hello! Glad to meet you. I&#39;m currently a student at Columbia University studying Financial Engineering, and want to give an overview of the projects I&#39;m working on! To start things off, Columbia...">
         <meta name="keywords" content="introduction, trading">
-        <link rel="icon" href="https://bspeice.github.io/favicon.ico">
+        <link rel="icon" href="/favicon.ico">
 
         <title>Welcome, and an algorithm - Bradlee Speice</title>
 
         <!-- Stylesheets -->
-        <link href="https://bspeice.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/fonts.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/nest.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/pygment.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
-        <link href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Full Atom Feed" />
-        <link href="https://bspeice.github.io/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,17 +26,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <!-- Google Analytics -->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-74711362-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-        <!-- /Google Analytics -->
 
 
     </head>
@@ -52,7 +39,7 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://bspeice.github.io/"><img class="mr20" src="https://bspeice.github.io/images/logo.svg" alt="logo">Bradlee Speice</a>
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
                     </div>
                     <div class="nav pull-right">
                     </div>
@@ -67,12 +54,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Welcome, and an algorithm</h1>
-                      <p class="header-date"> <a href="https://bspeice.github.io/author/bradlee-speice.html">Bradlee Speice</a>, Thu 19 November 2015,  Sat 05 December 2015,  <a href="https://bspeice.github.io/category/blog.html">Blog</a></p>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Thu 19 November 2015,  Sat 05 December 2015,  <a href="/category/blog.html">Blog</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://bspeice.github.io/tag/introduction.html">introduction</a>, <a href="https://bspeice.github.io/tag/trading.html">trading</a>                      </p>
+<a href="/tag/introduction.html">introduction</a>, <a href="/tag/trading.html">trading</a>                      </p>
                   </div>
               </div>
         </div>
@@ -105,7 +92,7 @@ days. Then, optimize for return subject to the drawdown being below a specific
 level. We didn't include the Sharpe ratio as a constraint, mostly because
 we were a bit late entering the competition.</p>
 <p>I'll be updating this post with the results of our algorithm as they come along!</p>
-<hr />
+<hr>
 <p><strong>UPDATE 12/5/2015</strong>: Now that the competition has ended, I wanted to update
 how the algorithm performed. Unfortunately, it didn't do very well. I'm planning
 to make some tweaks over the coming weeks, and do another forward test in January.</p>
@@ -141,315 +128,8 @@ to make some tweaks over the coming weeks, and do another forward test in Januar
 </tr>
 </tbody>
 </table>
-<hr />
-<p>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Trading-Competition-Optimization">Trading Competition Optimization<a class="anchor-link" href="#Trading-Competition-Optimization">&#182;</a></h1><h3 id="Goal:-Max-return-given-maximum-Sharpe-and-Drawdown">Goal: Max return given maximum Sharpe and Drawdown<a class="anchor-link" href="#Goal:-Max-return-given-maximum-Sharpe-and-Drawdown">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="k">import</span> <span class="n">display</span>
-<span class="kn">import</span> <span class="nn">Quandl</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-
-<span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;XOM&#39;</span><span class="p">,</span> <span class="s1">&#39;CVX&#39;</span><span class="p">,</span> <span class="s1">&#39;CLB&#39;</span><span class="p">,</span> <span class="s1">&#39;OXY&#39;</span><span class="p">,</span> <span class="s1">&#39;SLB&#39;</span><span class="p">]</span>
-<span class="n">market_ticker</span> <span class="o">=</span> <span class="s1">&#39;GOOG/NYSE_VOO&#39;</span>
-<span class="n">lookback</span> <span class="o">=</span> <span class="mi">30</span>
-<span class="n">d_col</span> <span class="o">=</span> <span class="s1">&#39;Close&#39;</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="n">tick</span><span class="p">:</span> <span class="n">Quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;YAHOO/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tick</span><span class="p">))[</span><span class="o">-</span><span class="n">lookback</span><span class="p">:]</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">}</span>
-<span class="n">market</span> <span class="o">=</span> <span class="n">Quandl</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">market_ticker</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Calculating-the-Return">Calculating the Return<a class="anchor-link" href="#Calculating-the-Return">&#182;</a></h1><p>We first want to know how much each ticker returned over the prior period.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">returns</span> <span class="o">=</span> <span class="p">{</span><span class="n">tick</span><span class="p">:</span> <span class="n">data</span><span class="p">[</span><span class="n">tick</span><span class="p">][</span><span class="n">d_col</span><span class="p">]</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">}</span>
-
-<span class="n">display</span><span class="p">({</span><span class="n">tick</span><span class="p">:</span> <span class="n">returns</span><span class="p">[</span><span class="n">tick</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">})</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>{&#39;CLB&#39;: -0.0016320202164526894,
- &#39;CVX&#39;: 0.0010319531629488911,
- &#39;OXY&#39;: 0.00093418904454400551,
- &#39;SLB&#39;: 0.00098431254720448159,
- &#39;XOM&#39;: 0.00044165797556096868}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Calculating-the-Sharpe-ratio">Calculating the Sharpe ratio<a class="anchor-link" href="#Calculating-the-Sharpe-ratio">&#182;</a></h1><p>Sharpe: ${R - R_M \over \sigma}$</p>
-<p>We use the average return over the lookback period, minus the market average return, over the ticker standard deviation to calculate the Sharpe. Shorting a stock turns a negative Sharpe positive.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">market_returns</span> <span class="o">=</span> <span class="n">market</span><span class="o">.</span><span class="n">pct_change</span><span class="p">()</span>
-
-<span class="n">sharpe</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ret</span><span class="p">:</span> <span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">market_returns</span><span class="p">[</span><span class="n">d_col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">ret</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-<span class="n">sharpes</span> <span class="o">=</span> <span class="p">{</span><span class="n">tick</span><span class="p">:</span> <span class="n">sharpe</span><span class="p">(</span><span class="n">returns</span><span class="p">[</span><span class="n">tick</span><span class="p">])</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">}</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">sharpes</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>{&#39;CLB&#39;: -0.10578734457846127,
- &#39;CVX&#39;: 0.027303529817677398,
- &#39;OXY&#39;: 0.022622210057414487,
- &#39;SLB&#39;: 0.026950946344858676,
- &#39;XOM&#39;: -0.0053519259698605499}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Calculating-the-drawdown">Calculating the drawdown<a class="anchor-link" href="#Calculating-the-drawdown">&#182;</a></h1><p>This one is easy - what is the maximum daily change over the lookback period? That is, because we will allow short positions, we are not concerned strictly with maximum downturn, but in general, what is the largest 1-day change?</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">drawdown</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">ret</span><span class="p">:</span> <span class="n">ret</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-<span class="n">drawdowns</span> <span class="o">=</span> <span class="p">{</span><span class="n">tick</span><span class="p">:</span> <span class="n">drawdown</span><span class="p">(</span><span class="n">returns</span><span class="p">[</span><span class="n">tick</span><span class="p">])</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">}</span>
-
-<span class="n">display</span><span class="p">(</span><span class="n">drawdowns</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>{&#39;CLB&#39;: 0.043551495607375035,
- &#39;CVX&#39;: 0.044894389686214398,
- &#39;OXY&#39;: 0.051424517867144637,
- &#39;SLB&#39;: 0.034774627850375328,
- &#39;XOM&#39;: 0.035851524605672758}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Performing-the-optimization">Performing the optimization<a class="anchor-link" href="#Performing-the-optimization">&#182;</a></h1><p>$\begin{align}
-max\ \ & \mu \cdot \omega\\
-s.t.\ \ & \vec{1} \omega = 1\\
-& \vec{S} \omega \ge s\\
-& \vec{D} \cdot | \omega | \le d\\
-& \left|\omega\right| \le l\\
-\end{align}$</p>
-<p>We want to maximize average return subject to having a full portfolio, Sharpe above a specific level, drawdown below a level, and leverage not too high - that is, don't have huge long/short positions.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">minimize</span>
-
-<span class="c1">#sharpe_limit = .1</span>
-<span class="n">drawdown_limit</span> <span class="o">=</span> <span class="o">.</span><span class="mi">05</span>
-<span class="n">leverage</span> <span class="o">=</span> <span class="mi">250</span>
-
-<span class="c1"># Use the map so we can guarantee we maintain the correct order</span>
-<span class="c1"># sharpe_a = np.array(list(map(lambda tick: sharpes[tick], tickers))) * -1 # So we can write as upper-bound</span>
-<span class="n">dd_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tick</span><span class="p">:</span> <span class="n">drawdowns</span><span class="p">[</span><span class="n">tick</span><span class="p">],</span> <span class="n">tickers</span><span class="p">)))</span>
-<span class="n">returns_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">tick</span><span class="p">:</span> <span class="n">returns</span><span class="p">[</span><span class="n">tick</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">tickers</span><span class="p">)))</span> <span class="c1"># Because minimizing</span>
-
-<span class="n">meets_sharpe</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">sharpe_a</span><span class="p">)</span> <span class="o">-</span> <span class="n">sharpe_limit</span>
-<span class="k">def</span> <span class="nf">meets_dd</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="n">portfolio</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">portfolio</span> <span class="o">&lt;</span> <span class="o">.</span><span class="mi">1</span><span class="p">:</span>
-        <span class="c1"># If there are no stocks in the portfolio,</span>
-        <span class="c1"># we can accidentally induce division by 0,</span>
-        <span class="c1"># or division by something small enough to cause infinity</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    
-    <span class="k">return</span> <span class="n">drawdown_limit</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">dd_a</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-
-<span class="n">is_portfolio</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-
-<span class="k">def</span> <span class="nf">within_leverage</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">leverage</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-
-<span class="n">objective</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">returns_a</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># Because we&#39;re minimizing</span>
-<span class="n">bounds</span> <span class="o">=</span> <span class="p">((</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">tickers</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tickers</span><span class="p">))</span>
-
-<span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;eq&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">is_portfolio</span>
-    <span class="p">},</span> <span class="p">{</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">within_leverage</span>
-    <span class="c1">#}, {</span>
-    <span class="c1">#    &#39;type&#39;: &#39;ineq&#39;,</span>
-    <span class="c1">#    &#39;fun&#39;: meets_sharpe</span>
-    <span class="p">},</span> <span class="p">{</span>
-        <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="n">meets_dd</span>
-    <span class="p">}</span>
-<span class="p">]</span>
-
-<span class="n">optimal</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bounds</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
-                  <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;maxiter&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">})</span>
-
-<span class="c1"># Optimization time!</span>
-<span class="n">display</span><span class="p">(</span><span class="n">optimal</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-
-<span class="n">display</span><span class="p">(</span><span class="s2">&quot;Holdings: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">tickers</span><span class="p">,</span> <span class="n">optimal</span><span class="o">.</span><span class="n">x</span><span class="p">))))</span>
-
-<span class="n">expected_return</span> <span class="o">=</span> <span class="n">optimal</span><span class="o">.</span><span class="n">fun</span> <span class="o">*</span> <span class="o">-</span><span class="mi">100</span>  <span class="c1"># multiply by -100 to scale, and compensate for minimizing</span>
-<span class="n">display</span><span class="p">(</span><span class="s2">&quot;Expected Return: {:.3f}%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">expected_return</span><span class="p">))</span>
-
-<span class="n">expected_drawdown</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">optimal</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">dd_a</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">optimal</span><span class="o">.</span><span class="n">x</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
-<span class="n">display</span><span class="p">(</span><span class="s2">&quot;Expected Max Drawdown: {0:.2f}%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">expected_drawdown</span><span class="p">))</span>
-
-<span class="c1"># TODO: Calculate expected Sharpe</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>&#39;Optimization terminated successfully.&#39;</pre>
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>&#34;Holdings: [(&#39;XOM&#39;, 5.8337945679814904), (&#39;CVX&#39;, 42.935064321851307), (&#39;CLB&#39;, -124.5), (&#39;OXY&#39;, 36.790387773552119), (&#39;SLB&#39;, 39.940753336615096)]&#34;</pre>
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>&#39;Expected Return: 32.375%&#39;</pre>
-</div>
-
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_text output_subarea ">
-<pre>&#39;Expected Max Drawdown: 4.34%&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></p>
+<hr>
+<p>{% notebook 2015-11-14-welcome.ipynb %}</p>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 </script>
@@ -457,20 +137,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 <script async src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML'></script>
 
 
-    <div class="comments">
-        <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'bradleespeice';
-                var disqus_identifier = 'welcome-and-an-algorithm.html';
-                var disqus_url = 'https://bspeice.github.io/welcome-and-an-algorithm.html';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
         
     </div>
         <!-- /Content --> 
@@ -482,7 +148,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title"></div>
                         <ul class="list-unstyled">
-                            <li><a href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">

@@ -4,22 +4,20 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="I listen to a lot of Drum and Bass music, because it&#39;s beautiful music. And there&#39;s a particular site, Bassdrive.com that hosts a lot of great content. Specifically, the archives section of the ...">
+        <meta name="description" content="I listen to a lot of Drum and Bass music, because it&#39;s beautiful music. And there&#39;s a particular site, Bassdrive.com that hosts a lot of great content. Specifically, the archives section of the...">
         <meta name="keywords" content="nutone, Rust">
-        <link rel="icon" href="https://bspeice.github.io/favicon.ico">
+        <link rel="icon" href="/favicon.ico">
 
         <title>A Rustic Re-Podcasting Server (Part 1) - Bradlee Speice</title>
 
         <!-- Stylesheets -->
-        <link href="https://bspeice.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/fonts.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/nest.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/pygment.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
-        <link href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Full Atom Feed" />
-        <link href="https://bspeice.github.io/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,17 +26,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <!-- Google Analytics -->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-74711362-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-        <!-- /Google Analytics -->
 
 
     </head>
@@ -52,7 +39,7 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://bspeice.github.io/"><img class="mr20" src="https://bspeice.github.io/images/logo.svg" alt="logo">Bradlee Speice</a>
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
                     </div>
                     <div class="nav pull-right">
                     </div>
@@ -67,12 +54,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">A Rustic Re-Podcasting Server (Part 1)</h1>
-                      <p class="header-date"> <a href="https://bspeice.github.io/author/bradlee-speice.html">Bradlee Speice</a>, Sat 22 October 2016,  <a href="https://bspeice.github.io/category/blog.html">Blog</a></p>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Sat 22 October 2016,  <a href="/category/blog.html">Blog</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://bspeice.github.io/tag/nutone.html">nutone</a>, <a href="https://bspeice.github.io/tag/rust.html">Rust</a>                      </p>
+<a href="/tag/nutone.html">nutone</a>, <a href="/tag/rust.html">Rust</a>                      </p>
                   </div>
               </div>
         </div>
@@ -128,15 +115,15 @@ on some bad cases, <code>str &lt;-&gt; bytes</code> specifically), but Rust is h
 should be incredibly simple: All I want is to echo back
 <code>Didn't find URL: &lt;url&gt;</code>. Shouldn't be that hard right? In Python I'd just do
 something like:</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">echo_handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">echo_handler</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="s2">&quot;You&#39;re visiting: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
 </pre></div>
 
 
 <p>And we'd call it a day. Rust isn't so simple. Let's start with the trivial
 examples people post online:</p>
-<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You found the server!&quot;</span><span class="p">)))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">req</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You found the server!&quot;</span><span class="p">)))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 
@@ -145,22 +132,22 @@ examples people post online:</p>
 version! All we need to do is just send back a string of some form. So, we
 look up the documentation for <a href="http://ironframework.io/doc/iron/request/struct.Request.html"><code>Request</code></a> and see a <code>url</code> field that will contain
 what we want. Let's try the first iteration:</p>
-<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You found the URL: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">)))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">req</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;You found the URL: &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">)))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 
 
 <p>Which yields the error:</p>
-<div class="highlight"><pre>error[E0369]: binary operation `+` cannot be applied to type `&amp;&#39;static str`
+<div class="highlight"><pre><span></span>error[E0369]: binary operation `+` cannot be applied to type `&amp;&#39;static str`
 </pre></div>
 
 
 <p>OK, what's going on here? Time to start Googling for <a href="https://www.google.com/#q=concatenate+strings+in+rust">"concatenate strings in Rust"</a>. That's what we
 want to do right? Concatenate a static string and the URL.</p>
 <p>After Googling, we come across a helpful <a href="https://doc.rust-lang.org/std/macro.concat!.html"><code>concat!</code></a> macro that looks really nice! Let's try that one:</p>
-<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;You found the URL: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">))))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">req</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">concat</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;You found the URL: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">))))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 
@@ -172,8 +159,8 @@ at compile time what <code>req.url</code> is. Which, in my outsider opinion, is 
 strange. <code>println!</code> and <code>format!</code>, etc., all handle values they don't know at
 compile time. Why can't <code>concat!</code>? By any means, we need a new plan of attack.
 How about we try formatting strings?</p>
-<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">hello_world</span><span class="p">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;You found the URL: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">))))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">hello_world</span><span class="p">(</span><span class="n">req</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;You found the URL: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">req</span><span class="p">.</span><span class="n">url</span><span class="p">))))</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 
@@ -204,9 +191,9 @@ working on things that are a bit more complex?</p>
 <p>We're going to cover that here. Our first try: creating a function which returns
 other functions. This is a principle called <a href="http://stackoverflow.com/a/36321/1454178">currying</a>. We set up a function that allows us to keep some data in scope
 for another function to come later.</p>
-<div class="highlight"><pre><span class="k">fn</span><span class="w"> </span><span class="n">build_handler</span><span class="p">(</span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb">Fn</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">move</span><span class="w"> </span><span class="o">|</span><span class="n">_</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">)))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">build_handler</span><span class="p">(</span><span class="n">message</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Fn</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">_</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">)))</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
@@ -215,7 +202,7 @@ for another function to come later.</p>
 <p>We've simply set up a function that returns another anonymous function with the
 <code>message</code> parameter scoped in. If you compile this, you get not 1, not 2, but 5
 new errors. 4 of them are the same though:</p>
-<div class="highlight"><pre>error[E0277]: the trait bound `for&lt;&#39;r, &#39;r, &#39;r&gt; std::ops::Fn(&amp;&#39;r mut iron::Request&lt;&#39;r, &#39;r&gt;) -&gt; std::result::Result&lt;iron::Response, iron::IronError&gt; + &#39;static: std::marker::Sized` is not satisfied
+<div class="highlight"><pre><span></span>error[E0277]: the trait bound `for&lt;&#39;r, &#39;r, &#39;r&gt; std::ops::Fn(&amp;&#39;r mut iron::Request&lt;&#39;r, &#39;r&gt;) -&gt; std::result::Result&lt;iron::Response, iron::IronError&gt; + &#39;static: std::marker::Sized` is not satisfied
 </pre></div>
 
 
@@ -243,19 +230,19 @@ we've been working with so far.</p>
 <p>The principle is that we need to define a new <code>struct</code> to hold our data, then
 implement that <code>handle()</code> method to return the result. Something that looks
 like this might do:</p>
-<div class="highlight"><pre><span class="k">struct</span><span class="w"> </span><span class="n">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="k">struct</span> <span class="nc">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">message</span>: <span class="nb">String</span>
 <span class="p">}</span><span class="w"></span>
 
 <span class="k">impl</span><span class="w"> </span><span class="n">Handler</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">fn</span><span class="w"> </span><span class="n">handle</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">message</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">handle</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">_</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">IronResult</span><span class="o">&lt;</span><span class="n">Response</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">message</span><span class="p">)))</span><span class="w"></span>
 <span class="w">    </span><span class="p">}</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 
 <span class="c1">// Later in the code when we set up the router...</span>
 <span class="kd">let</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EchoHandler</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Is it working yet?&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">message</span>: <span class="s">&quot;Is it working yet?&quot;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 <span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
@@ -264,38 +251,38 @@ like this might do:</p>
 <p>We attempt to build a struct, and give its <code>handle</code> method off to the router
 so the router knows what to do.</p>
 <p>You guessed it, more errors:</p>
-<div class="highlight"><pre><span class="n">error</span><span class="o">:</span> <span class="n">attempted</span> <span class="n">to</span> <span class="n">take</span> <span class="n">value</span> <span class="n">of</span> <span class="n">method</span> <span class="err">`</span><span class="n">handle</span><span class="err">`</span> <span class="n">on</span> <span class="n">type</span> <span class="err">`</span><span class="n">EchoHandler</span><span class="err">`</span>
+<div class="highlight"><pre><span></span><span class="n">error</span><span class="o">:</span> <span class="n">attempted</span> <span class="n">to</span> <span class="n">take</span> <span class="n">value</span> <span class="n">of</span> <span class="n">method</span> <span class="err">`</span><span class="n">handle</span><span class="err">`</span> <span class="n">on</span> <span class="n">type</span> <span class="err">`</span><span class="n">EchoHandler</span><span class="err">`</span>
 </pre></div>
 
 
 <p>Now, the Rust compiler is actually a really nice fellow, and offers us help:</p>
-<div class="highlight"><pre><span class="n">help</span><span class="o">:</span> <span class="n">maybe</span> <span class="n">a</span> <span class="err">`</span><span class="o">()</span><span class="err">`</span> <span class="n">to</span> <span class="n">call</span> <span class="n">it</span> <span class="k">is</span> <span class="n">missing</span><span class="o">?</span> <span class="n">If</span> <span class="n">not</span><span class="o">,</span> <span class="k">try</span> <span class="n">an</span> <span class="n">anonymous</span> <span class="kd">function</span>
+<div class="highlight"><pre><span></span><span class="n">help</span><span class="o">:</span> <span class="n">maybe</span> <span class="n">a</span> <span class="err">`</span><span class="o">()</span><span class="err">`</span> <span class="n">to</span> <span class="n">call</span> <span class="n">it</span> <span class="k">is</span> <span class="n">missing</span><span class="o">?</span> <span class="n">If</span> <span class="n">not</span><span class="o">,</span> <span class="k">try</span> <span class="n">an</span> <span class="n">anonymous</span> <span class="kd">function</span>
 </pre></div>
 
 
 <p>We definitely don't want to call that function, so maybe try an anonymous
 function as it recommends?</p>
-<div class="highlight"><pre><span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">req</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">|</span><span class="n">req</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">req</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 
 
 <p>Another error:</p>
-<div class="highlight"><pre>error[E0373]: closure may outlive the current function, but it borrows `echo`, which is owned by the current function
+<div class="highlight"><pre><span></span>error[E0373]: closure may outlive the current function, but it borrows `echo`, which is owned by the current function
 </pre></div>
 
 
 <p>Another helpful message:</p>
-<div class="highlight"><pre><span class="n">help</span><span class="o">:</span> <span class="n">to</span> <span class="n">force</span> <span class="n">the</span> <span class="n">closure</span> <span class="n">to</span> <span class="n">take</span> <span class="n">ownership</span> <span class="n">of</span> <span class="err">`</span><span class="n">echo</span><span class="err">`</span> <span class="o">(</span><span class="n">and</span> <span class="n">any</span> <span class="n">other</span> <span class="n">referenced</span> <span class="n">variables</span><span class="o">),</span> <span class="n">use</span> <span class="n">the</span> <span class="err">`</span><span class="n">move</span><span class="err">`</span> <span class="n">keyword</span>
+<div class="highlight"><pre><span></span><span class="n">help</span><span class="o">:</span> <span class="n">to</span> <span class="n">force</span> <span class="n">the</span> <span class="n">closure</span> <span class="n">to</span> <span class="n">take</span> <span class="n">ownership</span> <span class="n">of</span> <span class="err">`</span><span class="n">echo</span><span class="err">`</span> <span class="o">(</span><span class="n">and</span> <span class="n">any</span> <span class="n">other</span> <span class="n">referenced</span> <span class="n">variables</span><span class="o">),</span> <span class="n">use</span> <span class="n">the</span> <span class="err">`</span><span class="n">move</span><span class="err">`</span> <span class="n">keyword</span>
 </pre></div>
 
 
 <p>We're getting closer though! Let's implement this change:</p>
-<div class="highlight"><pre><span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">move</span><span class="w"> </span><span class="o">|</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">req</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="n">router</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">req</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="n">Request</span><span class="o">|</span><span class="w"> </span><span class="n">echo</span><span class="p">.</span><span class="n">handle</span><span class="p">(</span><span class="n">req</span><span class="p">),</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 
 
 <p>And here's where things get strange:</p>
-<div class="highlight"><pre>error[E0507]: cannot move out of borrowed content
+<div class="highlight"><pre><span></span>error[E0507]: cannot move out of borrowed content
   --&gt; src/main.rs:18:40
    |
 18 |         Ok(Response::with((status::Ok, self.message)))
@@ -320,7 +307,7 @@ instead of transferring ownership</li>
 audience out. Because <code>iron</code> won't accept a reference, we are forced into the
 second option: making a copy. To do so, we just need to change the function
 to look like this:</p>
-<div class="highlight"><pre><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span><span class="o">::</span><span class="n">with</span><span class="p">((</span><span class="n">status</span><span class="o">::</span><span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">clone</span><span class="p">())))</span><span class="w"></span>
+<div class="highlight"><pre><span></span><span class="nb">Ok</span><span class="p">(</span><span class="n">Response</span>::<span class="n">with</span><span class="p">((</span><span class="n">status</span>::<span class="nb">Ok</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">clone</span><span class="p">())))</span><span class="w"></span>
 </pre></div>
 
 
@@ -356,20 +343,6 @@ incredibly precise about how I use it.</p>
 going to take me a lot longer to do this than I originally thought.</p>
 
 
-    <div class="comments">
-        <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'bradleespeice';
-                var disqus_identifier = 'a-rustic-re-podcasting-server-part-1.html';
-                var disqus_url = 'https://bspeice.github.io/a-rustic-re-podcasting-server-part-1.html';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
         
     </div>
         <!-- /Content --> 
@@ -381,7 +354,6 @@ going to take me a lot longer to do this than I originally thought.</p>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title"></div>
                         <ul class="list-unstyled">
-                            <li><a href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">

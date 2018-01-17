@@ -4,22 +4,20 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="If you can see into the future, that is.¶My previous class in Stochastic Calculus covered a lot of interesting topics, and the important one for today is the Gambler&#39;s Ruin problem. If you&#39;re ...">
+        <meta name="description" content="{% notebook 2016-2-3-guaranteed-money-maker.ipynb %} MathJax.Hub.Config({tex2jax: {inlineMath: [[&#39;$&#39;,&#39;$&#39;], [&#39;\(&#39;,&#39;\)&#39;]]}});">
         <meta name="keywords" content="martingale, strategy">
-        <link rel="icon" href="https://bspeice.github.io/favicon.ico">
+        <link rel="icon" href="/favicon.ico">
 
         <title>Guaranteed Money Maker - Bradlee Speice</title>
 
         <!-- Stylesheets -->
-        <link href="https://bspeice.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/fonts.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/nest.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/pygment.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
-        <link href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Full Atom Feed" />
-        <link href="https://bspeice.github.io/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,17 +26,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <!-- Google Analytics -->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-74711362-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-        <!-- /Google Analytics -->
 
 
     </head>
@@ -52,7 +39,7 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://bspeice.github.io/"><img class="mr20" src="https://bspeice.github.io/images/logo.svg" alt="logo">Bradlee Speice</a>
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
                     </div>
                     <div class="nav pull-right">
                     </div>
@@ -67,12 +54,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Guaranteed Money Maker</h1>
-                      <p class="header-date"> <a href="https://bspeice.github.io/author/bradlee-speice.html">Bradlee Speice</a>, Wed 03 February 2016,  <a href="https://bspeice.github.io/category/blog.html">Blog</a></p>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Wed 03 February 2016,  <a href="/category/blog.html">Blog</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://bspeice.github.io/tag/martingale.html">martingale</a>, <a href="https://bspeice.github.io/tag/strategy.html">strategy</a>                      </p>
+<a href="/tag/martingale.html">martingale</a>, <a href="/tag/strategy.html">strategy</a>                      </p>
                   </div>
               </div>
         </div>
@@ -86,265 +73,7 @@
 
         <!-- Content -->
     <div class="container content">
-        <p>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="If-you-can-see-into-the-future,-that-is.">If you can see into the future, that is.<a class="anchor-link" href="#If-you-can-see-into-the-future,-that-is.">&#182;</a></h3><p>My previous class in Stochastic Calculus covered a lot of interesting topics, and the important one for today
-is the <a href="https://en.wikipedia.org/wiki/Gambler&#39;s_ruin">Gambler's Ruin</a> problem. If you're interested in some of the theory behind it, also make sure to check out
-<a href="https://en.wikipedia.org/wiki/Random_walk">random walks</a>. The important bit is that we studied the <a href="https://en.wikipedia.org/wiki/Martingale_%28betting_system%29">Martingale Betting Strategy</a>, which describes for us
-a <strong>guaranteed way</strong> to <span style='font-size: x-small'>eventually</span> make money.</p>
-<p>The strategy goes like this: You are going to toss a fair coin with a friend. If you guess heads or tails correctly, you get back double the money you bet. If you guess incorrectly, you lose money. How should you bet?</p>
-<p>The correct answer is that you should double your bet each time you lose. Then when you finally win, you'll be guaranteed to make back everything you lost and then &#36;1 extra! Consider the scenario:</p>
-<ol>
-<li>You bet &#36;1, and guess incorrectly. You're 1 dollar in the hole.</li>
-<li>You bet &#36;2, and guess incorrectly. You're 3 dollars in the hole now.</li>
-<li>You bet &#36;4, and guess incorrectly. You're 7 dollars in the hole.</li>
-<li>You bet &#36;8, and guess correctly! You now get back those 8 dollars you bet, plus 8 extra for winning, for a <strong>total profit of one dollar</strong>!</li>
-</ol>
-<p>Mathematically, we can prove that as long as you have unlimited money to bet, you are guaranteed to make money.</p>
-<h1 id="Applying-the-Martingale-Strategy">Applying the Martingale Strategy<a class="anchor-link" href="#Applying-the-Martingale-Strategy">&#182;</a></h1><p>But we're all realistic people, and once you start talking about "unlimited money" eyebrows should be raised. Even still, this is an interesting strategy to investigate, and I want to apply it to the stock market. As long as we can guarantee there's a single day in which the stock goes up, we should be able to make money right? The question is just how much we have to invest to guarantee this.</p>
-<p>Now it's time for the math. We'll use the following definitions:</p>
-<ul>
-<li>$o_i$ = the share price at the opening of day $i$</li>
-<li>$c_i$ = the share price at the close of day $i$</li>
-<li>$d_i$ = the amount of money we want to invest at the beginning of day $i$</li>
-</ul>
-<p>With those definitions in place, I'd like to present the formula that is <strong>guaranteed to make you money</strong>. I call it <em>Bradlee's Investment Formula</em>:</p>
-<p>$c_n \sum_{i=1}^n \frac{d_i}{o_i} > \sum_{i=1}^{n} d_i$</p>
-<p>It might not look like much, but if you can manage to make it so that this formula holds true, you will be guaranteed to make money. The intuition behind the formula is this: The closing share price times the number of shares you have purchased ends up greater than the amount of money you invested.</p>
-<p>That is, on day $n$, <span style='font-size: x-small'>if you know what the closing price will be</span> you can set up the amount of money you invest that day to <strong>guarantee you make money</strong>. I'll even teach you to figure out how much money that is! Take a look:</p>
-<p>$
-\begin{align}
-c_n \sum_{i=1}^{n-1} \frac{d_i}{o_i} + \frac{c_nd_n}{o_n} &> \sum_{i=1}^{n-1}d_i + d_n\\
-\frac{c_nd_n}{o_n} - d_n &> \sum_{i=1}^{n-1}(d_i - \frac{c_nd_i}{o_i})\\
-d_n (\frac{c_n - o_n}{o_n}) &> \sum_{i=1}^{n-1} d_i(1 - \frac{c_n}{o_i})\\
-d_n &> \frac{o_n}{c_n - o_n} \sum_{i=1}^{n-1} d_i(1 - \frac{1}{o_i})
-\end{align}$</p>
-<p>If you invest exactly $d_n$ that day, you'll break even. But if you can make sure the money you invest is greater than that quantity on the right <span style='font-size: x-small'>(which requires that you have a crystal ball tell you the stock's closing price)</span> you are <strong>guaranteed to make money!</strong></p>
-<h1 id="Interesting-Implications">Interesting Implications<a class="anchor-link" href="#Interesting-Implications">&#182;</a></h1><p>On a more serious note though, the formula above tells us a couple of interesting things:</p>
-<ol>
-<li>It's impossible to make money without the closing price at some point being greater than the opening price (or vice-versa if you are short selling) - there is no amount of money you can invest that will turn things in your favor.</li>
-<li>Close prices of the past aren't important if you're concerned about the bottom line. While chart technicians use price history to make judgment calls, in the end, the closing price on anything other than the last day is irrelevant.</li>
-<li>It's possible to make money as long as there is a single day where the closing price is greater than the opening price! You might have to invest a lot to do so, but it's possible.</li>
-<li>You must make a prediction about where the stock will close at if you want to know how much to invest. That is, we can set up our investment for the day to make money if the stock goes up 1%, but if it only goes up .5% we'll still lose money.</li>
-<li>It's possible the winning move is to scale back your position. Consider the scenario:<ul>
-<li>You invest money and the stock closes down the day .5%</li>
-<li>You invest tomorrow expecting the stock to go up 1%</li>
-<li>The winning investment to break even (assuming a 1% increase) is to scale back the position, since the shares you purchased at the beginning would then be profitable</li>
-</ul>
-</li>
-</ol>
-<h1 id="Running-the-simulation">Running the simulation<a class="anchor-link" href="#Running-the-simulation">&#182;</a></h1><p>So now that we've defined our investment formula,we need to tweak a couple things in order to make an investment strategy we can actually work with. There are two issues we need to address:</p>
-<ol>
-<li>The formula only tells us how much to invest if we want to break even ($d_n$). If we actually want to turn a profit, we need to invest more than that, which we will refer to as the <strong>bias</strong>.</li>
-<li>The formula assumes we know what the closing price will be on any given day. If we don't know this, we can still invest assuming the stock price will close at a level we choose. If the price doesn't meet this objective, we try again tomorrow! This predetermined closing price will be referred to as the <strong>expectation</strong>.</li>
-</ol>
-<p>Now that we've defined our <em>bias</em> and <em>expectation</em>, we can actually build a strategy we can simulate. Much like the martingale strategy told you to bet twice your previous bet in order to make money, we've designed a system that tells us how much to bet in order to make money as well.</p>
-<p>Now, let's get to the code!</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="k">using</span> <span class="n">Quandl</span>
-<span class="n">api_key</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-<span class="n">daily_investment</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">current_open</span><span class="p">,</span> <span class="n">current_close</span><span class="p">,</span> <span class="n">purchase_history</span><span class="p">,</span> <span class="n">open_history</span><span class="p">)</span>
-    <span class="c"># We&#39;re not going to safeguard against divide by 0 - that&#39;s the user&#39;s responsibility</span>
-    <span class="n">t1</span> <span class="o">=</span> <span class="n">current_close</span> <span class="o">/</span> <span class="n">current_open</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">t2</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">purchase_history</span> <span class="o">-</span> <span class="n">purchase_history</span><span class="o">*</span><span class="n">current_close</span> <span class="o">./</span> <span class="n">open_history</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">t2</span> <span class="o">/</span> <span class="n">t1</span>
-<span class="k">end</span><span class="p">;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>And let's code a way to run simulations quickly:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">is_profitable</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">current_price</span><span class="p">,</span> <span class="n">purchase_history</span><span class="p">,</span> <span class="n">open_history</span><span class="p">)</span>
-    <span class="n">shares</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">purchase_history</span> <span class="o">./</span> <span class="n">open_history</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">current_price</span><span class="o">*</span><span class="n">shares</span> <span class="o">&gt;</span> <span class="n">sum</span><span class="p">(</span><span class="n">purchase_history</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="n">simulate</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
-    <span class="n">ticker_info</span> <span class="o">=</span> <span class="n">quandlget</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">from</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-    <span class="n">open_vals</span> <span class="o">=</span> <span class="n">ticker_info</span><span class="p">[</span><span class="s">&quot;Open&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">close_vals</span> <span class="o">=</span> <span class="n">ticker_info</span><span class="p">[</span><span class="s">&quot;Close&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
-    <span class="n">invested</span> <span class="o">=</span> <span class="p">[</span><span class="n">init</span><span class="p">]</span>
-    
-    <span class="c"># The simulation stops once we&#39;ve made a profit</span>
-    <span class="n">day</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">profitable</span> <span class="o">=</span> <span class="n">is_profitable</span><span class="p">(</span><span class="n">close_vals</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span> <span class="o">||</span>
-        <span class="n">is_profitable</span><span class="p">(</span><span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span>
-    <span class="k">while</span> <span class="o">!</span><span class="n">profitable</span>
-        <span class="n">expected_close</span> <span class="o">=</span> <span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">expected</span>
-        <span class="n">todays_purchase</span> <span class="o">=</span> <span class="n">daily_investment</span><span class="p">(</span><span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">expected_close</span><span class="p">,</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">day</span><span class="p">])</span>
-        <span class="n">invested</span> <span class="o">=</span> <span class="p">[</span><span class="n">invested</span><span class="p">;</span> <span class="n">todays_purchase</span> <span class="o">+</span> <span class="n">bias</span><span class="p">]</span>
-        <span class="c"># expected_profit = expected_close * sum(invested ./ open_vals[1:length(invested)]) - sum(invested)</span>
-        <span class="n">day</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">profitable</span> <span class="o">=</span> <span class="n">is_profitable</span><span class="p">(</span><span class="n">close_vals</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span> <span class="o">||</span>
-            <span class="n">is_profitable</span><span class="p">(</span><span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="n">invested</span><span class="p">,</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span>
-    <span class="k">end</span>
-    
-    <span class="n">shares</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">invested</span> <span class="o">./</span> <span class="n">open_vals</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">invested</span><span class="p">)])</span>
-    <span class="n">max_profit</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">close_vals</span><span class="p">[</span><span class="n">day</span><span class="p">],</span> <span class="n">open_vals</span><span class="p">[</span><span class="n">day</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">profit</span> <span class="o">=</span> <span class="n">shares</span> <span class="o">*</span> <span class="n">max_profit</span> <span class="o">-</span> <span class="n">sum</span><span class="p">(</span><span class="n">invested</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">invested</span><span class="p">,</span> <span class="n">profit</span><span class="p">)</span>
-<span class="k">end</span>
-
-<span class="n">sim_summary</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">investments</span><span class="p">,</span> <span class="n">profit</span><span class="p">)</span>
-    <span class="n">leverages</span> <span class="o">=</span> <span class="p">[</span><span class="n">sum</span><span class="p">(</span><span class="n">investments</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">length</span><span class="p">(</span><span class="n">investments</span><span class="p">)]</span>
-    <span class="n">max_leverage</span> <span class="o">=</span> <span class="n">maximum</span><span class="p">(</span><span class="n">leverages</span><span class="p">)</span> <span class="o">/</span> <span class="n">investments</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Max leverage: </span><span class="si">$(max_leverage)</span><span class="s">&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Days invested: </span><span class="si">$</span><span class="s">(length(investments))&quot;</span><span class="p">)</span>
-    <span class="n">println</span><span class="p">(</span><span class="s">&quot;Profit: </span><span class="si">$</span><span class="s">profit&quot;</span><span class="p">)</span>
-<span class="k">end</span><span class="p">;</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, let's get some data and run a simulation! Our first test:</p>
-<ul>
-<li>We'll invest 100 dollars in LMT, and expect that the stock will close up 1% every day. We'll invest $d_n$ + 10 dollars every day that we haven't turned a profit, and end the simulation once we've made a profit.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">investments</span><span class="p">,</span> <span class="n">profit</span> <span class="o">=</span> <span class="n">simulate</span><span class="p">(</span><span class="s">&quot;YAHOO/LMT&quot;</span><span class="p">,</span> <span class="n">Date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">sim_summary</span><span class="p">(</span><span class="n">investments</span><span class="p">,</span> <span class="n">profit</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Max leverage: 5.590373200042106
-Days invested: 5
-Profit: 0.6894803101560001
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The result: We need to invest 5.6x our initial position over a period of 5 days to make approximately .69&#162;</p>
-<ul>
-<li>Now let's try the same thing, but we'll assume the stock closes up 2% instead.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-julia"><pre><span class="n">investments</span><span class="p">,</span> <span class="n">profit</span> <span class="o">=</span> <span class="n">simulate</span><span class="p">(</span><span class="s">&quot;YAHOO/LMT&quot;</span><span class="p">,</span> <span class="n">Date</span><span class="p">(</span><span class="mi">2015</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">sim_summary</span><span class="p">(</span><span class="n">investments</span><span class="p">,</span> <span class="n">profit</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Max leverage: 1.854949900247809
-Days invested: 25
-Profit: 0.08304813163696423
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>In this example, we only get up to a 1.85x leveraged position, but it takes 25 days to turn a profit of 8&#162;</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h1><p>We've defined an investment strategy that can tell us how much to invest when we know what the closing position of a stock will be. We can tweak the strategy to actually make money, but plenty of work needs to be done so that we can optimize the money invested.</p>
-<p>In the next post I'm going to post more information about some backtests and strategy tests on this strategy (unless of course this experiment actually produces a significant profit potential, and then I'm keeping it for myself).</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Side-note-and-disclaimer">Side note and disclaimer<a class="anchor-link" href="#Side-note-and-disclaimer">&#182;</a></h1><p>The claims made in this presentation about being able to guarantee making money are intended as a joke and do not constitute investment advice of any sort.</p>
-
-</div>
-</div>
-</div></p>
+        <p>{% notebook 2016-2-3-guaranteed-money-maker.ipynb %}</p>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 </script>
@@ -352,20 +81,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 <script async src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML'></script>
 
 
-    <div class="comments">
-        <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'bradleespeice';
-                var disqus_identifier = 'guaranteed-money-maker.html';
-                var disqus_url = 'https://bspeice.github.io/guaranteed-money-maker.html';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
         
     </div>
         <!-- /Content --> 
@@ -377,7 +92,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title"></div>
                         <ul class="list-unstyled">
-                            <li><a href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">

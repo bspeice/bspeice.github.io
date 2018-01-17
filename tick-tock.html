@@ -4,22 +4,20 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="If all we have is a finite number of heartbeats left, what about me? Warning: this one is a bit creepier. But that&#39;s what you get when you come up with data science ideas as you&#39;re drifting off to ...">
+        <meta name="description" content="{% notebook 2016-4-6-tick-tock....ipynb %} //MathJax.Hub.Config({tex2jax: {inlineMath: [[&#39;$&#39;,&#39;$&#39;], [&#39;\(&#39;,&#39;\)&#39;]]}}); MathJax.Hub.Config({tex2jax: {inlineMath: [[&#39;\$&#39;,&#39;\$&#39;]]}});">
         <meta name="keywords" content="fitbit, heartrate">
-        <link rel="icon" href="https://bspeice.github.io/favicon.ico">
+        <link rel="icon" href="/favicon.ico">
 
         <title>Tick Tock... - Bradlee Speice</title>
 
         <!-- Stylesheets -->
-        <link href="https://bspeice.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/fonts.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/nest.css" rel="stylesheet">
-        <link href="https://bspeice.github.io/theme/css/pygment.css" rel="stylesheet">
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
         <!-- /Stylesheets -->
 
         <!-- RSS Feeds -->
-        <link href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Full Atom Feed" />
-        <link href="https://bspeice.github.io/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="Bradlee Speice Categories Atom Feed" />
         <!-- /RSS Feeds -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -28,17 +26,6 @@
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <!-- Google Analytics -->
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-74711362-1', 'auto');
-          ga('send', 'pageview');
-        </script>
-        <!-- /Google Analytics -->
 
 
     </head>
@@ -52,7 +39,7 @@
             <div class="container">
                 <div class="header-nav">
                     <div class="header-logo">
-                        <a class="pull-left" href="https://bspeice.github.io/"><img class="mr20" src="https://bspeice.github.io/images/logo.svg" alt="logo">Bradlee Speice</a>
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
                     </div>
                     <div class="nav pull-right">
                     </div>
@@ -67,12 +54,12 @@
               <div class="col-lg-12">
                   <div class="header-content">
                       <h1 class="header-title">Tick Tock...</h1>
-                      <p class="header-date"> <a href="https://bspeice.github.io/author/bradlee-speice.html">Bradlee Speice</a>, Wed 06 April 2016,  <a href="https://bspeice.github.io/category/blog.html">Blog</a></p>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Wed 06 April 2016,  <a href="/category/blog.html">Blog</a></p>
                       <div class="header-underline"></div>
                       <div class="clearfix"></div>
                       <p class="pull-right header-tags">
                           <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
-<a href="https://bspeice.github.io/tag/fitbit.html">fitbit</a>, <a href="https://bspeice.github.io/tag/heartrate.html">heartrate</a>                      </p>
+<a href="/tag/fitbit.html">fitbit</a>, <a href="/tag/heartrate.html">heartrate</a>                      </p>
                   </div>
               </div>
         </div>
@@ -86,521 +73,7 @@
 
         <!-- Content -->
     <div class="container content">
-        <p>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>If all we have is a finite number of heartbeats left, what about me?</p>
-<hr>
-<p>Warning: this one is a bit creepier. But that's what you get when you come up with data science ideas as you're drifting off to sleep.</p>
-<h1 id="2.5-Billion">2.5 Billion<a class="anchor-link" href="#2.5-Billion">&#182;</a></h1><p>If <a href="http://www.pbs.org/wgbh/nova/heart/heartfacts.html">PBS</a> is right, that's the total number of heartbeats we get. Approximately once every second that number goes down, and down, and down again...</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">total_heartbeats</span> <span class="o">=</span> <span class="mi">2500000000</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I got a Fitbit this past Christmas season, mostly because I was interested in the data and trying to work on some data science projects with it. This is going to be the first project, but there will likely be more (and not nearly as morbid). My idea was: If this is the final number that I'm running up against, how far have I come, and how far am I likely to go? I've currently had about 3 months' time to estimate what my data will look like, so let's go ahead and see: given a lifetime 2.5 billion heart beats, how much time do I have left?</p>
-<h1 id="Statistical-Considerations">Statistical Considerations<a class="anchor-link" href="#Statistical-Considerations">&#182;</a></h1><p>Since I'm starting to work with health data, there are a few considerations I think are important before I start digging through my data.</p>
-<ol>
-<li>The concept of 2.5 billion as an agreed-upon number is tenuous at best. I've seen anywhere from <a href="http://gizmodo.com/5982977/how-many-heartbeats-does-each-species-get-in-a-lifetime">2.21 billion</a> to <a href="http://wonderopolis.org/wonder/how-many-times-does-your-heart-beat-in-a-lifetime/">3.4 billion</a> so even if I knew exactly how many times my heart had beaten so far, the ending result is suspect at best. I'm using 2.5 billion because that seems to be about the midpoint of the estimates I've seen so far.</li>
-<li>Most of the numbers I've seen so far are based on extrapolating number of heart beats from life expectancy. As life expectancy goes up, the number of expected heart beats goes up too.</li>
-<li>My estimation of the number of heartbeats in my life so far is based on 3 months worth of data, and I'm extrapolating an entire lifetime based on this.</li>
-</ol>
-<p>So while the ending number is <strong>not useful in any medical context</strong>, it is still an interesting project to work with the data I have on hand.</p>
-<h1 id="Getting-the-data">Getting the data<a class="anchor-link" href="#Getting-the-data">&#182;</a></h1><p><a href="https://www.fitbit.com/">Fitbit</a> has an <a href="https://dev.fitbit.com/">API available</a> for people to pull their personal data off the system. It requires registering an application, authentication with OAuth, and some other complicated things. <strong>If you're not interested in how I fetch the data, skip <a href="#Wild-Extrapolations-from-Small-Data">here</a></strong>.</p>
-<h2 id="Registering-an-application">Registering an application<a class="anchor-link" href="#Registering-an-application">&#182;</a></h2><p>I've already <a href="https://dev.fitbit.com/apps/new">registered a personal application</a> with Fitbit, so I can go ahead and retrieve things like the client secret from a file.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># Import all the OAuth secret information from a local file</span>
-<span class="kn">from</span> <span class="nn">secrets</span> <span class="k">import</span> <span class="n">CLIENT_SECRET</span><span class="p">,</span> <span class="n">CLIENT_ID</span><span class="p">,</span> <span class="n">CALLBACK_URL</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Handling-OAuth-2">Handling OAuth 2<a class="anchor-link" href="#Handling-OAuth-2">&#182;</a></h2><p>So, all the people that know what OAuth 2 is know what's coming next. For those who don't: OAuth is how people allow applications to access other data without having to know your password. Essentially the dialog goes like this:</p>
-
-<pre><code>Application: I've got a user here who wants to use my application, but I need their data.
-Fitbit: OK, what data do you need access to, and for how long?
-Application: I need all of these scopes, and for this amount of time.
-Fitbit: OK, let me check with the user to make sure they really want to do this.
-
-Fitbit: User, do you really want to let this application have your data?
-User: I do! And to prove it, here's my password.
-Fitbit: OK, everything checks out. I'll let the application access your data.
-
-Fitbit: Application, you can access the user's data. Use this special value whenever you need to request data from me.
-Application: Thank you, now give me all the data.</code></pre>
-<p>Effectively, this allows an application to gain access to a user's data without ever needing to know the user's password. That way, even if the other application is hacked, the user's original data remains safe. Plus, the user can let the data service know to stop providing the application access any time they want. All in all, very secure.</p>
-<p>It does make handling small requests a bit challenging, but I'll go through the steps here. We'll be using the <a href="https://dev.fitbit.com/docs/oauth2/">Implicit Grant</a> workflow, as it requires fewer steps in processing.</p>
-<p>First, we need to set up the URL the user would visit to authenticate:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">urllib</span>
-
-<span class="n">FITBIT_URI</span> <span class="o">=</span> <span class="s1">&#39;https://www.fitbit.com/oauth2/authorize&#39;</span>
-<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1"># If we need more than one scope, must be a CSV string</span>
-    <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39;heartrate&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;token&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;expires_in&#39;</span><span class="p">:</span> <span class="mi">86400</span><span class="p">,</span> <span class="c1"># 1 day</span>
-    <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">CALLBACK_URL</span><span class="p">,</span>
-    <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">CLIENT_ID</span>
-<span class="p">}</span>
-
-<span class="n">request_url</span> <span class="o">=</span> <span class="n">FITBIT_URI</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, here you would print out the request URL, go visit it, and get the full URL that it sends you back to. Because that is very sensitive information (specifically containing my <code>CLIENT_ID</code> that I'd really rather not share on the internet), I've skipped that step in the code here, but it happens in the background.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="c1"># The `response_url` variable contains the full URL that</span>
-<span class="c1"># FitBit sent back to us, but most importantly,</span>
-<span class="c1"># contains the token we need for authorization.</span>
-<span class="n">access_token</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">parse_qsl</span><span class="p">(</span><span class="n">response_url</span><span class="p">))[</span><span class="s1">&#39;access_token&#39;</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Requesting-the-data">Requesting the data<a class="anchor-link" href="#Requesting-the-data">&#182;</a></h2><p>Now that we've actually set up our access via the <code>access_token</code>, it's time to get the actual <a href="https://dev.fitbit.com/docs/heart-rate/">heart rate data</a>. I'll be using data from January 1, 2016 through March 31, 2016, and extrapolating wildly from that.</p>
-<p>Fitbit only lets us fetch intraday data one day at a time, so I'll create a date range using pandas and iterate through that to pull down all the data.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">requests_oauthlib</span> <span class="k">import</span> <span class="n">OAuth2Session</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
-
-<span class="n">session</span> <span class="o">=</span> <span class="n">OAuth2Session</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="p">{</span>
-        <span class="s1">&#39;access_token&#39;</span><span class="p">:</span> <span class="n">access_token</span><span class="p">,</span>
-        <span class="s1">&#39;token_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer&#39;</span>
-    <span class="p">})</span>
-
-<span class="n">format_str</span> <span class="o">=</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span>
-<span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2016</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
-<span class="n">dr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">)</span>
-
-<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.fitbit.com/1/user/-/activities/heart/date/{0}/1d/1min.json&#39;</span>
-<span class="n">hr_responses</span> <span class="o">=</span> <span class="p">[</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format_str</span><span class="p">)))</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dr</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">record_to_df</span><span class="p">(</span><span class="n">record</span><span class="p">):</span>
-    <span class="k">if</span> <span class="s1">&#39;activities-heart&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">date_str</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="s1">&#39;activities-heart&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;dateTime&#39;</span><span class="p">]</span>
-    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="s1">&#39;activities-heart-intraday&#39;</span><span class="p">][</span><span class="s1">&#39;dataset&#39;</span><span class="p">])</span>
-        
-    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">date_str</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">df</span>
-
-<span class="n">hr_dataframes</span> <span class="o">=</span> <span class="p">[</span><span class="n">record_to_df</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">json</span><span class="p">())</span> <span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="n">hr_responses</span><span class="p">]</span>
-<span class="n">hr_df_concat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">hr_dataframes</span><span class="p">)</span>
-
-
-<span class="c1"># There are some minutes with missing data, so we need to correct that</span>
-<span class="n">full_daterange</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">hr_df_concat</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                              <span class="n">hr_df_concat</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                              <span class="n">freq</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span>
-<span class="n">hr_df_full</span> <span class="o">=</span> <span class="n">hr_df_concat</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">full_daterange</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats from {} to {}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                                            <span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
-                                            <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Heartbeats from 2016-01-01 00:00:00 to 2016-03-31 23:59:00: 8139060
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>And now we've retrieved all the available heart rate data for January 1<sup>st</sup> through March 31<sup>st</sup>! Let's get to the actual analysis.</p>
-<h1 id="Wild-Extrapolations-from-Small-Data">Wild Extrapolations from Small Data<a class="anchor-link" href="#Wild-Extrapolations-from-Small-Data">&#182;</a></h1><p>A fundamental issue of this data is that it's pretty small. I'm using 3 months of data to make predictions about my entire life. But, purely as an exercise, I'll move forward.</p>
-<h2 id="How-many-heartbeats-so-far?">How many heartbeats so far?<a class="anchor-link" href="#How-many-heartbeats-so-far?">&#182;</a></h2><p>The first step is figuring out how many of the 2.5 billion heartbeats I've used so far. We're going to try and work backward from the present day to when I was born to get that number. The easy part comes first: going back to January 1<sup>st</sup>, 1992. That's because I can generalize how many 3-month increments there were between now and then, account for leap years, and call that section done.</p>
-<p>Between January 1992 and January 2016 there were 96 quarters, and 6 leap days. The number we're looking for is:</p>
-\begin{equation}
-hr_q \cdot n - hr_d \cdot (n-m)
-\end{equation}<ul>
-<li>$hr_q$: Number of heartbeats per quarter</li>
-<li>$hr_d$: Number of heartbeats on leap day</li>
-<li>$n$: Number of quarters, in this case 96</li>
-<li>$m$: Number of leap days, in this case 6</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">quarterly_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">leap_day_count</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
-                            <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">==</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">num_quarters</span> <span class="o">=</span> <span class="mi">96</span>
-<span class="n">leap_days</span> <span class="o">=</span> <span class="mi">6</span>
-
-<span class="n">jan_92_jan_16</span> <span class="o">=</span> <span class="n">quarterly_count</span> <span class="o">*</span> <span class="n">num_quarters</span> <span class="o">-</span> <span class="n">leap_day_count</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_quarters</span> <span class="o">-</span> <span class="n">leap_days</span><span class="p">)</span>
-<span class="n">jan_92_jan_16</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[8]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>773609400</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>So between January 1992 and January 2016 I've used $\approx$ 774 million heartbeats. Now, I need to go back to my exact birthday. I'm going to first find on average how many heartbeats I use in a minute, and multiply that by the number of minutes between my birthday and January 1992.</p>
-<p>For privacy purposes I'll put the code here that I'm using, but without any identifying information:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">minute_mean</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="c1"># Don&#39;t you wish you knew?</span>
-<span class="c1"># birthday_minutes = ???</span>
-
-<span class="n">birthday_heartbeats</span> <span class="o">=</span> <span class="n">birthday_minutes</span> <span class="o">*</span> <span class="n">minute_mean</span>
-
-<span class="n">heartbeats_until_2016</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">birthday_heartbeats</span> <span class="o">+</span> <span class="n">jan_92_jan_16</span><span class="p">)</span>
-<span class="n">remaining_2016</span> <span class="o">=</span> <span class="n">total_heartbeats</span> <span class="o">-</span> <span class="n">heartbeats_until_2016</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heartbeats so far: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">heartbeats_until_2016</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_2016</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Heartbeats so far: 775804660
-Remaining heartbeats: 1724195340
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>It would appear that my heart has beaten 775,804,660 times between my moment of birth and January 1<sup>st</sup> 2016, and that I have 1.72 billion left.</p>
-<h2 id="How-many-heartbeats-longer?">How many heartbeats longer?<a class="anchor-link" href="#How-many-heartbeats-longer?">&#182;</a></h2><p>Now comes the tricky bit. I know how many heart beats I've used so far, and how many I have remaining, so I'd like to come up with a (relatively) accurate estimate of when exactly my heart should give out. We'll do this in a few steps, increasing in granularity.</p>
-<p>First step, how many heartbeats do I use in a 4-year period? I have data for a single quarter including leap day, so I want to know:</p>
-\begin{equation}
-hr_q \cdot n - hr_d \cdot (n - m)
-\end{equation}<ul>
-<li>$hr_q$: Heartbeats per quarter</li>
-<li>$hr_d$: Heartbeats per leap day</li>
-<li>$n$: Number of quarters = 16</li>
-<li>$m$: Number of leap days = 1</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">heartbeats_4year</span> <span class="o">=</span> <span class="n">quarterly_count</span> <span class="o">*</span> <span class="mi">16</span> <span class="o">-</span> <span class="n">leap_day_count</span> <span class="o">*</span> <span class="p">(</span><span class="mi">16</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">heartbeats_4year</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>128934900</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, I can fast forward from 2016 the number of periods of 4 years I have left.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">four_year_periods</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">//</span> <span class="n">heartbeats_4year</span>
-<span class="n">remaining_4y</span> <span class="o">=</span> <span class="n">remaining_2016</span> <span class="o">-</span> <span class="n">four_year_periods</span> <span class="o">*</span> <span class="n">heartbeats_4year</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Four year periods remaining: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">four_year_periods</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after 4 year periods: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_4y</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Four year periods remaining: 13
-Remaining heartbeats after 4 year periods: 48041640
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Given that there are 13 four-year periods left, I can move from 2016 all the way to 2068, and find that I will have 48 million heart beats left. Let's drop down to figuring out how many quarters that is. I know that 2068 will have a leap day (unless someone finally decides to get rid of them), so I'll subtract that out first. Then, I'm left to figure out how many quarters exactly are left.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="n">remaining_leap</span> <span class="o">=</span> <span class="n">remaining_4y</span> <span class="o">-</span> <span class="n">leap_day_count</span>
-<span class="c1"># Ignore leap day in the data set</span>
-<span class="n">heartbeats_quarter</span> <span class="o">=</span> <span class="n">hr_df_full</span><span class="p">[(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">month</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&amp;</span>
-                                <span class="p">(</span><span class="n">hr_df_full</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">day</span> <span class="o">!=</span> <span class="mi">29</span><span class="p">)][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">quarters_left</span> <span class="o">=</span> <span class="n">remaining_leap</span> <span class="o">//</span> <span class="n">heartbeats_quarter</span>
-<span class="n">remaining_year</span> <span class="o">=</span> <span class="n">remaining_leap</span> <span class="o">-</span> <span class="n">quarters_left</span> <span class="o">*</span> <span class="n">heartbeats_quarter</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Quarters left starting 2068: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">quarters_left</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Remaining heartbeats after that: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">remaining_year</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Quarters left starting 2068: 8
-Remaining heartbeats after that: 4760716
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>So, that analysis gets me through until January 1<sup>st</sup> 2070. Final step, using that minute estimate to figure out how many minutes past that I'm predicted to have:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">timedelta</span>
-
-<span class="n">base</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2070</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">minutes_left</span> <span class="o">=</span> <span class="n">remaining_year</span> <span class="o">//</span> <span class="n">minute_mean</span>
-
-<span class="n">kaput</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="n">minutes_left</span><span class="p">)</span>
-<span class="n">base</span> <span class="o">+</span> <span class="n">kaput</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[13]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>datetime.datetime(2070, 2, 23, 5, 28)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>According to this, I've got until February 23<sup>rd</sup>, 2070 at 5:28 PM in the evening before my heart gives out.</p>
-<h1 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h1><p>Well, that's kind of a creepy date to know. As I said at the top though, <strong>this number is totally useless in any medical context</strong>. It ignores the rate at which we continue to get better at making people live longer, and is extrapolating from 3 months' worth of data the rest of my life. Additionally, throughout my time developing this post I made many minor mistakes. I think they're all fixed now, but it's easy to mix a number up here or there and the analysis gets thrown off by a couple years.</p>
-<p>Even still, I think philosophically humans have a desire to know how much time we have left in the world. <a href="https://www.biblegateway.com/passage/?search=psalm+144&amp;version=ESV">Man is but a breath</a>, and it's scary to think just how quickly that date may be coming up. This analysis asks an important question though: what are you going to do with the time you have left?</p>
-<p>Thanks for sticking with me on this one, I promise it will be much less depressing next time!</p>
-
-</div>
-</div>
-</div></p>
+        <p>{% notebook 2016-4-6-tick-tock....ipynb %}</p>
 <script type="text/x-mathjax-config">
 //MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}});
 MathJax.Hub.Config({tex2jax: {inlineMath: [['\$','\$']]}});
@@ -609,20 +82,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['\$','\$']]}});
 <script async src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML'></script>
 
 
-    <div class="comments">
-        <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'bradleespeice';
-                var disqus_identifier = 'tick-tock.html';
-                var disqus_url = 'https://bspeice.github.io/tick-tock.html';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
         
     </div>
         <!-- /Content --> 
@@ -634,7 +93,6 @@ MathJax.Hub.Config({tex2jax: {inlineMath: [['\$','\$']]}});
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
                         <div class="footer-title"></div>
                         <ul class="list-unstyled">
-                            <li><a href="https://bspeice.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"></a></li>
                         </ul>
                     </div>
                     <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
