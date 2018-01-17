@@ -39,6 +39,7 @@ PLUGINS = ['liquid_tags.notebook']
 NOTEBOOK_DIR = 'notebooks'
 
 THEME='nest'
+MD_EXTENSIONS = ['codehilite(css_class=highlight)', 'extra']
 #NEST_INDEX_HEADER_TITLE="Bradlee Speice"
 NEST_INDEX_HEADER_SUBTITLE="Exploring the intersection of Computer Science and Financial Engineering"
 NEST_HEADER_LOGO="/images/logo.svg"
