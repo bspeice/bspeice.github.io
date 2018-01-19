@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Captain&#39;s Cookbook - Part 2 - Using the TypedReader Part 1 of this series took a look at a basic starting project with Cap&#39;N Proto. In this section, we&#39;re going to take the (admittedly basic)...">
+        <meta name="keywords" content="capnproto rust">
+        <link rel="icon" href="/favicon.ico">
+
+        <title>Captain's Cookbook - Part 2 - Bradlee Speice</title>
+
+        <!-- Stylesheets -->
+        <link href="/theme/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/theme/css/fonts.css" rel="stylesheet">
+        <link href="/theme/css/nest.css" rel="stylesheet">
+        <link href="/theme/css/pygment.css" rel="stylesheet">
+        <!-- /Stylesheets -->
+
+        <!-- RSS Feeds -->
+        <!-- /RSS Feeds -->
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+    </head>
+
+    <body>
+
+        <!-- Header -->
+    <div class="header-container gradient">
+
+            <!-- Static navbar -->
+            <div class="container">
+                <div class="header-nav">
+                    <div class="header-logo">
+                        <a class="pull-left" href="/"><img class="mr20" src="/images/logo.svg" alt="logo">Bradlee Speice</a>
+                    </div>
+                    <div class="nav pull-right">
+                    </div>
+                </div>
+            </div>
+            <!-- /Static navbar -->
+
+            <!-- Header -->
+    <!-- Header -->
+    <div class="container header-wrapper">
+        <div class="row">
+              <div class="col-lg-12">
+                  <div class="header-content">
+                      <h1 class="header-title">Captain's Cookbook - Part 2</h1>
+                      <p class="header-date"> <a href="/author/bradlee-speice.html">Bradlee Speice</a>, Thu 18 January 2018,  <a href="/category/blog.html">Blog</a></p>
+                      <div class="header-underline"></div>
+                      <div class="clearfix"></div>
+                      <p class="pull-right header-tags">
+                          <span class="glyphicon glyphicon-tags mr5" aria-hidden="true"></span>
+<a href="/tag/capnproto-rust.html">capnproto rust</a>                      </p>
+                  </div>
+              </div>
+        </div>
+    </div>
+    <!-- /Header -->
+            <!-- /Header -->
+
+        </div>
+        <!-- /Header -->
+
+
+        <!-- Content -->
+    <div class="container content">
+        <h1>Captain's Cookbook - Part 2 - Using the TypedReader</h1>
+<p><a href="http://bspeice.github.io/captains-cookbook-part-1.html">Part 1</a> of this series took a look at
+a basic starting project with Cap'N Proto. In this section, we're going to take the (admittedly basic)
+schema and look at how we can add a pretty basic feature - sending Cap'N Proto messages between threads.
+It's nothing complex, but I want to make sure that there's some documentation surrounding practical
+usage of the library.</p>
+<p>As a quick refresher, we build a Cap'N Proto message and go through the serialization/deserialization steps
+<a href="https://github.com/bspeice/capnp_cookbook_1/blob/master/src/main.rs">here</a>. Our current example is going
+to build on the code we wrote there; after the deserialization step, we'll try and send the <code>point_reader</code>
+to a separate thread for verification.</p>
+<p>I'm going to walk through the attempts as I made them and my thinking throughout. If you want to skip to the final project,
+check out the code available <a href="https://github.com/bspeice/capnp_cookbook_2">here</a></p>
+<h1>Attempt 1: Move the reference</h1>
+<p>As a first attempt, we're going to try and let Rust move the reference. Our code will look something like:</p>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// ...assume that we own a `buffer: Vec&lt;u8&gt;` containing the binary message content from somewhere else</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">deserialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capnp</span>::<span class="n">serialize</span>::<span class="n">read_message</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">as_slice</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">capnp</span>::<span class="n">message</span>::<span class="n">ReaderOptions</span>::<span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">point_reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deserialized</span><span class="p">.</span><span class="n">get_root</span>::<span class="o">&lt;</span><span class="n">point_capnp</span>::<span class="n">point</span>::<span class="n">Reader</span><span class="o">&gt;</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// By using `point_reader` inside the new thread, we&#39;re hoping that Rust can safely move</span>
+<span class="w">    </span><span class="c1">// the reference and invalidate the original thread&#39;s usage. Since the original thread</span>
+<span class="w">    </span><span class="c1">// doesn&#39;t use `point_reader` again, this should be safe, right?</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">point_reader</span><span class="p">.</span><span class="n">get_x</span><span class="p">(),</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">point_reader</span><span class="p">.</span><span class="n">get_y</span><span class="p">(),</span><span class="w"> </span><span class="mi">14</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Well, the Rust compiler doesn't really like this. We get four distinct errors back:</p>
+<div class="highlight"><pre><span></span>error[E0277]: the trait bound `*const u8: std::marker::Send` is not satisfied in `[closure@src/main.rs:31:37: 36:6 point_reader:point_capnp::point::Reader&lt;&#39;_&gt;]`                                                                                                                
+  --&gt; src/main.rs:31:18                                             
+   |                                                                
+31 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `*const u8` cannot be sent between threads safely                                              
+   |                                                                
+
+error[E0277]: the trait bound `*const capnp::private::layout::WirePointer: std::marker::Send` is not satisfied in `[closure@src/main.rs:31:37: 36:6 point_reader:point_capnp::point::Reader&lt;&#39;_&gt;]`                                                                               
+  --&gt; src/main.rs:31:18                                             
+   |                                                                
+31 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `*const capnp::private::layout::WirePointer` cannot be sent between threads safely             
+   |                                                                
+
+error[E0277]: the trait bound `capnp::private::arena::ReaderArena: std::marker::Sync` is not satisfied                                  
+  --&gt; src/main.rs:31:18                                             
+   |                                                                
+31 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `capnp::private::arena::ReaderArena` cannot be shared between threads safely                   
+   |                                                                
+
+error[E0277]: the trait bound `*const std::vec::Vec&lt;std::option::Option&lt;std::boxed::Box&lt;capnp::private::capability::ClientHook + &#39;static&gt;&gt;&gt;: std::marker::Send` is not satisfied in `[closure@src/main.rs:31:37: 36:6 point_reader:point_capnp::point::Reader&lt;&#39;_&gt;]`             
+  --&gt; src/main.rs:31:18                                             
+   |                                                                
+31 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `*const std::vec::Vec&lt;std::option::Option&lt;std::boxed::Box&lt;capnp::private::capability::ClientHook + &#39;static&gt;&gt;&gt;` cannot be sent between threads safely                                                                                   
+   |                                                                
+
+error: aborting due to 4 previous errors
+</pre></div>
+
+
+<p>Note, I've removed the help text for brevity, but suffice to say that these errors are intimidating. Pay attention to the text
+that keeps on getting repeated though: <code>XYZ cannot be sent between threads safely</code>.</p>
+<p>This is a bit frustrating: we own the <code>buffer</code> from which all the content was derived, and we don't have any unsafe accesses
+in our code. We guarantee that we wait for the child thread to stop first, so there's no possibility of the pointer becoming invalid
+because the original thread exits before the child thread does. So why is Rust preventing us from doing something that really should
+be legal?</p>
+<p>This is what is known as <a href="https://doc.rust-lang.org/1.8.0/book/references-and-borrowing.html">fighting the borrow checker</a>.
+Let our crusade begin.</p>
+<h1>Attempt 2: Put the <code>Reader</code> in a `Box</h1>
+<p>The <a href="https://doc.rust-lang.org/std/boxed/struct.Box.html"><code>Box</code></a> type allows us to convert a pointer we have (in our case the
+<code>point_reader</code>) into an "owned" value, which should be easier to send across threads. Our next attempt looks something like this:</p>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// ...assume that we own a `buffer: Vec&lt;u8&gt;` containing the binary message content from somewhere else</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">deserialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capnp</span>::<span class="n">serialize</span>::<span class="n">read_message</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">as_slice</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">capnp</span>::<span class="n">message</span>::<span class="n">ReaderOptions</span>::<span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">point_reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deserialized</span><span class="p">.</span><span class="n">get_root</span>::<span class="o">&lt;</span><span class="n">point_capnp</span>::<span class="n">point</span>::<span class="n">Reader</span><span class="o">&gt;</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">boxed_reader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Box</span>::<span class="n">new</span><span class="p">(</span><span class="n">point_reader</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// By using `point_reader` inside the new thread, we&#39;re hoping that Rust can safely move</span>
+<span class="w">    </span><span class="c1">// the reference and invalidate the original thread&#39;s usage. Since the original thread</span>
+<span class="w">    </span><span class="c1">// doesn&#39;t use `point_reader` again, this should be safe, right?</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">boxed_reader</span><span class="p">.</span><span class="n">get_x</span><span class="p">(),</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">boxed_reader</span><span class="p">.</span><span class="n">get_y</span><span class="p">(),</span><span class="w"> </span><span class="mi">14</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Spoiler alert: still doesn't work. Same errors still show up.</p>
+<div class="highlight"><pre><span></span>error[E0277]: the trait bound `*const u8: std::marker::Send` is not satisfied in `point_capnp::point::Reader&lt;&#39;_&gt;`                       
+  --&gt; src/main.rs:33:18                                             
+   |                                                                
+33 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `*const u8` cannot be sent between threads safely                                              
+   |                                                                
+
+error[E0277]: the trait bound `*const capnp::private::layout::WirePointer: std::marker::Send` is not satisfied in `point_capnp::point::Reader&lt;&#39;_&gt;`                                                                                                                              
+  --&gt; src/main.rs:33:18                                             
+   |                                                                
+33 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `*const capnp::private::layout::WirePointer` cannot be sent between threads safely             
+   |                                                                
+
+error[E0277]: the trait bound `capnp::private::arena::ReaderArena: std::marker::Sync` is not satisfied                                  
+  --&gt; src/main.rs:33:18                                             
+   |                                                                
+33 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `capnp::private::arena::ReaderArena` cannot be shared between threads safely                   
+   |                                                                
+
+error[E0277]: the trait bound `*const std::vec::Vec&lt;std::option::Option&lt;std::boxed::Box&lt;capnp::private::capability::ClientHook + &#39;static&gt;&gt;&gt;: std::marker::Send` is not satisfied in `point_capnp::point::Reader&lt;&#39;_&gt;`                                                            
+  --&gt; src/main.rs:33:18                                             
+   |                                                                
+33 |     let handle = std::thread::spawn(move || {                  
+   |                  ^^^^^^^^^^^^^^^^^^ `*const std::vec::Vec&lt;std::option::Option&lt;std::boxed::Box&lt;capnp::private::capability::ClientHook + &#39;static&gt;&gt;&gt;` cannot be sent between threads safely                                                                                   
+   |                                                                
+
+error: aborting due to 4 previous errors
+</pre></div>
+
+
+<p>Let's be a little bit smarter about the exceptions this time though. What is that <a href="https://doc.rust-lang.org/std/marker/trait.Send.html"><code>std::marker::Send</code></a>
+thing the compiler keeps telling us about?</p>
+<p>The documentation is pretty clear; <code>Send</code> is used to denote:</p>
+<blockquote>
+<p>Types that can be transferred across thread boundaries.</p>
+</blockquote>
+<p>In our case, we are seeing the error messages for two reasons:</p>
+<ol>
+<li>
+<p>Pointers (<code>*const u8</code>) are not safe to send across thread boundaries. While we're nice in our code making sure that
+we wait on the child thread to finish before closing down, the Rust compiler can't make that assumption, and so complains
+that we're not using this in a safe manner.</p>
+</li>
+<li>
+<p>The <code>point_capnp::point::Reader</code> type is itself not safe to send across threads because it doesn't implement the <code>Send</code> trait.
+Which is to say, the things that make up a <code>Reader</code> are themselves not thread-safe, so the <code>Reader</code> is also not thread-safe.</p>
+</li>
+</ol>
+<p>So, how are we to actually transfer a parsed Cap'N Proto message between threads?</p>
+<h1>Attempt 3: The <code>TypedReader</code></h1>
+<p>The <code>TypedReader</code> is a new API implemented in the Cap'N Proto <a href="https://crates.io/crates/capnp/0.8.14">Rust code</a>. We're interested
+in it here for two reasons:</p>
+<ol>
+<li>
+<p>It allows us to define an object where the <em>object</em> owns the underlying data. In previous attempts, the current context owned the
+data, but the <code>Reader</code> itself had no such control.</p>
+</li>
+<li>
+<p>We can compose the <code>TypedReader</code> using objects that are safe to <code>Send</code> across threads, guaranteeing that we can transfer
+parsed messages across threads.</p>
+</li>
+</ol>
+<p>The actual code for the <a href="https://github.com/capnproto/capnproto-rust/blob/f0efc35d7e9bd8f97ca4fdeb7c57fd7ea348e303/src/message.rs#L181"><code>TypedReader</code></a> is a bit complex.
+And to be honest, I'm still really not sure what the whole point of the <a href="https://doc.rust-lang.org/std/marker/struct.PhantomData.html"><code>PhantomData</code></a>
+thing is either. My impression is that it lets us enforce type safety when we know what the underlying Cap'N Proto message represents.
+That is, technically the only thing we're storing is the binary message; this just enforces the principle that the binary represents
+some specific object that has been parsed.</p>
+<p>Either way, we can carefully construct something which is safe to move between threads:</p>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// ...assume that we own a `buffer: Vec&lt;u8&gt;` containing the binary message content from somewhere else</span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">deserialized</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">capnp</span>::<span class="n">serialize</span>::<span class="n">read_message</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">buffer</span><span class="p">.</span><span class="n">as_slice</span><span class="p">(),</span><span class="w"></span>
+<span class="w">        </span><span class="n">capnp</span>::<span class="n">message</span>::<span class="n">ReaderOptions</span>::<span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">point_reader</span>: <span class="nc">capnp</span>::<span class="n">message</span>::<span class="n">TypedReader</span><span class="o">&lt;</span><span class="n">capnp</span>::<span class="n">serialize</span>::<span class="n">OwnedSegments</span><span class="p">,</span><span class="w"> </span><span class="n">point_capnp</span>::<span class="n">point</span>::<span class="n">Owned</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"></span>
+<span class="w">        </span><span class="n">capnp</span>::<span class="n">message</span>::<span class="n">TypedReader</span>::<span class="n">new</span><span class="p">(</span><span class="n">deserialized</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Because the point_reader is now working with OwnedSegments (which are owned vectors) and an Owned message</span>
+<span class="w">    </span><span class="c1">// (which is &#39;static lifetime), this is now safe</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">handle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span>::<span class="n">thread</span>::<span class="n">spawn</span><span class="p">(</span><span class="k">move</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// The point_reader owns its data, and we use .get() to retrieve the actual point_capnp::point::Reader</span>
+<span class="w">        </span><span class="c1">// object from it</span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">point_root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">point_reader</span><span class="p">.</span><span class="n">get</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">point_root</span><span class="p">.</span><span class="n">get_x</span><span class="p">(),</span><span class="w"> </span><span class="mi">12</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">point_root</span><span class="p">.</span><span class="n">get_y</span><span class="p">(),</span><span class="w"> </span><span class="mi">14</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">});</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">handle</span><span class="p">.</span><span class="n">join</span><span class="p">().</span><span class="n">unwrap</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>And while we've left Rust to do the dirty work of actually moving the <code>point_reader</code> into the new thread, we could also use things
+like <a href="https://doc.rust-lang.org/std/sync/mpsc/index.html"><code>mpsc</code> channels</a> to achieve a similar effect.</p>
+<p>So now we're able to define basic Cap'N Proto messages, and send them all around our programs.</p>
+<h2>Next steps:</h2>
+<p><a href="http://bspeice.github.io/captains-cookbook-part-1.html">Part 1: Setting up a basic Cap'N Proto Rust project</a></p>
+<p>Part 3: Serialization and Deserialization of multiple Cap'N Proto messages</p>
+
+
+        
+    </div>
+        <!-- /Content --> 
+
+        <!-- Footer -->
+        <div class="footer gradient-2">
+            <div class="container footer-container ">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                        <div class="footer-title"></div>
+                        <ul class="list-unstyled">
+                            <li><a href="https://github.com/bspeice" target="_blank">Github</a></li>
+                            <li><a href="https://www.linkedin.com/in/bradleespeice" target="_blank">LinkedIn</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3">
+                    </div> 
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <p class="pull-right text-right">
+                            <small><em>Proudly powered by <a href="http://docs.getpelican.com/" target="_blank">pelican</a></em></small><br/>
+                            <small><em>Theme and code by <a href="https://github.com/molivier" target="_blank">molivier</a></em></small><br/>
+                            <small></small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Footer -->
+    </body>
+</html>
